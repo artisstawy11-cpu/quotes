@@ -164,6 +164,7 @@ input[type=text],input[type=number],input[type=email],input[type=password],input
 .rv-name{flex:1 1 calc(100% - 40px)!important;resize:none;min-height:0!important;line-height:1.5!important;overflow:hidden}
 .rv-kind{margin-inline-start:auto}
 .rv-top .rv-kind,.rv-top .rv-x{order:3}
+.cmp-ok{margin-top:12px;font-size:12.5px;background:rgba(46,204,113,.14);color:#9be7b8;border-radius:12px;padding:7px 12px;display:inline-block}
 </style>
 <style>/* ===== قالب عرض السعر (صفحات A4 بعرض 794px) ===== */
 .qpage{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;color:#1d1d1f;
@@ -714,7 +715,7 @@ const DEFAULT_SETTINGS = {
   logosStripImg: "",
   bankDocImg: "",
   clientLogos: [],
-  ai: { key: "", textModel: "gpt-5-mini", imageModel: "gpt-image-1.5", quality: "medium", useWebSearch: true },
+  ai: { provider: "claude", claudeKey: "", claudeModel: "claude-sonnet-5-5", key: "", textModel: "gpt-5-mini", imageModel: "gpt-image-1.5", quality: "medium", useWebSearch: true },
   imagePrompt: "اريد تصميم أوبجكت ثري دي بدون خلفيه يكون له علاقه بمجال العميل ويكون بيوصف خطة العمل و خدمات عرض السعر بدون ذكر أسعار , يكون مودرن و إحترافي وبهوية البرانند",
   defaultDuration: ""
 };
@@ -1756,7 +1757,7 @@ function stepPayments() {
   });
 }
 function stepTexts() {
-  $("#stepBody").innerHTML = `<div class="card"><h3>نصوص العرض<span class="sp"></span><button class="btn sm gold" id="aiTxt">${S.ai.key ? "اكتبها بالذكاء الاصطناعي" : "تعبئة تلقائية"}</button></h3>
+  $("#stepBody").innerHTML = `<div class="card"><h3>نصوص العرض<span class="sp"></span><button class="btn sm gold" id="aiTxt">${hasTextAI() ? "اكتبها بالذكاء الاصطناعي" : "تعبئة تلقائية"}</button></h3>
     <label class="f"><span>عنوان العرض</span><input type="text" data-k="title" placeholder="عرض سعر تطوير الحضور الرقمي"></label>
     <label class="f"><span>السطر تحت العنوان</span><input type="text" data-k="subtitle"></label>
     <label class="f"><span>وسم بجانب اسم العميل</span><input type="text" data-k="tagline" placeholder="توسّع نحو السوق السعودي"></label>
@@ -2071,7 +2072,7 @@ async function grabBrand(interactive) {
     }
   } else ok = true;
   if (img(c.logoImg) && !c.colors.manual) await colorsFromLogo(false);
-  if (S.ai.key) {
+  if (hasTextAI()) {
     try {
       await aiBrandResearch();
     } catch (e) {
@@ -2179,6 +2180,40 @@ async function removeWhiteBg(src) {
   x.putImageData(D, 0, 0);
   return cv.toDataURL("image/png");
 }
+const useClaude = () => !!S.ai.claudeKey && (S.ai.provider !== "openai" || !S.ai.key);
+const hasTextAI = () => !!(S.ai.claudeKey || S.ai.key);
+const aiName = () => useClaude() ? " Claude" : " الذكاء الاصطناعي";
+async function llmJSON(sys, user, webSearch) {
+  if (useClaude()) return claudeJSON(sys, user, webSearch);
+  return oaJSON(sys, user, webSearch);
+}
+async function claudeJSON(sys, user, webSearch) {
+  const call = async (tools) => {
+    const body = { model: S.ai.claudeModel || "claude-sonnet-5-5", max_tokens: 8e3, system: sys + "\nأعد كائن JSON صالح فقط بدون أي شرح أو علامات markdown.", messages: [{ role: "user", content: user }] };
+    if (tools) body.tools = [{ type: "web_search_20250305", name: "web_search", max_uses: 4 }];
+    const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: {
+      "content-type": "application/json",
+      "x-api-key": S.ai.claudeKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    }, body: JSON.stringify(body) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error && j.error.message || "Claude " + r.status);
+    return (j.content || []).filter((c) => c.type === "text").map((c) => c.text).join("\n");
+  };
+  let txt;
+  if (webSearch) {
+    try {
+      txt = await call(true);
+    } catch (e2) {
+      console.warn("web search off", e2);
+      txt = await call(false);
+    }
+  } else txt = await call(false);
+  const s = txt.indexOf("{"), e = txt.lastIndexOf("}");
+  if (s < 0 || e < s) throw new Error("رد غير مفهوم من Claude");
+  return JSON.parse(txt.slice(s, e + 1));
+}
 async function oaJSON(sys, user, webSearch) {
   var _a;
   const body = { model: S.ai.textModel || "gpt-5-mini", input: [{ role: "system", content: sys }, { role: "user", content: user }] };
@@ -2197,7 +2232,7 @@ async function oaJSON(sys, user, webSearch) {
 }
 async function aiBrandResearch() {
   const c = Q.client;
-  const j = await oaJSON(
+  const j = await llmJSON(
     "أنت محلل علامات تجارية. ابحث في الروابط المعطاة وأعد JSON فقط بدون أي نص آخر.",
     `العميل: ${c.name || ""} ${c.nameEn || ""}
 الروابط:
@@ -2223,7 +2258,7 @@ ${(c.links || []).join("\n")}
   }
 }
 async function writeCopy(interactive) {
-  if (!S.ai.key) {
+  if (!hasTextAI()) {
     const t = templateCopy(Q);
     Object.assign(Q, t);
     Q.phases = defaultPhases(Q);
@@ -2232,7 +2267,7 @@ async function writeCopy(interactive) {
   }
   const c = Q.client, C = computeQuote(Q);
   const items = Q.items.map((i) => ({ uid: i.uid, name: i.name, kind: i.kind, platform: i.platform, counts: i.counts, desc: i.desc }));
-  const j = await oaJSON(
+  const j = await llmJSON(
     `أنت كاتب محتوى تسويقي محترف لوكالة "ديزاينلي" السعودية. تكتب عروض أسعار فخمة، مختصرة، مقنعة، بلغة عربية فصحى سلسة قريبة من السوق السعودي. لا تذكر أي أسعار أو أرقام مالية في النصوص. أعد JSON فقط.`,
     `العميل: ${c.name} (${c.nameEn || ""})
 المجال: ${c.industry || ""}
@@ -2340,7 +2375,7 @@ async function autoAll() {
     renderEditor();
     return toast("اختر الخدمات أولاً", 1);
   }
-  const steps = [["brand", "استخراج الشعار والألوان"], ["copy", S.ai.key ? "كتابة نصوص العرض بالذكاء الاصطناعي" : "تجهيز النصوص"], ["art", "توليد الأوبجكت الثري دي"], ["pdf", "تجهيز المعاينة"]];
+  const steps = [["brand", "استخراج الشعار والألوان"], ["copy", hasTextAI() ? "كتابة نصوص العرض بـ" + aiName() : "تجهيز النصوص"], ["art", "توليد الأوبجكت الثري دي"], ["pdf", "تجهيز المعاينة"]];
   const o = overlay(`<div class="prog"><div class="spin"></div><b>إنشاء العرض تلقائياً</b><ol>${steps.map((s) => `<li data-s="${s[0]}">${s[1]}</li>`).join("")}</ol></div>`);
   o.dataset.lock = 1;
   const mark = (k, st) => {
@@ -2517,8 +2552,13 @@ async function showSettings() {
     </details>
     <label class="f" style="margin-top:10px"><span>شروط ثابتة تظهر في كل العروض (شرط في كل سطر)</span><textarea data-k="tpl.globalTerms" data-lines style="min-height:110px" placeholder="مثال: صلاحية العرض 14 يوم من تاريخه."></textarea></label>
   </div>
-  <div class="card"><h3>الذكاء الاصطناعي (OpenAI)</h3>
-    <label class="f"><span>مفتاح API — من platform.openai.com. مفتاح واحد بيشغّل: التفريغ الصوتي الاحترافي، فهم النص، كتابة العرض، وصور الثري دي</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
+  <div class="card"><h3>الذكاء الاصطناعي</h3>
+    <label class="f"><span>اللي يفهم كلامك ويكتب العرض</span><select id="prov"><option value="claude">Claude (Anthropic) — موصى به</option><option value="openai">OpenAI</option></select></label>
+    <label class="f"><span>مفتاح Claude API — من platform.claude.com ← API Keys</span><input type="password" data-k="ai.claudeKey" dir="ltr" placeholder="sk-ant-..."></label>
+    <label class="f"><span>موديل Claude</span><input type="text" data-k="ai.claudeModel" dir="ltr" placeholder="claude-sonnet-5-5"></label>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <p class="muted" style="margin-top:0">مفتاح OpenAI (اختياري) — للتفريغ الصوتي الاحترافي وتوليد صور الثري دي، لأن Claude ما بيسمعش صوت ولا بيولّد صور.</p>
+    <label class="f"><span>مفتاح OpenAI API — من platform.openai.com</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
     <div class="row"><label class="f"><span>موديل النصوص</span><input type="text" data-k="ai.textModel" dir="ltr"></label><label class="f"><span>موديل الصور</span><input type="text" data-k="ai.imageModel" dir="ltr"></label></div>
     <div class="row"><label class="f"><span>جودة الصورة</span><select data-k="ai.quality"><option value="low">منخفضة (أرخص)</option><option value="medium">متوسطة</option><option value="high">عالية</option></select></label>
     <label class="f"><span>بحث الويب لتحليل الهوية</span><select id="ws"><option value="1">مفعّل</option><option value="">متوقف</option></select></label></div>
@@ -2552,6 +2592,11 @@ async function showSettings() {
     st = setTimeout(() => saveSettings().then(() => toast("تم الحفظ")), 800);
   };
   bindFields($("#app"), S, save);
+  $("#prov").value = S.ai.provider || "claude";
+  $("#prov").onchange = (e) => {
+    S.ai.provider = e.target.value;
+    save();
+  };
   $("#ws").value = S.ai.useWebSearch === false ? "" : "1";
   $("#ws").oninput = (e) => {
     S.ai.useWebSearch = !!e.target.value;
@@ -2915,7 +2960,7 @@ const SVC_NAMES = () => {
 function showBrief() {
   setNav("brief");
   Q = null;
-  const hasAI = !!S.ai.key;
+  const hasAI = hasTextAI();
   $("#app").innerHTML = `
   <div class="cmp">
     <div class="cmp-hero">
@@ -2923,7 +2968,7 @@ function showBrief() {
       <div class="cmp-s">سجّل أو اكتب المطلوب زي ما بتشرحه للعميل — العميل، الخدمات، الأسعار، الميزانيات، النسب — والسيستم يكتب العرض.</div>
       <button class="mic" id="mic" aria-label="تسجيل"><span class="mic-ring"></span><svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg></button>
       <div class="mic-st" id="micSt">اضغط للتسجيل</div>
-      ${hasAI ? "" : '<div class="cmp-warn">التفريغ الحالي من المتصفح والفهم بقواعد ثابتة. للتفريغ الاحترافي وفهم النص زي الإنسان فعّل مفتاح OpenAI من الإعدادات.</div>'}
+      ${hasAI ? `<div class="cmp-ok">مربوط بـ${aiName()} ✓</div>` : '<div class="cmp-warn">الفهم دلوقتي بقواعد ثابتة. اربط Claude من الإعدادات عشان يفهم كلامك زي الإنسان.</div>'}
     </div>
     <div class="card cmp-box">
       <textarea id="brief" placeholder="مثال: عرض سعر لعيادات لولوا كير… صفحة هبوط مجانًا، تظبيط بروفايل جوجل ماب 250، حملة تيك توك للتسجيلات بميزانية 3000 ونسبة إدارة 20%…"></textarea>
@@ -2970,7 +3015,7 @@ function showBrief() {
     const txt = ta.value.trim();
     if (!txt) return toast("سجّل أو اكتب المطلوب أولاً", 1);
     stopMic();
-    const o = overlay(`<div class="prog"><div class="spin"></div><b>${hasAI ? "بفهم المطلوب وبرتّب البنود..." : "بحلل النص..."}</b></div>`);
+    const o = overlay(`<div class="prog"><div class="spin"></div><b>${hasAI ? aiName().trim() + " بيقرا المطلوب وبيرتّب البنود..." : "بحلل النص..."}</b></div>`);
     o.dataset.lock = 1;
     let p = parseBrief(txt), aiOk = false;
     if (hasAI) {
@@ -3134,7 +3179,7 @@ async function transcribe(blob) {
 }
 async function aiParseBrief(txt, fallback) {
   const ids = (SERVICES.length ? SERVICES : DEFAULT_SERVICES).map((s) => s.id + ": " + s.name + " [" + s.kind + "]").join("\n");
-  const j = await oaJSON(
+  const j = await llmJSON(
     `أنت مدير حسابات خبير في وكالة تسويق سعودية (ديزاينلي). مهمتك تحويل كلام مدير الوكالة (قد يكون تفريغًا صوتيًا بالعامية فيه أخطاء) إلى بنود عرض سعر دقيقة. افهم المقصود كإنسان. أعد JSON فقط.`,
     `النص:
 """${txt}"""
