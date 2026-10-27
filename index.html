@@ -209,8 +209,8 @@ html,body{overflow-x:hidden}
 .qgoldtag b{color:#fff}
 .qabout{display:flex;gap:12px;align-items:center;margin-top:8px;border-radius:30px;padding:8px 16px;
   background:linear-gradient(180deg,#f4f4f5,#cfcfd2);font-size:10.5px;line-height:1.6;color:#222}
-.qabout img{height:40px;width:40px;object-fit:contain;flex:none}.qabout .mk{width:40px;height:40px;border-radius:50%;background:#111;color:#fff;
-  display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.qabout img{height:42px;width:42px;object-fit:contain;flex:none}.qabout .mk{width:42px;height:42px;border-radius:50%;background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;font-family:Arial,sans-serif;flex:none}
 .qabout b{font-size:11.5px}
 
 /* bank + partners */
@@ -609,7 +609,7 @@ function buildBlocks(q, S, img) {
     <div class="qsign"><h5>اعتماد العرض</h5><div>الاسم: ________________________ &nbsp;&nbsp; التوقيع: ________________________</div>
     <div>التاريخ: ________________________</div></div>`);
   add(`<div class="qgoldtag">${esc(co.goldLine).replace('ديزاينلي', '<b>ديزاينلي</b>')}</div>
-    <div class="qabout">${logo ? `<img src="${logo}">` : `<div class="mk">D</div>`}<div><b>${esc(co.nameAr)}</b> ${esc(co.about)}<br>
+    <div class="qabout">${img(S.iconImg) ? `<img src="${img(S.iconImg)}">` : `<div class="mk">D</div>`}<div><b>${esc(co.nameAr)}</b> ${esc(co.about)}<br>
     س.ت : ${esc(co.cr)} | الرقم الموحد : ${esc(co.unified)} | الرقم الضريبي: ${esc(co.vat)}</div></div><div class="qline"></div>`);
 
   // ---------- البنك
@@ -1214,7 +1214,7 @@ async function ensureFonts() {
 }
 async function stepPreview() {
   fillDefaults(Q); await ensureFonts();
-  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...staticImgs()]);
+  await loadImages([S.logoImg, S.iconImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...staticImgs()]);
   $('#stepBody').innerHTML = `<div class="card"><div class="row"><button class="btn gold" id="pdf">تحميل PDF</button><button class="btn pri" id="share">مشاركة (واتساب…)</button></div>
     <div class="chips" style="margin-top:10px"><label class="chip"><input type="checkbox" id="shP" ${Q.showPartners !== false ? 'checked' : ''}> صور العملاء السابقين</label>
     <label class="chip"><input type="checkbox" id="shL" ${Q.showLogos !== false ? 'checked' : ''}> شعارات العملاء</label></div></div>
@@ -1527,7 +1527,7 @@ async function exportPDF(mode) {
   fillDefaults(Q); await saveQuote();
   const o = overlay(`<div class="prog"><div class="spin"></div><b id="pg">تجهيز الـ PDF...</b></div>`); o.dataset.lock = 1;
   try {
-    await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...staticImgs()]);
+    await loadImages([S.logoImg, S.iconImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...staticImgs()]);
     await ensureFonts();
     const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:0;top:0;width:794px;z-index:-1;opacity:0;pointer-events:none';
     host.innerHTML = renderPages(Q, S, img); document.body.appendChild(host);
@@ -1571,10 +1571,10 @@ window.__exportPDFBlob = async () => { // للاختبار
 /* ======================= الإعدادات ======================= */
 async function showSettings() {
   setNav('settings'); Q = null;
-  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, ...staticImgs()]);
+  await loadImages([S.logoImg, S.iconImg, S.bankDocImg, S.logosStripImg, ...staticImgs()]);
   const imgBox = (k, label) => `<div style="text-align:center"><div class="brandbox"><div class="lg" data-img="${k}" style="width:100%;height:90px">${img(S[k]) ? `<img src="${img(S[k])}">` : '<span class="muted">+ رفع</span>'}</div></div><span class="muted">${label}</span></div>`;
   $('#app').innerHTML = `
-  <div class="card"><h3>المظهر والصور الثابتة</h3><div class="row">${imgBox('logoImg', 'شعار ديزاينلي')}${imgBox('bankDocImg', 'صورة شهادة الحساب')}${imgBox('logosStripImg', 'صورة شعارات مجمعة (اختياري)')}</div></div>
+  <div class="card"><h3>المظهر والصور الثابتة</h3><div class="row">${imgBox('logoImg', 'شعار ديزاينلي')}${imgBox('iconImg', 'أيقونة D (الفوتر)')}${imgBox('bankDocImg', 'صورة شهادة الحساب')}${imgBox('logosStripImg', 'صورة شعارات مجمعة (اختياري)')}</div></div>
   <div class="card"><h3>الذكاء الاصطناعي (OpenAI)</h3>
     <label class="f"><span>مفتاح API — من platform.openai.com (منفصل عن اشتراك ChatGPT)</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
     <div class="row"><label class="f"><span>موديل النصوص</span><input type="text" data-k="ai.textModel" dir="ltr"></label><label class="f"><span>موديل الصور</span><input type="text" data-k="ai.imageModel" dir="ltr"></label></div>
