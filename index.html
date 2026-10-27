@@ -329,7 +329,7 @@ const DEFAULT_SERVICES = [
     bullets: ['إعداد البيانات الأساسية والتصنيف ومعلومات الاتصال وساعات العمل.', 'تنسيق الملف وربطه بالموقع ووسائل التواصل وتهيئته للظهور المحلي.'] },
   { id: 'wa_business', cat: 'local', kind: 'fixed', name: 'تهيئة واتساب بزنس', price: 0,
     desc: 'تهيئة حساب واتساب بزنس وبيانات النشاط والرسائل التلقائية.', bullets: [] },
-  { id: 'wa_campaign', cat: 'local', kind: 'fixed', name: 'حملة رسائل واتساب تسويقية', price: 500,
+  { id: 'wa_campaign', cat: 'local', kind: 'ads', name: 'حملات واتساب تسويقية', platform: 'واتساب (ميتا)', budget: 600, fee: 20,
     desc: 'إعداد وإرسال حملة رسائل واتساب معتمدة لقاعدة العملاء مع متابعة الردود.', bullets: [] },
 
   // ---- الهوية
@@ -1709,18 +1709,22 @@ const findSvc = id => SERVICES.find(s => s.id === id) || DEFAULT_SERVICES.find(s
 
 // كلمات مفتاحية → خدمة من الكتالوج (الترتيب مهم: الأدق أولاً)
 const KW = [
-  [/حمل[ةه].*(جوجل ?ماب|خرائط|ماب)/, 'ads_maps'], [/حمل[ةه].*تيك ?توك/, 'ads_tiktok'], [/حمل[ةه].*(ان|إن)ست/, 'ads_instagram'],
-  [/حمل[ةه].*سناب/, 'ads_snap'], [/حمل[ةه].*(تويتر|اكس|إكس)/, 'ads_x'], [/حمل[ةه].*(ميتا|فيس)/, 'ads_meta'], [/حمل[ةه].*يوتيوب/, 'ads_youtube'],
-  [/حمل[ةه].*لينكد/, 'ads_linkedin'], [/حمل[ةه].*جوجل/, 'ads_google'],
-  [/ملف (ال)?شرك[ةه]|بروفايل|ملف تعريفي|company profile/i, 'company_profile'],
-  [/(ملف|حساب|تظبيط|تجهيز|إنشاء|انشاء).*(جوجل ?ماب|خرائط ?جوجل|google ?map)/i, 'gmaps'],
-  [/هوي[ةه] (ال)?سوشيال/, 'social_identity'], [/سوشيال|إدارة (ال)?حسابات|ادارة (ال)?حسابات|سوشال/, 'smm_full'],
+  [/حمل(?:[ةه]|ات).*(واتس)|واتس.*حمل(?:[ةه]|ات)/, 'wa_campaign'],
+  [/حمل(?:[ةه]|ات).*(جوجل ?ماب|خرائط|ماب)/, 'ads_maps'], [/حمل(?:[ةه]|ات).*تيك ?توك/, 'ads_tiktok'], [/حمل(?:[ةه]|ات).*(ان|إن)ست/, 'ads_instagram'],
+  [/حمل(?:[ةه]|ات).*سناب/, 'ads_snap'], [/حمل(?:[ةه]|ات).*(تويتر|اكس|إكس)/, 'ads_x'], [/حمل(?:[ةه]|ات).*(ميتا|فيس)/, 'ads_meta'], [/حمل(?:[ةه]|ات).*يوتيوب/, 'ads_youtube'],
+  [/حمل(?:[ةه]|ات).*لينكد/, 'ads_linkedin'], [/حمل(?:[ةه]|ات).*جوجل/, 'ads_google'],
+  [/(ملف|حساب|بروفايل|تظبيط|تجهيز|إنشاء|انشاء).*(جوجل ?ماب|خرائط ?جوجل|google ?map)/i, 'gmaps'],
+  [/ملف (ال)?شرك[ةه]|بروفايل (ال)?شرك|ملف تعريفي|company profile/i, 'company_profile'],
+  [/هوي[ةه].*(سوشيال|سوشال)/, 'social_identity'], [/سوشيال|إدارة (ال)?حسابات|ادارة (ال)?حسابات|سوشال/, 'smm_full'],
   [/متجر/, 'store'], [/صفح[ةه] هبوط|لاندنج|landing/i, 'landing'], [/موقع/, 'website'], [/seo|سيو|محركات البحث/i, 'seo'],
   [/دليل|جايدلاين|guideline/i, 'brand_guide'], [/هوي[ةه]|شعار|لوجو|logo/i, 'brand_core'], [/بروشور|بروشر/, 'brochure'],
   [/كارت|بزنس ?كارد|بطاق[ةه] (أعمال|اعمال)/, 'bcard'], [/واتس/, 'wa_business'], [/تصوير|صانع محتوى/, 'shooting'],
   [/موشن|انيميشن/, 'motion'], [/مؤثر|انفلونسر/, 'influencers'], [/كتاب[ةه] (ال)?محتوى/, 'copywriting'], [/تقرير/, 'reports'],
 ];
-const PLATS = [[/(ان|إن)ست(ج|ق|غ)رام|instagram/i, 'إنستقرام'], [/تيك ?توك|tiktok/i, 'تيك توك'], [/تويتر|twitter|(^| )x( |$)|إكس/i, 'إكس (تويتر)'],
+// منصة + ميزانية في نفس السطر (مثل "1- تيكتوك جاهز لحملات التسجيل بميزانية 3000") = حملة على المنصة
+const ADS_BY_PLAT = [[/تيك ?توك|tiktok/i, 'ads_tiktok'], [/(ا|إ)(ن|س)(س|ن)ت|انستا|instagram/i, 'ads_instagram'], [/سناب/, 'ads_snap'], [/جوجل ?ماب|خرائط/, 'ads_maps'],
+  [/(تويتر|إكس)/, 'ads_x'], [/(ميتا|فيس)/, 'ads_meta'], [/يوتيوب/, 'ads_youtube'], [/لينكد/, 'ads_linkedin'], [/جوجل/, 'ads_google']];
+const PLATS = [[/(ا|إ)(ن|س)(س|ن)ت(ج|ق|غ)?رام|انستا|instagram/i, 'إنستقرام'], [/تيك ?توك|tiktok/i, 'تيك توك'], [/تويتر|twitter|(^| )x( |$)|إكس/i, 'إكس (تويتر)'],
   [/سناب/, 'سناب شات'], [/فيس ?بوك|facebook/i, 'فيسبوك'], [/يوتيوب|youtube/i, 'يوتيوب'], [/لينكد/, 'لينكدإن'], [/واتس/, 'واتساب']];
 const num = s => +String(s).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/,/g, '');
 
@@ -1729,26 +1733,31 @@ function parseBrief(text) {
     .map(l => l.replace(/^[\s*•\-–—·▪●◦○✓✔☑]+/, '').trim())
     .filter(Boolean);
   const out = { client: '', items: [], entities: [], notes: [] };
-  let cur = null, entMode = false, lastAds = null, platMode = false;
-  const priceOf = l => { const m = l.match(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.?\s?س|sar|﷼)/i); return m ? num(m[1]) : null; };
+  let cur = null, entMode = false, lastAds = null, platMode = false, groupFee = null;
+  const priceOf = l => { let m = l.match(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.\s?س\.?|sar|﷼)/i); if (!m) m = l.match(/(?:ميزاني[ةه]|مزاني[ةه]|بقيم[ةه]|قيمتها|بسعر)\s*([\d٠-٩][\d٠-٩,\.]*)/); return m ? num(m[1]) : null; };
   for (let raw of lines) {
     const l = raw.replace(/\s*:\s*$/, '').trim();
-    if (/عرض\s*سعر/.test(l) && !out.client) { out.client = l.replace(/.*عرض\s*سعر\s*(ل|لـ)?\s*/, '').replace(/[:：]/g, '').replace('إلاعمال', 'الأعمال').trim(); continue; }
+    if (/عرض\s*سعر/.test(l) && !out.client) { const c = l.replace(/.*عرض\s*سعر\s*(ل|لـ)?\s*/, '').replace(/[:：]/g, '').replace('إلاعمال', 'الأعمال').trim(); out.client = /هذ|هاذ|العميل|بتقد|بتقدي/.test(c) ? '' : c; continue; }
     const price = priceOf(l), pct = l.match(/(\d+(?:\.\d+)?)\s*%/), free = /مجان|مجاناً|مجانا|free/i.test(l);
     const per = /لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم|منص[ةه])/.test(l);
     const entH = !price && l.match(/(\d+)\s*(مجالات|أنشطة|انشطة|نشاطات|فروع|حسابات|براندات|أقسام)/);
     if (entH) { entMode = true; platMode = false; out.entityWord = entH[2]; continue; }
-    const kw = KW.find(([re]) => re.test(l));
+    let kw = KW.find(([re]) => re.test(l));
+    // عنوان مجموعة حملات بنسبة إدارة موحدة
+    if (/حملات/.test(l) && pct && !PLATS.some(([re]) => re.test(l)) && (!kw || !/^ads_/.test(kw[1]))) { groupFee = +pct[1]; continue; }
+    if (!kw && price != null && /ميزاني|مزاني|حمل/.test(l)) { const ap = ADS_BY_PLAT.find(([re]) => re.test(l)); if (ap) kw = [null, ap[1]]; }
     // نسبة إدارة الحملة
     if (pct && /إدار|ادار/.test(l) && !kw) { (lastAds || cur || {}).fee = +pct[1]; if (lastAds) lastAds.feeSet = true; continue; }
     if (kw) {
       entMode = false; platMode = false;
       const svc = findSvc(kw[1]);
-      cur = { src: kw[1], name: cleanName(l) || (svc && svc.name), kind: svc ? svc.kind : 'fixed', per, details: [], platforms: [] };
+      cur = { src: kw[1], name: cleanName(l) || (svc && svc.name), kind: /^ads_|wa_campaign/.test(kw[1]) ? 'ads' : (svc ? svc.kind : 'fixed'), per, details: [], platforms: [] };
       if (/شهر|شهري/.test(l) && cur.kind !== 'ads') cur.kind = 'monthly';
       if (free) cur.price = 0;
       if (price != null) { if (cur.kind === 'ads') cur.budget = price; else cur.price = price; }
       if (pct && cur.kind === 'ads') cur.fee = +pct[1];
+      else if (cur.kind === 'ads' && groupFee != null) cur.fee = groupFee;
+      if (cur.src !== 'ads_maps' || true) { PLATS.forEach(([re, n]) => { if (re.test(l) && cur.kind !== 'ads') cur.platforms.push(n); }); }
       out.items.push(cur); if (cur.kind === 'ads') lastAds = cur;
       continue;
     }
@@ -1767,7 +1776,7 @@ function parseBrief(text) {
   return out;
 }
 function cleanName(l) {
-  return l.replace(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.?\s?س|sar|﷼)(\s*(\/|في|ب)?\s*(ال)?(شهر|شهري|شهريا|شهرياً))?/ig, '')
+  return l.replace(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.\s?س\.?|sar|﷼)(\s*(\/|في|ب)?\s*(ال)?(شهر|شهري|شهريا|شهرياً))?/ig, '')
     .replace(/(\d+(?:\.\d+)?)\s*%/g, '').replace(/\b(مجاني|مجانا|مجاناً)\b|مجاني[ةه]?/g, '').replace(/لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم)/g, '')
     .replace(/[:：]+/g, '').replace(/\s{2,}/g, ' ').trim();
 }
@@ -1825,7 +1834,10 @@ function showBrief() {
     let p = parseBrief(txt);
     if (S.ai.key) { try { p = await aiParseBrief(txt, p); } catch (e) { console.warn(e); } }
     const q = blankQuote();
-    q.client.name = p.client || 'العميل';
+    q.client.links = $('#blinks').value.split('\n').map(s => s.trim()).filter(Boolean);
+    const lk = (q.client.links.map(parseLink).filter(Boolean).find(x => x.p !== 'web') || {}).user || ((q.client.links[0] || '').match(/salla\.sa\/([^/?#]+)/) || [])[1] || '';
+    q.client.name = p.client || lk || 'العميل';
+    if (!p.client && lk) q.client.nameEn = lk;
     q.client.links = $('#blinks').value.split('\n').map(s => s.trim()).filter(Boolean);
     if (p.entities.length) q.client.industry = p.entities.map(e => e.replace(/^\S+\s+(لل|ل)?/, '')).join(' • ');
     q.client.entities = p.entities; q.client.entityWord = p.entityWord || '';
