@@ -113,6 +113,57 @@ textarea{min-height:76px;resize:vertical;line-height:1.6}
 
 @media (max-width:520px){ .top .brand small{display:none} .top .brand .wm{display:none} .top nav button{padding:7px 8px;font-size:13px} .top{gap:6px} }
 html,body{overflow-x:hidden}
+
+/* ===== v2: واجهة أنظف ===== */
+:root{--bg:#f3f1ec;--line:#e6e2d9;--pri:#111827;--r:18px;--sh:0 1px 2px rgba(17,24,39,.04),0 8px 24px rgba(17,24,39,.06)}
+body{background:var(--bg)}
+.top{background:#0d1220;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.card{border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:16px}
+input[type=text],input[type=number],input[type=email],input[type=password],input[type=url],input[type=date],select,textarea{border-radius:12px;border-color:var(--line);background:#fffdfa}
+.btn{border-radius:12px}
+.btn.gold{background:linear-gradient(135deg,#d8b45f,#a8832f);color:#1a1405;box-shadow:0 6px 16px rgba(168,131,47,.28)}
+.hero-btn{font-size:17px;padding:15px;border-radius:16px}
+/* الرئيسية */
+.home-cta{width:100%;display:flex;align-items:center;gap:14px;border:0;cursor:pointer;text-align:right;padding:20px 18px;border-radius:22px;color:#fff;
+  background:radial-gradient(120% 140% at 100% 0%,#2a3556 0%,#111827 55%,#0b0f1a 100%);box-shadow:0 14px 30px rgba(17,24,39,.25)}
+.home-cta .hc-ic{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,#d8b45f,#a8832f);display:flex;align-items:center;justify-content:center;font-size:26px;flex:none}
+.home-cta b{display:block;font-size:19px}.home-cta small{display:block;opacity:.72;font-size:13px;margin-top:3px}
+/* شاشة التسجيل */
+.cmp-hero{text-align:center;color:#fff;border-radius:24px;padding:22px 18px 18px;margin-bottom:12px;
+  background:radial-gradient(120% 140% at 100% 0%,#2a3556 0%,#111827 55%,#0b0f1a 100%);box-shadow:0 14px 30px rgba(17,24,39,.22)}
+.cmp-t{font-size:21px;font-weight:700}.cmp-s{font-size:13.5px;opacity:.75;margin:6px auto 16px;max-width:460px;line-height:1.7}
+.mic{position:relative;width:92px;height:92px;border-radius:50%;border:0;cursor:pointer;color:#1a1405;
+  background:linear-gradient(135deg,#e6c372,#a8832f);box-shadow:0 10px 28px rgba(216,180,95,.35);display:inline-flex;align-items:center;justify-content:center}
+.mic .mic-ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(216,180,95,.45);opacity:0}
+.mic.rec{background:linear-gradient(135deg,#ff6b6b,#d63031);color:#fff;box-shadow:0 10px 28px rgba(214,48,49,.4)}
+.mic.rec .mic-ring{animation:pulse 1.4s ease-out infinite;border-color:rgba(255,107,107,.6)}
+@keyframes pulse{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+.mic:disabled{opacity:.6}
+.mic-st{margin-top:10px;font-size:13.5px;opacity:.85;min-height:20px}
+.cmp-warn{margin-top:12px;font-size:12px;background:rgba(216,180,95,.14);color:#f1dca6;border-radius:12px;padding:8px 12px;line-height:1.6}
+.cmp-box textarea{min-height:200px;border:0;background:transparent;padding:4px;font-size:16px;line-height:1.85}
+.cmp-box textarea:focus{outline:none}
+.cmp-tools{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:8px;margin-top:6px}
+.svc-ref summary{cursor:pointer;list-style:none}.svc-ref summary::-webkit-details-marker{display:none}
+.svc-g{margin-top:12px}.svc-g .muted{margin-bottom:6px}
+.svc-g .chip{background:#faf8f3}
+/* المراجعة */
+.rv-head{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 12px}
+.rv-t{font-size:20px;font-weight:700}
+.rv{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:10px;box-shadow:var(--sh)}
+.rv-top{display:flex;gap:8px;align-items:center}
+.rv-n{width:28px;height:28px;border-radius:9px;background:#111827;color:#e6c372;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;font-size:13px}
+.rv-name{flex:1;font-weight:600;border:0!important;background:transparent!important;padding:6px 2px!important;font-size:15.5px!important;min-width:0}
+.rv-kind{width:auto!important;flex:none;padding:6px 8px!important;font-size:12.5px!important;border-radius:10px!important;background:#f6f3ec!important}
+.rv-x{border:0;background:#fbeceb;color:var(--bad);width:30px;height:30px;border-radius:10px;font-size:18px;cursor:pointer;flex:none}
+.rv-nums{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.rv-nums label,.rv-obj{flex:1;min-width:110px;font-size:12px;color:var(--mut)}.rv-obj{display:block;margin-top:8px}
+.rv-nums span,.rv-obj span{display:block;margin-bottom:3px}
+.rv details{margin-top:8px}.rv details summary{cursor:pointer;font-size:12.5px}.rv details textarea{margin-top:6px;min-height:60px;font-size:14px}
+.rv-top{flex-wrap:wrap}
+.rv-name{flex:1 1 calc(100% - 40px)!important;resize:none;min-height:0!important;line-height:1.5!important;overflow:hidden}
+.rv-kind{margin-inline-start:auto}
+.rv-top .rv-kind,.rv-top .rv-x{order:3}
 </style>
 <style>/* ===== قالب عرض السعر (صفحات A4 بعرض 794px) ===== */
 .qpage{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;color:#1d1d1f;
@@ -235,7 +286,7 @@ html,body{overflow-x:hidden}
 </head>
 <body>
 <header class="top"><div class="brand"><span class="dot">D</span><span class="wm">DESIGNLY</span> <small>عروض الأسعار</small></div>
-  <nav id="navs" class="hide"><button data-v="list">العروض</button><button data-v="brief">✍️ من نص</button><button data-v="new">＋ جديد</button><button data-v="settings">الإعدادات</button></nav></header>
+  <nav id="navs" class="hide"><button data-v="list">العروض</button><button data-v="brief">🎙️ عرض جديد</button><button data-v="settings">الإعدادات</button></nav></header>
 <main id="app"></main>
 <div class="dock hide" id="dock"><div class="tot" id="dockTot"></div>
   <button class="btn gold" id="dockAuto">⚡ إنشاء تلقائي</button><button class="btn pri" id="dockPdf">PDF</button></div>
@@ -895,7 +946,8 @@ function showList(filter = '') {
   setNav('list'); Q = null;
   const f = filter.trim();
   const items = QUOTES.filter(q => !f || (q.client?.name + ' ' + q.no + ' ' + (q.client?.nameEn || '')).toLowerCase().includes(f.toLowerCase()));
-  $('#app').innerHTML = `<div class="row"><button class="btn gold hero-btn" onclick="location.hash='brief'">✍️ عرض من نص</button><button class="btn pri hero-btn" onclick="location.hash='new'">＋ عرض خطوة بخطوة</button></div>
+  $('#app').innerHTML = `<button class="home-cta" onclick="location.hash='brief'"><span class="hc-ic">🎙️</span><span><b>عرض سعر جديد</b><small>سجّل أو اكتب المطلوب والسيستم يكتب العرض</small></span></button>
+    <div style="text-align:center;margin-top:6px"><button class="btn sm ghost" onclick="location.hash='new'">إنشاء يدوي متقدم</button></div>
     <div style="height:12px"></div><input type="text" id="qsearch" placeholder="بحث باسم العميل أو رقم العرض" value="${esc(f)}">
     <div style="height:12px"></div>
     ${items.length ? items.map(q => {
@@ -1023,7 +1075,7 @@ function stepServices() {
   const onIds = new Set(Q.items.map(i => i.src));
   const cats = CATS.concat([{ id: 'custom', name: 'خدمات أخرى' }]);
   const kindTag = k => k === 'monthly' ? '<span class="tag m">شهري</span>' : k === 'ads' ? '<span class="tag a">إعلان</span>' : '';
-  const svcPrice = s => s.kind === 'ads' ? `${fmt(s.budget)} + ${s.fee}%` : (+s.price ? fmt(s.price) + ' ر.س' : 'مجاني');
+  const svcPrice = s => '';
   let h = `<div class="card"><h3>الخدمات المختارة (${Q.items.length})<span class="sp"></span><button class="btn sm gold" id="addCustom">＋ خدمة جديدة</button></h3>
     ${Q.items.length ? '' : '<p class="muted">فعّل الخدمات من القائمة بالأسفل، وكل خدمة تقدر تعدل سعرها وتفاصيلها لهذا العرض بس.</p>'}
     <div id="selItems"></div></div>`;
@@ -1608,7 +1660,7 @@ async function showSettings() {
     <label class="f" style="margin-top:10px"><span>شروط ثابتة تظهر في كل العروض (شرط في كل سطر)</span><textarea data-k="tpl.globalTerms" data-lines style="min-height:110px" placeholder="مثال: صلاحية العرض 14 يوم من تاريخه."></textarea></label>
   </div>
   <div class="card"><h3>الذكاء الاصطناعي (OpenAI)</h3>
-    <label class="f"><span>مفتاح API — من platform.openai.com (منفصل عن اشتراك ChatGPT)</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
+    <label class="f"><span>مفتاح API — من platform.openai.com. مفتاح واحد بيشغّل: التفريغ الصوتي الاحترافي، فهم النص، كتابة العرض، وصور الثري دي</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
     <div class="row"><label class="f"><span>موديل النصوص</span><input type="text" data-k="ai.textModel" dir="ltr"></label><label class="f"><span>موديل الصور</span><input type="text" data-k="ai.imageModel" dir="ltr"></label></div>
     <div class="row"><label class="f"><span>جودة الصورة</span><select data-k="ai.quality"><option value="low">منخفضة (أرخص)</option><option value="medium">متوسطة</option><option value="high">عالية</option></select></label>
     <label class="f"><span>بحث الويب لتحليل الهوية</span><select id="ws"><option value="1">مفعّل</option><option value="">متوقف</option></select></label></div>
@@ -1669,7 +1721,7 @@ function renderCatalog() {
   $('#cat').innerHTML = CATS.concat([{ id: 'custom', name: 'خدمات أخرى' }]).map(c => {
     const l = SERVICES.filter(s => s.cat === c.id); if (!l.length) return '';
     return `<details class="cat"><summary>${c.name}<span class="c">${l.length}</span></summary>${l.map(s => `<div class="svc ${s.active !== false ? 'on' : ''}"><div class="hd" data-e="${s.id}">
-      <div class="nm">${esc(s.name)}</div><div class="pr">${s.kind === 'ads' ? fmt(s.budget) + ' + ' + s.fee + '%' : fmt(s.price || 0)}</div></div></div>`).join('')}</details>`;
+      <div class="nm">${esc(s.name)}</div><div class="pr"></div></div></div>`).join('')}</details>`;
   }).join('');
   $$('[data-e]').forEach(el => el.onclick = () => editCatalogSvc(SERVICES.find(s => s.id === el.dataset.e)));
 }
@@ -1817,61 +1869,185 @@ function shortOf(src, name) {
   return ({ smm_full: 'سوشيال ميديا', ads_maps: 'حملة خرائط جوجل', ads_tiktok: 'حملة تيك توك', ads_instagram: 'حملة إنستقرام', gmaps: 'ملف خرائط جوجل' })[src] || name;
 }
 
-/* ---------- الواجهة ---------- */
+/* ---------- الواجهة: شاشة التسجيل والكتابة ---------- */
+const SVC_NAMES = () => {
+  const L = (SERVICES.length ? SERVICES : DEFAULT_SERVICES).filter(s => s.active !== false);
+  return CATS.map(c => ({ cat: c.name, names: L.filter(s => s.cat === c.id).map(s => s.name) })).filter(g => g.names.length);
+};
 function showBrief() {
   setNav('brief'); Q = null;
-  $('#app').innerHTML = `<div class="card"><h3>✍️ اكتب العرض بحرية</h3>
-    <p class="muted">اكتب أو الصق المطلوب زي ما بتكتبه للعميل في واتساب: اسم العميل، الخدمات، الأسعار، "مجاني"، "لكل مجال"، نسبة الإدارة… والسيستم هيفهمه ويسألك كام سؤال قبل ما يطلع العرض.</p>
-    <textarea id="brief" style="min-height:260px" placeholder="عرض سعر مدارات الأعمال:&#10;* ملف شركة 350 ريال&#10;* باقة سوشيال ميديا لكل مجال:&#10;  انستجرام، تيك توك، تويتر&#10;  نشر يومي 1000 ريال&#10;* 3 مجالات:&#10;  مدارات للصيانة&#10;  مدارات للديكور&#10;* حملة إعلانية جوجل ماب لكل نشاط 1500 ريال شهر&#10;* إدارة حملة 20%"></textarea>
-    <div style="height:10px"></div>
-    <label class="f"><span>روابط سوشيال العميل (اختياري — لسحب الشعار والألوان)</span><textarea id="blinks" dir="ltr" style="min-height:60px"></textarea></label>
-    <button class="btn gold full hero-btn" id="bgo">تحليل النص ←</button></div>`;
-  try { const d = sessionStorage.getItem('qs_brief'); if (d) $('#brief').value = d; } catch (e) { }
-  $('#brief').oninput = e => { try { sessionStorage.setItem('qs_brief', e.target.value); } catch (er) { } };
+  const hasAI = !!S.ai.key;
+  $('#app').innerHTML = `
+  <div class="cmp">
+    <div class="cmp-hero">
+      <div class="cmp-t">عرض سعر جديد</div>
+      <div class="cmp-s">سجّل أو اكتب المطلوب زي ما بتشرحه للعميل — العميل، الخدمات، الأسعار، الميزانيات، النسب — والسيستم يكتب العرض.</div>
+      <button class="mic" id="mic" aria-label="تسجيل"><span class="mic-ring"></span><svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg></button>
+      <div class="mic-st" id="micSt">اضغط للتسجيل</div>
+      ${hasAI ? '' : '<div class="cmp-warn">التفريغ الحالي من المتصفح والفهم بقواعد ثابتة. للتفريغ الاحترافي وفهم النص زي الإنسان فعّل مفتاح OpenAI من الإعدادات.</div>'}
+    </div>
+    <div class="card cmp-box">
+      <textarea id="brief" placeholder="مثال: عرض سعر لعيادات لولوا كير… صفحة هبوط مجانًا، تظبيط بروفايل جوجل ماب 250، حملة تيك توك للتسجيلات بميزانية 3000 ونسبة إدارة 20%…"></textarea>
+      <div class="cmp-tools"><span class="muted" id="cnt"></span><button class="btn sm ghost" id="clr">مسح</button></div>
+    </div>
+    <div class="card"><h3>روابط العميل <span class="muted" style="font-weight:400">(سلة، إنستقرام، تيك توك، جوجل ماب…)</span></h3>
+      <textarea id="blinks" dir="ltr" style="min-height:64px" placeholder="https://"></textarea></div>
+    <details class="card svc-ref"><summary><b>أسماء الخدمات</b> <span class="muted">— اضغط على أي خدمة تتضاف للنص</span></summary>
+      ${SVC_NAMES().map(g => `<div class="svc-g"><div class="muted">${esc(g.cat)}</div><div class="chips">${g.names.map(n => `<button class="chip" data-ins="${esc(n)}">${esc(n)}</button>`).join('')}</div></div>`).join('')}
+    </details>
+    <button class="btn gold full hero-btn" id="bgo">✨ اكتب العرض</button>
+  </div>`;
+  const ta = $('#brief');
+  try { const d = sessionStorage.getItem('qs_brief'); if (d) ta.value = d; const l = sessionStorage.getItem('qs_links'); if (l) $('#blinks').value = l; } catch (e) { }
+  const sync = () => { try { sessionStorage.setItem('qs_brief', ta.value); sessionStorage.setItem('qs_links', $('#blinks').value); } catch (e) { } $('#cnt').textContent = ta.value.trim() ? ta.value.trim().split(/\s+/).length + ' كلمة' : ''; };
+  ta.oninput = sync; $('#blinks').oninput = sync; sync();
+  $('#clr').onclick = () => { if (ta.value && !confirm('مسح النص؟')) return; ta.value = ''; sync(); };
+  $$('[data-ins]').forEach(c => c.onclick = () => { ta.value = (ta.value.trim() ? ta.value.trimEnd() + '\n- ' : '- ') + c.dataset.ins + ' '; sync(); ta.focus(); });
+  setupMic(ta, sync);
   $('#bgo').onclick = async () => {
-    const txt = $('#brief').value.trim(); if (!txt) return toast('اكتب المطلوب أولاً', 1);
-    const b = $('#bgo'); b.disabled = true; b.textContent = 'جاري التحليل...';
-    let p = parseBrief(txt);
-    if (S.ai.key) { try { p = await aiParseBrief(txt, p); } catch (e) { console.warn(e); } }
+    const txt = ta.value.trim(); if (!txt) return toast('سجّل أو اكتب المطلوب أولاً', 1);
+    stopMic();
+    const o = overlay(`<div class="prog"><div class="spin"></div><b>${hasAI ? 'بفهم المطلوب وبرتّب البنود...' : 'بحلل النص...'}</b></div>`); o.dataset.lock = 1;
+    let p = parseBrief(txt), aiOk = false;
+    if (hasAI) { try { p = await aiParseBrief(txt, p); aiOk = true; } catch (e) { console.warn(e); toast('تعذر الفهم بالذكاء الاصطناعي، استخدمت القواعد الثابتة: ' + e.message, 1); } }
     const q = blankQuote();
     q.client.links = $('#blinks').value.split('\n').map(s => s.trim()).filter(Boolean);
     const lk = (q.client.links.map(parseLink).filter(Boolean).find(x => x.p !== 'web') || {}).user || ((q.client.links[0] || '').match(/salla\.sa\/([^/?#]+)/) || [])[1] || '';
     q.client.name = p.client || lk || 'العميل';
-    if (!p.client && lk) q.client.nameEn = lk;
-    q.client.links = $('#blinks').value.split('\n').map(s => s.trim()).filter(Boolean);
-    if (p.entities.length) q.client.industry = p.entities.map(e => e.replace(/^\S+\s+(لل|ل)?/, '')).join(' • ');
+    if (p.clientEn) q.client.nameEn = p.clientEn; else if (!p.client && lk) q.client.nameEn = lk;
+    if (p.industry) q.client.industry = p.industry;
+    else if (p.entities.length) q.client.industry = p.entities.map(e => e.replace(/^\S+\s+(لل|ل)?/, '')).join(' • ');
     q.client.entities = p.entities; q.client.entityWord = p.entityWord || '';
-    q.items = briefToItems(p);
+    q.items = aiOk ? aiItemsToQuote(p) : briefToItems(p);
+    q.extraTerms = p.terms || [];
     q.brief = txt;
-    if (!q.items.length) { b.disabled = false; b.textContent = 'تحليل النص ←'; return toast('ماقدرتش أتعرف على خدمات في النص — اكتب كل خدمة في سطر', 1); }
+    o.remove();
+    if (!q.items.length) return toast('ماقدرتش أطلع خدمات من النص — وضّح كل خدمة وسعرها', 1);
     Q = q; await saveQuote(); history.replaceState(null, '', '#q/' + Q.id);
+    try { sessionStorage.removeItem('qs_brief'); sessionStorage.removeItem('qs_links'); } catch (e) { }
     showQuestions();
   };
 }
+
+/* ---------- الميكروفون ---------- */
+let MIC = null;
+function stopMic() { if (MIC) { try { MIC.stop(); } catch (e) { } } }
+function setupMic(ta, sync) {
+  const btn = $('#mic'), st = $('#micSt');
+  const setUI = (on, msg) => { btn.classList.toggle('rec', on); st.textContent = msg; };
+  const insert = t => { t = (t || '').trim(); if (!t) return; ta.value = (ta.value.trim() ? ta.value.trimEnd() + '\n' : '') + t; sync(); };
+  btn.onclick = async () => {
+    if (MIC) { stopMic(); return; }
+    if (S.ai.key && navigator.mediaDevices && window.MediaRecorder) {
+      // تفريغ احترافي: تسجيل الصوت وإرساله لـ OpenAI
+      let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { return toast('اسمح للمتصفح باستخدام المايك', 1); }
+      const mt = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm', 'audio/ogg'].find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+      const rec = new MediaRecorder(stream, mt ? { mimeType: mt } : undefined), chunks = [];
+      let secs = 0; const tm = setInterval(() => { secs++; setUI(true, `جاري التسجيل ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')} — اضغط للإيقاف`); }, 1000);
+      rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+      rec.onstop = async () => {
+        clearInterval(tm); stream.getTracks().forEach(t => t.stop()); MIC = null;
+        setUI(false, 'جاري التفريغ...'); btn.disabled = true;
+        try { insert(await transcribe(new Blob(chunks, { type: rec.mimeType || 'audio/webm' }))); setUI(false, 'تم ✓ — اضغط لتسجيل جزء إضافي'); }
+        catch (e) { toast('تعذر التفريغ: ' + e.message, 1); setUI(false, 'اضغط للتسجيل'); }
+        btn.disabled = false;
+      };
+      MIC = rec; rec.start(1000); setUI(true, 'جاري التسجيل 0:00 — اضغط للإيقاف');
+      return;
+    }
+    // تفريغ مجاني من المتصفح
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return toast('المتصفح ده مش بيدعم التفريغ الصوتي — استخدم كروم أو سفاري، أو فعّل مفتاح OpenAI', 1);
+    const r = new SR(); r.lang = 'ar-SA'; r.continuous = true; r.interimResults = true;
+    const base = ta.value.trim(); let finalT = '', alive = true;
+    r.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) { const t = e.results[i][0].transcript; if (e.results[i].isFinal) finalT += t + ' '; else interim += t; }
+      ta.value = (base ? base + '\n' : '') + finalT + interim; sync();
+    };
+    r.onerror = e => { if (e.error === 'not-allowed') { toast('اسمح للمتصفح باستخدام المايك', 1); alive = false; } };
+    r.onend = () => { if (alive && MIC === wrap) { try { r.start(); } catch (e) { } } else setUI(false, 'تم ✓ — اضغط لتسجيل جزء إضافي'); };
+    const wrap = { stop: () => { alive = false; MIC = null; r.stop(); } };
+    MIC = wrap; r.start(); setUI(true, 'بسمعك... اضغط للإيقاف');
+  };
+}
+async function transcribe(blob) {
+  const ext = /mp4/.test(blob.type) ? 'mp4' : /ogg/.test(blob.type) ? 'ogg' : 'webm';
+  const call = async model => {
+    const fd = new FormData();
+    fd.append('file', blob, 'voice.' + ext); fd.append('model', model); fd.append('language', 'ar');
+    fd.append('prompt', 'عرض سعر لوكالة تسويق ديزاينلي. سوشيال ميديا، إنستقرام، تيك توك، سناب شات، جوجل ماب، صفحة هبوط، هوية بصرية، واتساب، ميزانية، نسبة الإدارة 20%، ريال، شهريًا، حملة إعلانية، تسجيلات.');
+    const r = await fetch('https://api.openai.com/v1/audio/transcriptions', { method: 'POST', headers: { Authorization: 'Bearer ' + S.ai.key }, body: fd });
+    const j = await r.json(); if (!r.ok) throw new Error(j.error?.message || ('OpenAI ' + r.status)); return j.text;
+  };
+  try { return await call(S.ai.sttModel || 'gpt-4o-transcribe'); } catch (e) { if (/model/i.test(e.message)) return await call('whisper-1'); throw e; }
+}
+
 async function aiParseBrief(txt, fallback) {
   const ids = (SERVICES.length ? SERVICES : DEFAULT_SERVICES).map(s => s.id + ': ' + s.name + ' [' + s.kind + ']').join('\n');
-  const j = await oaJSON('أنت مساعد مبيعات في وكالة تسويق. حوّل النص لبنود عرض سعر. أعد JSON فقط.',
-    `النص:\n${txt}\n\nكتالوج الخدمات (id: الاسم [النوع]):\n${ids}\n\nأعد JSON: {client: اسم العميل, entities: [أسماء المجالات/الأنشطة/الفروع إن وجدت], items: [{src: id من الكتالوج أو company_profile أو custom, name: اسم الخدمة كما في النص, kind: fixed|monthly|ads, price: رقم أو null, budget: ميزانية الإعلان للحملات, fee: نسبة الإدارة %, per: true لو الخدمة متكررة لكل مجال/نشاط, platforms: [المنصات], details: [تفاصيل مذكورة]}]}. لا تخترع أسعاراً غير مذكورة (null).`);
+  const j = await oaJSON(`أنت مدير حسابات خبير في وكالة تسويق سعودية (ديزاينلي). مهمتك تحويل كلام مدير الوكالة (قد يكون تفريغًا صوتيًا بالعامية فيه أخطاء) إلى بنود عرض سعر دقيقة. افهم المقصود كإنسان. أعد JSON فقط.`,
+`النص:
+"""${txt}"""
+
+كتالوج الخدمات المتاحة (id: الاسم [النوع]):
+${ids}
+
+القواعد:
+- كل خدمة أو حملة = بند مستقل. كل حملة على منصة مختلفة بند مستقل بميزانيتها وهدفها الخاص. لا تخلط تفاصيل بند في بند آخر.
+- kind: fixed (مرة واحدة) | monthly (شهري) | ads (حملة: ميزانية تدفع للمنصة + نسبة إدارة لديزاينلي).
+- للحملات: budget = ميزانية المنصة، fee = نسبة الإدارة %. لو النسبة مذكورة مرة واحدة لمجموعة حملات طبّقها على كل حملة فيها.
+- رسائل واتساب المدفوعة لميتا = حملة ads (src: wa_campaign) ميزانيتها = تكلفة الرسائل.
+- price للخدمات العادية. "مجانًا" = 0. لا تخترع أسعارًا غير مذكورة (null).
+- title: اسم احترافي قصير للبند في العرض. short: اسم مختصر لجدول التكلفة (3 كلمات).
+- objective: هدف الحملة أو دور المنصة كما فُهم من النص. desc: سطر وصف احترافي مبني على كلام المدير فقط. bullets: 2-3 نقاط تفصيلية من النص (بدون أسعار).
+- لو طلب توزيع محتوى على منصات (مثل تعليمي لإنستقرام وترند لتيك توك)، اكتب في counts اقتراحًا شهريًا منطقيًا [{n, l}] ووضّح التوزيع في bullets.
+- per: true لو الخدمة تتكرر لكل مجال/نشاط/فرع مذكور في entities.
+- terms: ملاحظات مالية/شروط مذكورة صراحة (مثل تكاليف تدفع لطرف ثالث، اشتراكات منصات).
+
+أعد JSON: {client, clientEn, industry, entities: [], items: [{src (id من الكتالوج أو custom), title, short, kind, price, budget, fee, platform, objective, desc, bullets: [], counts: [], per, platforms: []}], terms: []}`);
   if (!Array.isArray(j.items) || !j.items.length) return fallback;
-  return { client: j.client || fallback.client, entities: j.entities || fallback.entities,
-    items: j.items.map(i => ({ src: findSvc(i.src) ? i.src : 'custom', name: i.name, kind: i.kind || 'fixed', price: i.price, budget: i.budget, fee: i.fee, per: !!i.per, platforms: i.platforms || [], details: i.details || [] })) };
+  return { client: j.client || fallback.client, clientEn: j.clientEn || '', industry: j.industry || '', entities: j.entities || fallback.entities || [], terms: j.terms || [], items: j.items };
+}
+function aiItemsToQuote(p) {
+  const out = [];
+  const ents = p.entities && p.entities.length ? p.entities : [];
+  p.items.forEach(a => {
+    const svc = findSvc(a.src) || {};
+    const list = a.per && ents.length ? ents : [''];
+    list.forEach(ent => {
+      const it = itemFromService(Object.assign({ id: a.src || 'custom', cat: svc.cat || 'custom', name: a.title || svc.name || 'خدمة', bullets: [] }, clone(svc)));
+      it.kind = ['fixed', 'monthly', 'ads'].includes(a.kind) ? a.kind : (svc.kind || 'fixed');
+      it.name = a.title || svc.name || it.name; it.title = a.title || it.name;
+      if (a.short) it.short = a.short;
+      if (it.kind === 'ads') { it.budget = +a.budget || 0; it.fee = a.fee != null ? +a.fee : (svc.fee || 20); it.platform = a.platform || svc.platform || ''; }
+      else it.price = a.price != null ? +a.price : (svc.price || 0);
+      if (a.objective) it.objective = a.objective;
+      if (a.desc) it.desc = a.desc;
+      if (Array.isArray(a.bullets) && a.bullets.length) it.bullets = a.bullets;
+      it.counts = Array.isArray(a.counts) ? a.counts.filter(c => c && c.n && c.l) : (it.counts || []);
+      if (it.counts.length && Array.isArray(a.counts) && a.counts.length) it.aiCounts = true;
+      if (Array.isArray(a.platforms) && a.platforms.length && it.kind !== 'ads') it.platforms = a.platforms.join(' + ');
+      if (ent) { it.title = it.name + ' — ' + ent; it.short = (a.short || shortOf(a.src, it.name)) + ': ' + ent; it.entity = ent; it.group = groupOf(a.src, it.name, list.length); }
+      out.push(it);
+    });
+  });
+  return out;
 }
 
 function showQuestions() {
   setNav('editor');
   const C = computeQuote(Q), c = cats(Q);
-  const hasAds = Q.items.some(i => i.kind === 'ads'), hasMonthly = Q.items.some(i => i.kind === 'monthly'), hasSocial = Q.items.some(i => (i.src || '').startsWith('smm'));
+  const hasAds = Q.items.some(i => i.kind === 'ads'), hasMonthly = Q.items.some(i => i.kind === 'monthly'), hasSocial = Q.items.some(i => (i.src || '').startsWith('smm') && !i.aiCounts);
   const hasFixed = Q.items.some(i => i.kind === 'fixed' && (+i.price > 0));
   const chips = (name, opts, val) => `<div class="chips" data-q="${name}">${opts.map(([v, t]) => `<button class="chip ${String(val) === String(v) ? 'on' : ''}" data-v="${v}">${t}</button>`).join('')}</div>`;
   const ans = Q._ans = Q._ans || { vat: 'before', pay: hasMonthly ? 'monthly' : (hasFixed ? 'half' : 'full'), term: hasMonthly ? '1' : '', budget: 'direct', posts: 30, videos: 0, dur: '', fixedDur: '7 – 10 أيام عمل' };
   $('#app').innerHTML = `
-  <div class="card"><h3>فهمت من النص (${Q.items.length} بند)</h3>
-    ${Q.items.map((it, i) => `<div class="row" style="align-items:center;border-bottom:1px dashed var(--line);padding:6px 0;font-size:14px">
-      <span style="flex:2">${i + 1}. ${esc(it.title || it.name)} ${it.kind === 'monthly' ? '<span class="tag m">شهري</span>' : it.kind === 'ads' ? '<span class="tag a">إعلان</span>' : ''}</span>
-      <span style="flex:1;text-align:left" class="muted">${it.kind === 'ads' ? `ميزانية ${fmt(it.budget)} + ${fmt(it.fee)}%` : (+it.price ? fmt(it.price) + ' ر.س' : 'مجاني')}</span></div>`).join('')}
-    <div class="row" style="margin-top:8px"><label class="f"><span>اسم العميل</span><input type="text" id="qn" value="${esc(Q.client.name)}"></label>
-    <label class="f"><span>المجال</span><input type="text" id="qi" value="${esc(Q.client.industry || '')}"></label></div>
-    <button class="btn sm ghost" onclick="STEP='services';renderEditor()">تعديل البنود بالتفصيل</button></div>
+  <div class="rv-head"><div><div class="rv-t">راجع البنود</div><div class="muted">عدّل أي بند مباشرة — الأسعار والميزانيات والنسب</div></div>
+    <button class="btn sm ghost" id="backTxt">↩ النص</button></div>
+  <div class="card"><div class="row"><label class="f"><span>اسم العميل</span><input type="text" id="qn" value="${esc(Q.client.name)}"></label>
+    <label class="f"><span>المجال</span><input type="text" id="qi" value="${esc(Q.client.industry || '')}"></label></div></div>
+  <div id="rvItems"></div>
+  <button class="btn ghost full" id="rvAdd" style="margin-bottom:14px">＋ إضافة بند</button>
 
   <div class="card"><h3><i class="qn"></i>الضريبة</h3><p class="muted">الأسعار اللي كتبتها…</p>
     ${chips('vat', [['before', 'قبل الضريبة (تُضاف 15%)'], ['incl', 'شاملة الضريبة']], ans.vat)}</div>
@@ -1905,6 +2081,38 @@ function showQuestions() {
   $$('[data-q]').forEach(g => $$('.chip', g).forEach(b => b.onclick = () => { ans[g.dataset.q] = b.dataset.v; $$('.chip', g).forEach(x => x.classList.toggle('on', x === b)); prev(); dirty(); }));
   ['qp', 'qv', 'qd', 'qx', 'qn', 'qi'].forEach(id => { const el = $('#' + id); if (el) el.oninput = () => { prev(); dirty(); }; });
   $$('.qn').forEach((e, i) => e.outerHTML = (i + 1) + '. ');
+  const renderRv = () => {
+    $('#rvItems').innerHTML = Q.items.map((it, i) => `<div class="rv" data-i="${i}">
+      <div class="rv-top"><span class="rv-n">${i + 1}</span><textarea class="rv-name" data-f="title" rows="1">${esc(it.title || it.name)}</textarea>
+        <select data-f="kind" class="rv-kind"><option value="fixed">مرة واحدة</option><option value="monthly">شهري</option><option value="ads">حملة إعلانية</option></select>
+        <button class="rv-x" data-del title="حذف">×</button></div>
+      <div class="rv-nums">${it.kind === 'ads'
+        ? `<label><span>ميزانية المنصة</span><input type="number" inputmode="decimal" data-f="budget" value="${it.budget ?? ''}"></label><label><span>نسبة الإدارة %</span><input type="number" inputmode="decimal" data-f="fee" value="${it.fee ?? ''}"></label><label><span>المنصة</span><input type="text" data-f="platform" value="${esc(it.platform || '')}"></label>`
+        : `<label><span>السعر${it.kind === 'monthly' ? ' / شهريًا' : ''}</span><input type="number" inputmode="decimal" data-f="price" value="${it.price ?? ''}" placeholder="0 = مجاني"></label>`}</div>
+      ${it.kind === 'ads' ? `<label class="rv-obj"><span>هدف الحملة</span><input type="text" data-f="objective" value="${esc(it.objective || '')}"></label>` : ''}
+      <details><summary class="muted">الوصف والتفاصيل</summary>
+        <textarea data-f="desc" placeholder="وصف البند">${esc(it.desc || '')}</textarea>
+        <textarea data-f="bullets" placeholder="نقاط تفصيلية — نقطة في كل سطر">${esc((it.bullets || []).join('\n'))}</textarea></details>
+    </div>`).join('');
+    const fit = t => { t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px'; };
+    $$('.rv-name').forEach(t => { fit(t); t.addEventListener('input', () => fit(t)); });
+    $$('.rv').forEach(el => {
+      const it = Q.items[+el.dataset.i];
+      $('[data-f="kind"]', el).value = it.kind;
+      $$('[data-f]', el).forEach(f => f.oninput = f.onchange = ev => {
+        const k = f.dataset.f; let v = f.value;
+        if (f.type === 'number') v = v === '' ? null : +v;
+        if (k === 'bullets') v = f.value.split('\n').map(s => s.trim()).filter(Boolean);
+        if (k === 'title') { it.title = v; it.name = v; } else it[k] = v;
+        if (k === 'kind') { if (v === 'ads') { it.budget = it.budget || 0; it.fee = it.fee ?? 20; } renderRv(); }
+        prev(); dirty();
+      });
+      $('[data-del]', el).onclick = () => { Q.items.splice(+el.dataset.i, 1); syncPayments(); renderRv(); prev(); dirty(); };
+    });
+  };
+  renderRv();
+  $('#rvAdd').onclick = () => { Q.items.push({ uid: uid(), on: true, src: 'custom', cat: 'custom', kind: 'fixed', name: 'بند جديد', title: 'بند جديد', price: 0, bullets: [] }); syncPayments(); renderRv(); prev(); dirty(); };
+  $('#backTxt').onclick = () => { try { sessionStorage.setItem('qs_brief', Q.brief || ''); sessionStorage.setItem('qs_links', (Q.client.links || []).join('\n')); } catch (e) { } location.hash = 'brief'; };
   prev();
   $('#qgo').onclick = async () => { applyAnswers(true); await saveQuote(); autoAll(); };
 }
@@ -1917,7 +2125,7 @@ function applyAnswers(final) {
   Q.pricesIncludeVat = a.vat === 'incl';
   Q.payPreset = a.pay; syncPayments();
   Q.items.forEach(it => {
-    if ((it.src || '').startsWith('smm')) {
+    if ((it.src || '').startsWith('smm') && !it.aiCounts) {
       const st = Math.max(0, a.posts - a.videos);
       it.counts = [st ? { n: st, l: 'تصميم منشور شهريًا' } : null, a.videos ? { n: a.videos, l: 'فيديو / ريلز' } : null].filter(Boolean);
       if (!it.counts.length) it.counts = [];
@@ -1931,6 +2139,7 @@ function applyAnswers(final) {
   if (a.term && a.term !== '1') { const i = T.findIndex(t => t.startsWith('مرونة')); const t = `مدة التعاقد: ${termTxt}، وتُسدد الخدمات الشهرية في بداية كل شهر وفق جدول الدفعات.`; if (i >= 0) T[i] = t; else T.push(t); }
   if (a.budget === 'card') T.push('تمويل الإعلانات: تُخصم الميزانية من بطاقة العميل مباشرة على حسابه الإعلاني، مع إمكانية متابعة الإنفاق والفواتير من الحساب بكل شفافية.');
   (a.extra || '').split('\n').map(s => s.trim()).filter(Boolean).forEach(t => T.push(t));
+  (Q.extraTerms || []).forEach(t => { if (t && !T.includes(t)) T.push(t); });
   if (final) { Q.terms = T; Q.autoTerms = false; } else Q.terms = T;
 }
 </script>
