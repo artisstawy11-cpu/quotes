@@ -1,0 +1,1624 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14213d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>عروض أسعار Designly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<style>:root{--bg:#f4f5f7;--card:#fff;--ink:#16181d;--mut:#6b7079;--line:#e3e5ea;--pri:#14213d;--gold:#a8832f;--gold2:#c9a54d;--ok:#1f8a4c;--bad:#c0392b;--r:14px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;font-size:15px}
+body{direction:rtl;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--pri)}
+.hide{display:none!important}
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:var(--pri);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top))}
+.top .brand{font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.top .brand small{font-weight:500;opacity:.7;letter-spacing:0;font-size:12px}
+.top .dot{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;color:#111}
+.top nav{margin-inline-start:auto;display:flex;gap:4px}
+.top nav button{background:transparent;border:0;color:#cfd4e0;padding:7px 10px;border-radius:9px;cursor:pointer;font-size:14px;white-space:nowrap}
+.top nav button.on{background:rgba(255,255,255,.14);color:#fff}
+main{max-width:980px;margin:0 auto;padding:14px 12px 120px}
+/* cards & forms */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.card h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+.card h3 .sp{margin-inline-start:auto}
+label.f{display:block;margin-bottom:10px;font-size:13px;color:var(--mut)}
+label.f>span{display:block;margin-bottom:4px}
+input[type=text],input[type=number],input[type=email],input[type=password],input[type=url],input[type=date],select,textarea{
+  width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;font-size:15px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{min-height:76px;resize:vertical;line-height:1.6}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
+.btn{border:0;border-radius:11px;padding:10px 14px;cursor:pointer;background:#eceef2;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.btn.pri{background:var(--pri);color:#fff}.btn.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#141414}
+.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.danger{background:#fbeceb;color:var(--bad)}
+.btn.sm{padding:6px 10px;font-size:13px;border-radius:9px}.btn.full{width:100%}
+.btn:disabled{opacity:.5}
+.muted{color:var(--mut);font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+/* steps */
+.steps{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;position:sticky;top:52px;z-index:20;background:var(--bg)}
+.steps::-webkit-scrollbar{display:none}
+.steps button{flex:none;border:1px solid var(--line);background:#fff;border-radius:22px;padding:8px 14px;font-size:13.5px;cursor:pointer;white-space:nowrap}
+.steps button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.steps button i{font-style:normal;opacity:.6;margin-inline-end:4px}
+/* services */
+.cat{margin-bottom:10px}
+.cat>summary{cursor:pointer;font-weight:700;padding:10px 4px;list-style:none;display:flex;align-items:center;gap:8px}
+.cat>summary::-webkit-details-marker{display:none}
+.cat>summary .c{margin-inline-start:auto;background:#eef0f4;border-radius:12px;padding:1px 9px;font-size:12px;color:var(--mut)}
+.svc{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px;overflow:hidden}
+.svc.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.svc .hd{display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer}
+.svc .hd .nm{flex:1;font-weight:600;font-size:14.5px;line-height:1.4}
+.svc .hd .pr{font-size:12.5px;color:var(--mut);white-space:nowrap}
+.svc .bd{padding:4px 12px 12px;border-top:1px dashed var(--line)}
+.sw{width:44px;height:26px;border-radius:13px;background:#d5d8de;position:relative;flex:none;transition:.2s}
+.sw:after{content:'';position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.on>.hd .sw,.sw.on{background:var(--ok)}.on>.hd .sw:after,.sw.on:after{right:21px}
+.tag{font-size:11px;border-radius:6px;padding:1px 7px;background:#eef0f4;color:var(--mut);white-space:nowrap}
+.tag.m{background:#e8f3ec;color:var(--ok)}.tag.a{background:#efeafd;color:#5b3fc4}
+/* payments */
+.pay{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px;background:#fff}
+.pay .amt{font-weight:800;font-size:18px;color:var(--pri)}
+.pay .br{font-size:12.5px;color:var(--mut);margin-top:4px;line-height:1.6}
+.pct-grid{display:grid;grid-template-columns:1fr 84px;gap:6px;align-items:center;margin-top:8px;font-size:13px}
+/* sticky bottom */
+.dock{position:fixed;bottom:0;left:0;right:0;z-index:25;background:#fff;border-top:1px solid var(--line);padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center}
+.dock .tot{flex:1;min-width:0;line-height:1.25}.dock .tot b{font-size:17px;display:block}.dock .tot span{font-size:11.5px;color:var(--mut)}
+/* list */
+.qitem{display:flex;gap:12px;align-items:center}
+.qitem .lg{width:46px;height:46px;border-radius:12px;background:#eef0f4;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--mut)}
+.qitem .lg img{width:100%;height:100%;object-fit:contain;background:#fff}
+.qitem .in{flex:1;min-width:0}.qitem .in b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qitem .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.st{font-size:11px;padding:2px 8px;border-radius:8px;background:#eef0f4}
+.st.sent{background:#e7f0fb;color:#1d5fa8}.st.won{background:#e8f3ec;color:var(--ok)}.st.lost{background:#fbeceb;color:var(--bad)}
+/* preview */
+.pv{display:flex;flex-direction:column;align-items:center;gap:14px}
+.pv .pw{box-shadow:0 4px 18px rgba(0,0,0,.12);background:#fff;overflow:hidden}
+.pv .pw>.qpage{transform-origin:top right}
+/* brand */
+.brandbox{display:flex;gap:12px;align-items:center}
+.brandbox .lg{width:76px;height:76px;border-radius:14px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;flex:none;cursor:pointer}
+.brandbox .lg img{width:100%;height:100%;object-fit:contain}
+.sws{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sws label{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mut)}
+.sws input[type=color]{width:38px;height:32px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff}
+.img3d{background:repeating-conic-gradient(#f0f0f0 0 25%,#fff 0 50%) 0 0/18px 18px;border-radius:12px;min-height:180px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.img3d img{max-width:100%;max-height:420px}
+/* toast & overlay */
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:#16181d;color:#fff;padding:10px 16px;border-radius:12px;z-index:90;font-size:14px;max-width:92vw;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.toast.err{background:var(--bad)}
+.ov{position:fixed;inset:0;background:rgba(16,18,24,.55);z-index:80;display:flex;align-items:center;justify-content:center;padding:16px}
+.ov .box{background:#fff;border-radius:18px;padding:18px;width:min(560px,100%);max-height:88vh;overflow:auto}
+.prog{min-width:260px;text-align:center}
+.prog ol{text-align:right;padding-inline-start:20px;font-size:14px;line-height:2}
+.prog li.done{color:var(--ok)}.prog li.run{font-weight:700}.prog li.fail{color:var(--bad)}
+.spin{width:34px;height:34px;border:3px solid #e6e6e6;border-top-color:var(--gold);border-radius:50%;animation:sp 0.8s linear infinite;margin:0 auto 10px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.login{max-width:380px;margin:12vh auto 0}
+.hero-btn{font-size:16px;padding:14px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13.5px}
+.kv b{text-align:left;direction:ltr}
+@media (min-width:760px){ .two{display:grid;grid-template-columns:1fr 1fr;gap:12px} }
+
+@media (max-width:520px){ .top .brand small{display:none} .top nav button{padding:7px 8px;font-size:13px} .top{gap:6px} }
+html,body{overflow-x:hidden}
+</style>
+<style>/* ===== قالب عرض السعر (صفحات A4 بعرض 794px) ===== */
+.qpage{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;color:#1d1d1f;
+  font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;direction:rtl;box-sizing:border-box;
+  --p:#14213d;--a:#5b5bd6;--t:#eef0fb;--gold:#8a6a1f;--gold2:#c9a54d;--ink:#1d1d1f;--mut:#6b6f76;--line:#d9dbe0}
+.qpage *{box-sizing:border-box}
+.qbody{position:absolute;top:58px;right:76px;left:76px;bottom:62px}
+.qfoot{position:absolute;bottom:22px;right:76px;left:76px;display:flex;justify-content:space-between;
+  font-size:9.5px;color:#9a9ea6;letter-spacing:.2px;border-top:1px solid #eee;padding-top:7px}
+.qblk{display:flow-root}
+.qdoc-measure{position:absolute;left:-10000px;top:0;width:642px;visibility:hidden}
+
+/* header */
+.qh-banner{height:58px;border-radius:40px;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;gap:16px;
+  background:linear-gradient(180deg,#ffffff 0%,#e9e9ea 55%,#d3d3d5 100%);box-shadow:inset 0 2px 4px #fff,0 1px 2px rgba(0,0,0,.12);position:relative}
+.qh-banner:before,.qh-banner:after{content:'';position:absolute;top:9px;width:92px;height:38px;border-radius:30px;
+  background:linear-gradient(180deg,#fff,#e6e6e8);box-shadow:inset 0 1px 3px rgba(0,0,0,.18)}
+.qh-banner:before{right:12px}.qh-banner:after{left:12px}
+.qh-banner img{height:40px;max-width:260px;object-fit:contain}
+.qh-word{font-weight:800;font-size:22px;letter-spacing:3px;color:#111}
+.qh-title{text-align:center;margin-top:16px;font-weight:700;font-size:19px;color:var(--ink)}
+.qh-sub{text-align:center;color:#8d9097;font-size:14px;margin-top:2px}
+.qh-row{display:flex;gap:12px;margin-top:14px;align-items:stretch}
+.qh-from,.qh-to{border:1.5px solid var(--gold);border-radius:24px;background:linear-gradient(180deg,#fafafa,#dcdcde);
+  padding:10px 18px;font-size:11px;line-height:1.65;box-shadow:inset 0 2px 3px #fff}
+.qh-from{flex:1}.qh-to{width:190px;display:flex;flex-direction:column;justify-content:center}
+.qh-from b{font-size:12.5px}.qh-to b{font-size:16px}
+.qline{height:4px;margin:14px 0 4px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold2) 50%,var(--gold) 80%,transparent);border-radius:4px;opacity:.85}
+
+/* hero */
+.qtag{margin-top:16px;font-size:16px;font-weight:700;color:var(--a)}.qtag span{color:var(--mut);font-weight:500;font-size:14px}
+.qhero{text-align:center;margin:8px 0 4px;height:370px}.qhero img{width:100%;height:100%;object-fit:contain}
+.qh1{font-size:25px;font-weight:700;line-height:1.45;color:var(--ink);margin-top:6px}.qh1 em{font-style:normal;color:var(--a)}
+.qlead{color:var(--mut);font-size:13.5px;line-height:1.75;margin-top:4px}
+.qp{font-size:13px;line-height:1.85;color:#333;margin-top:6px}.qp strong{color:var(--p)}
+.qstats{display:flex;gap:12px;margin-top:14px}
+.qstat{flex:1;background:var(--t);border-radius:4px;padding:10px 8px;text-align:center}
+.qstat b{display:block;font-size:22px;font-weight:700;color:var(--p);line-height:1.2}.qstat span{font-size:12px;color:#444}
+
+/* sections */
+.qsec{margin-top:22px}
+.qkick{font-size:12px;color:var(--a);font-weight:600}.qkick i{font-style:normal;color:var(--gold2);margin-left:6px;font-weight:700}
+.qh2{font-size:25px;font-weight:700;color:var(--ink);line-height:1.35;margin-top:2px}
+.qh3{font-size:18px;font-weight:700;color:var(--p);margin-top:16px;display:flex;align-items:center;gap:8px}
+.qh3 .n{font-size:12px;color:var(--gold2);font-weight:700}
+.qmeta{font-size:13px;color:#555;margin-top:2px}.qmeta b{color:var(--ink)}
+.qul{margin:8px 0 0;padding:0 18px 0 0;font-size:12.5px;line-height:1.8;color:#444}
+.qul li{margin:2px 0}.qul li::marker{color:var(--a)}.qul b{color:var(--p)}
+.qcounts{display:flex;gap:10px;margin-top:10px}
+.qcounts div{flex:1;background:var(--t);padding:8px;text-align:center;border-radius:3px}
+.qcounts b{display:block;color:var(--gold2);font-size:20px;line-height:1.2}.qcounts span{font-size:11.5px;color:#333}
+.qbud{display:flex;border:1px solid var(--line);margin-top:10px}
+.qbud .v{width:110px;border-left:1px solid var(--line);padding:8px;text-align:left;display:flex;flex-direction:column;justify-content:center}
+.qbud .v b{font-size:16px;color:var(--p)}.qbud .v span{font-size:10.5px;color:var(--mut)}
+.qbud .d{flex:1;padding:8px 12px}.qbud .d b{font-size:14px;color:var(--p)}.qbud .d p{margin:2px 0 0;font-size:12px;color:#555;line-height:1.6}
+
+/* table */
+.qtr{display:grid;grid-template-columns:var(--cols);border-inline:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12px}
+.qtr>div{padding:7px 9px;border-left:1px solid var(--line);display:flex;align-items:center;line-height:1.5}
+.qtr>div:last-child{border-left:0}
+.qtr.h{background:var(--p);color:#fff;font-weight:700;border-color:var(--p)}.qtr.h>div{border-color:rgba(255,255,255,.35)}
+.qtr .nm{font-weight:700;color:var(--ink)}.qtr .ds{color:#666;font-size:11.5px}.qtr .num{justify-content:center;font-weight:700;white-space:nowrap}
+.qtr.tot{background:var(--t);font-weight:700;color:var(--p)}
+.qfree{color:#1a8a4a}
+.qsum{margin-top:12px;font-size:14px;line-height:1.9}.qsum b{color:var(--ink)}.qsum .big{font-size:17px;font-weight:700}
+.qbar{display:flex;background:var(--p);color:#fff;margin-top:12px;align-items:stretch}
+.qbar .v{padding:12px 16px;font-size:24px;font-weight:700;white-space:nowrap;display:flex;align-items:center;border-left:1px solid rgba(255,255,255,.25)}
+.qbar .d{padding:10px 14px;font-size:12px;line-height:1.6;display:flex;align-items:center;opacity:.95}
+.qchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.qchips span{background:var(--t);color:var(--p);padding:5px 12px;font-size:12px;border-radius:3px;font-weight:600}
+
+/* payments */
+.qpay{display:flex;margin-top:8px;background:var(--t)}.qpay.alt{background:#fff;border:1px solid var(--line)}
+.qpay .v{width:120px;padding:10px;text-align:center;border-left:4px solid #fff;display:flex;flex-direction:column;justify-content:center}
+.qpay .v b{font-size:22px;color:var(--p);line-height:1.2}.qpay .v span{font-size:10.5px;color:var(--mut)}
+.qpay .d{flex:1;padding:10px 14px}.qpay .d b{font-size:14px;color:var(--ink)}.qpay .d p{margin:3px 0 0;font-size:11.5px;color:#555;line-height:1.6}
+.qnote{font-size:12px;color:#555;line-height:1.7;margin-top:10px}.qnote b{color:var(--ink)}
+
+/* timeline */
+.qtl{display:flex;align-items:stretch;margin-top:0}
+.qtl .n{width:46px;background:var(--t);color:var(--a);font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center}
+.qtl .k{width:92px;font-size:12px;font-weight:600;display:flex;align-items:center;padding:0 10px}
+.qtl .d{flex:1;padding:7px 0}.qtl .d b{font-size:13.5px}.qtl .d p{margin:1px 0 0;font-size:11.5px;color:#666}
+.qbox2{display:flex;gap:10px;margin-top:10px}
+.qbox2>div{flex:1;border:1px solid var(--line);background:#f7f8fa;padding:10px 14px}
+.qbox2 h4{margin:0;color:var(--a);font-size:14px}.qbox2 .big{font-size:22px;font-weight:700;margin-top:6px}
+
+/* closing */
+.qclose{text-align:center;margin-top:14px;padding-top:12px;border-top:1px solid #ccc}
+.qclose b{font-size:18px;color:var(--p)}.qclose p{margin:2px 0 0;font-size:13px;color:#555}
+.qslogan{text-align:center;font-weight:700;font-size:13px;margin-top:12px}
+.qsign{margin-top:12px;font-size:12px}.qsign h5{margin:0 0 4px;font-size:13px}
+.qsign div{color:#444;margin-top:4px}
+.qgoldtag{margin:12px auto 0;width:max-content;max-width:100%;background:var(--gold);color:#f3e2b5;font-size:11px;padding:3px 10px;border-radius:3px}
+.qgoldtag b{color:#fff}
+.qabout{display:flex;gap:12px;align-items:center;margin-top:8px;border-radius:30px;padding:8px 16px;
+  background:linear-gradient(180deg,#f4f4f5,#cfcfd2);font-size:10.5px;line-height:1.6;color:#222}
+.qabout img{height:40px;width:40px;object-fit:contain;flex:none}.qabout .mk{width:40px;height:40px;border-radius:50%;background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.qabout b{font-size:11.5px}
+
+/* bank + partners */
+.qbank{display:flex;gap:10px;align-items:center;margin-top:10px}
+.qbank .tb{flex:1}
+.qbank .doc{width:100px;flex:none;height:140px}.qbank .doc img{width:100%;height:100%;object-fit:contain}
+.qbr{display:grid;grid-template-columns:120px 1fr;gap:3px;margin-top:3px;font-size:12.5px}
+.qbr>div{background:#ececec;padding:7px 10px;text-align:center}.qbr>div:first-child{text-align:right}
+.qbr.h>div{background:var(--gold);color:#fff;font-weight:700}
+.qpart-h{text-align:center;color:var(--gold);font-weight:700;font-size:20px;margin-top:14px}
+.qpart{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #e6e6e6;margin-top:4px}
+.qpart a{display:block;border-left:1px solid #e6e6e6;text-decoration:none}.qpart a:nth-child(4n){border-left:0}
+.qpart .im{height:128px;display:flex;align-items:center;justify-content:center;padding:4px;background:#fff}
+.qpart .im img{max-width:100%;max-height:100%;object-fit:contain}
+.qpart .im .ph{font-size:11px;color:#999;direction:ltr}
+.qpart .bt{background:linear-gradient(180deg,#9b7a2b,#7a5c1a);color:#fff;font-size:11.5px;font-weight:700;text-align:center;padding:4px}
+.qstrip{margin-top:8px;text-align:center;height:210px}.qstrip img{width:100%;height:100%;object-fit:contain}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><span class="dot">D</span>DESIGNLY <small>عروض الأسعار</small></div>
+  <nav id="navs" class="hide"><button data-v="list">العروض</button><button data-v="new">＋ جديد</button><button data-v="settings">الإعدادات</button></nav></header>
+<main id="app"></main>
+<div class="dock hide" id="dock"><div class="tot" id="dockTot"></div>
+  <button class="btn gold" id="dockAuto">⚡ إنشاء تلقائي</button><button class="btn pri" id="dockPdf">PDF</button></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>/* ===== كتالوج الخدمات الافتراضي (يتعدل من الإعدادات) ===== */
+const CATS = [
+  { id: 'social', name: 'السوشيال ميديا والمحتوى' },
+  { id: 'ads', name: 'الحملات الإعلانية' },
+  { id: 'web', name: 'المواقع والمتاجر' },
+  { id: 'local', name: 'الظهور المحلي والتواصل' },
+  { id: 'brand', name: 'الهوية البصرية والمطبوعات' },
+  { id: 'growth', name: 'خدمات نمو إضافية' },
+];
+
+// kind: fixed (مرة واحدة) | monthly (شهري) | ads (ميزانية + نسبة إدارة)
+const DEFAULT_SERVICES = [
+  // ---- السوشيال
+  { id: 'smm_full', cat: 'social', kind: 'monthly', name: 'إدارة حسابات التواصل وصناعة المحتوى', price: 1500,
+    desc: 'باقة شهرية متكاملة تشمل كتابة المحتوى والتصميم والمونتاج والنشر وإدارة التفاعل.',
+    counts: [{ n: 16, l: 'تصميم منشور ثابت' }, { n: 8, l: 'تصاميم كروسيل' }, { n: 10, l: 'فيديوهات بتعليق صوتي احترافي' }],
+    bullets: ['المحتوى والتخطيط: كتابة المحتوى والتصميم والمونتاج، مع تقويم نشر يواكب الموسم ويبرز مزايا العلامة.',
+      'النشر والتفاعل: نشر منتظم على المنصات المتفق عليها، وإدارة التفاعل ومتابعة أداء الحسابات.',
+      'تعزيز فرص التواصل: تسليم نسخ التصاميم المناسبة لإعادة نشرها في حالة واتساب ودعم استفسارات العملاء.'],
+    platforms: 'تيك توك + إنستقرام' },
+  { id: 'smm_basic', cat: 'social', kind: 'monthly', name: 'باقة إدارة السوشيال ميديا', price: 1000,
+    desc: 'خطة محتوى وتصميم ونشر شهري بهوية موحدة.',
+    counts: [{ n: 16, l: 'بوست' }, { n: 10, l: 'فيديوهات إعلانية بتعليق صوتي' }],
+    bullets: ['خطة محتوى شهرية وتصميم ونشر بهوية موحدة.', 'متابعة أداء الحسابات وتقرير شهري مختصر.'] },
+  { id: 'smm_reels', cat: 'social', kind: 'monthly', name: 'محتوى وتصوير شهري', price: 1500,
+    desc: 'مزيج من التصاميم الراقية والمشاهد الواقعية والمحتوى المرتبط بالترند.',
+    counts: [{ n: 12, l: 'منشور ثابت' }, { n: 4, l: 'كاروسيل' }, { n: 8, l: 'ريلز ترندية' }],
+    bullets: ['تخطيط الأفكار والرسائل، إعداد التصاميم، المونتاج، كتابة النصوص، وجدولة النشر.',
+      'صانع محتوى محترف لزيارة تصوير شهرية، مع زيارات لفرص الترند بالتنسيق.'] },
+  { id: 'social_identity', cat: 'social', kind: 'fixed', name: 'تصميم هوية السوشيال ميديا', price: 250,
+    desc: 'قوالب بصرية موحدة للحسابات (بوست، ستوري، هايلايت، صورة الحساب).', bullets: [] },
+  { id: 'shooting', cat: 'social', kind: 'monthly', name: 'تصوير ميداني وصانع محتوى', price: 800,
+    desc: 'زيارة تصوير شهرية بصانع محتوى محترف لإنتاج مشاهد واقعية من قلب النشاط.', bullets: [] },
+  { id: 'community', cat: 'social', kind: 'monthly', name: 'إدارة التفاعل والرد على العملاء', price: 600,
+    desc: 'الرد على التعليقات والرسائل وفق نصوص معتمدة ورفع الاستفسارات المهمة للفريق.', bullets: [] },
+  { id: 'motion', cat: 'social', kind: 'fixed', name: 'فيديو موشن جرافيك تعريفي', price: 750,
+    desc: 'فيديو موشن احترافي يشرح النشاط والخدمات بأسلوب جذاب.', bullets: [] },
+  { id: 'copywriting', cat: 'social', kind: 'monthly', name: 'كتابة المحتوى التسويقي', price: 500,
+    desc: 'كتابة نصوص المنشورات والإعلانات بأسلوب يناسب الجمهور المستهدف.', bullets: [] },
+
+  // ---- الحملات (budget = ميزانية المنصة، fee = نسبة الإدارة)
+  { id: 'ads_tiktok', cat: 'ads', kind: 'ads', name: 'حملة إعلانية على تيك توك', platform: 'تيك توك', budget: 3000, fee: 20,
+    desc: 'حملة مدروسة لتوسيع الوصول وبناء الثقة ثم استقطاب المهتمين.',
+    bullets: ['بناء شرائح استهداف مناسبة واختبار الرسائل الإعلانية.', 'تحسين توزيع الإنفاق وقياس الوصول والتفاعل والنتائج.'] },
+  { id: 'ads_instagram', cat: 'ads', kind: 'ads', name: 'حملة إعلانية على إنستقرام', platform: 'إنستقرام', budget: 3000, fee: 20,
+    desc: 'زيادة حضور العلامة واستقطاب جمهور أكثر صلة بالنشاط.',
+    bullets: ['تحديد الشرائح والمناطق المناسبة واختبار الرسائل.', 'قياس الوصول والمشاهدات وزيارات الحساب ونمو المتابعين.'] },
+  { id: 'ads_meta', cat: 'ads', kind: 'ads', name: 'حملة مبيعات على ميتا (فيسبوك وإنستقرام)', platform: 'ميتا', budget: 3000, fee: 20,
+    desc: 'حملة بيعية توجه الجمهور المهتم إلى الشراء أو الطلب.',
+    bullets: ['استهداف جمهور جديد وإعادة استهداف المتفاعلين والمهتمين.', 'متابعة الزيارات والطلبات وتكلفة الطلب ومؤشرات العائد.'] },
+  { id: 'ads_snap', cat: 'ads', kind: 'ads', name: 'حملة إعلانية على سناب شات', platform: 'سناب شات', budget: 3000, fee: 20,
+    desc: 'حضور قوي أمام الجمهور السعودي الأكثر نشاطاً على سناب شات.',
+    bullets: ['إعداد إعلانات عمودية جذابة واستهداف المدن ذات الأولوية.', 'متابعة المشاهدات والزيارات والتحويلات وتحسين الأداء.'] },
+  { id: 'ads_google', cat: 'ads', kind: 'ads', name: 'حملة إعلانات جوجل (البحث)', platform: 'جوجل', budget: 3000, fee: 20,
+    desc: 'الظهور أمام العملاء لحظة بحثهم عن الخدمة أو المنتج.',
+    bullets: ['بحث الكلمات المفتاحية وكتابة الإعلانات وضبط الاستهداف.', 'متابعة النقرات والتحويلات وتكلفة العميل وتحسينها.'] },
+  { id: 'ads_maps', cat: 'ads', kind: 'ads', name: 'حملة الانتشار المحلي عبر خرائط جوجل', platform: 'خرائط جوجل', budget: 1500, fee: 30,
+    desc: 'رفع فرصة ظهور العلامة أمام الباحثين داخل النطاقات الجغرافية ذات الأولوية.',
+    bullets: ['ضبط الاستهداف الجغرافي وربط الأصول الإعلانية وملف النشاط.', 'متابعة الظهور وطلبات الاتجاهات والاتصال، ثم توصية للتوسع.'] },
+  { id: 'ads_youtube', cat: 'ads', kind: 'ads', name: 'حملة إعلانية على يوتيوب', platform: 'يوتيوب', budget: 3000, fee: 20,
+    desc: 'إعلانات فيديو تبني الوعي وتصل لجمهور واسع ومهتم.', bullets: [] },
+  { id: 'ads_x', cat: 'ads', kind: 'ads', name: 'حملة إعلانية على إكس (تويتر)', platform: 'إكس', budget: 3000, fee: 20,
+    desc: 'انتشار سريع ومشاركة في الحديث العام حول المجال.', bullets: [] },
+  { id: 'ads_linkedin', cat: 'ads', kind: 'ads', name: 'حملة إعلانية على لينكدإن', platform: 'لينكدإن', budget: 3000, fee: 20,
+    desc: 'استهداف أصحاب القرار والشركات في قطاع الأعمال.', bullets: [] },
+
+  // ---- المواقع
+  { id: 'website', cat: 'web', kind: 'fixed', name: 'تصميم موقع إلكتروني احترافي', price: 999,
+    desc: 'موقع يقدم العلامة بصورة موثوقة ويوضح الخدمات والأعمال وطرق التواصل بتجربة متجاوبة على الجوال.',
+    bullets: ['تنظيم الأقسام الأساسية بما يسهّل فهم الخدمات واستعراض الأعمال.', 'توجيه بصري واضح نحو التواصل وطلب الخدمة مع تصميم متجاوب.'] },
+  { id: 'store', cat: 'web', kind: 'fixed', name: 'تأسيس متجر إلكتروني', price: 999,
+    desc: 'متجر مناسب للجوال بأقسام منظمة وصفحات منتجات وسلة شراء مهيأة للحملات.', bullets: [] },
+  { id: 'landing', cat: 'web', kind: 'fixed', name: 'تصميم صفحة هبوط احترافية', price: 100,
+    desc: 'صفحة مركزة للحملات تتضمن محتوى مختصراً ودعوة واضحة للتواصل، بتصميم متجاوب مع الهوية.', bullets: [] },
+  { id: 'seo', cat: 'web', kind: 'monthly', name: 'تحسين محركات البحث SEO', price: 1200,
+    desc: 'تحسين ظهور الموقع في نتائج البحث عبر الكلمات المفتاحية والمحتوى والتحسينات التقنية.', bullets: [] },
+  { id: 'store_mgmt', cat: 'web', kind: 'monthly', name: 'إدارة المتجر الإلكتروني', price: 1000,
+    desc: 'رفع المنتجات وتحديث العروض ومتابعة الطلبات وتحسين صفحات البيع.', bullets: [] },
+
+  // ---- الظهور المحلي
+  { id: 'gmaps', cat: 'local', kind: 'fixed', name: 'إنشاء وتجهيز ملف خرائط Google', price: 250,
+    desc: 'تجهيز حضور محلي احترافي يجمع أهم بيانات النشاط في مكان واحد موثوق.',
+    bullets: ['إعداد البيانات الأساسية والتصنيف ومعلومات الاتصال وساعات العمل.', 'تنسيق الملف وربطه بالموقع ووسائل التواصل وتهيئته للظهور المحلي.'] },
+  { id: 'wa_business', cat: 'local', kind: 'fixed', name: 'تهيئة واتساب بزنس', price: 0,
+    desc: 'تهيئة حساب واتساب بزنس وبيانات النشاط والرسائل التلقائية.', bullets: [] },
+  { id: 'wa_campaign', cat: 'local', kind: 'fixed', name: 'حملة رسائل واتساب تسويقية', price: 500,
+    desc: 'إعداد وإرسال حملة رسائل واتساب معتمدة لقاعدة العملاء مع متابعة الردود.', bullets: [] },
+
+  // ---- الهوية
+  { id: 'brand_core', cat: 'brand', kind: 'fixed', name: 'الهوية البصرية الأساسية', price: 400,
+    desc: 'دراسة التوجه، Mood Board، نموذجان للشعار مع الفلسفة، تطوير الشعار، الألوان، الخطوط، والنسخ الأساسية.',
+    bullets: ['دراسة وتحديد التوجه البصري بما يتناسب مع النشاط.', 'تقديم نموذجين متكاملين للشعار مع شرح الفكرة والفلسفة.', 'تطوير الشعار المختار حتى الاعتماد وتجهيز نسخه المختلفة.'] },
+  { id: 'brand_guide', cat: 'brand', kind: 'fixed', name: 'الدليل الإرشادي للهوية', price: 200,
+    desc: 'توثيق الاستخدامات الأساسية للشعار والألوان والخطوط بما يضمن ثبات الهوية مستقبلاً.', bullets: [] },
+  { id: 'brochure', cat: 'brand', kind: 'fixed', name: 'البروشور التعريفي', price: 150,
+    desc: 'تصميم بروشور احترافي من 4 صفحات وفق الهوية المعتمدة.', bullets: [] },
+  { id: 'bcard', cat: 'brand', kind: 'fixed', name: 'البزنس كارد', price: 75, desc: 'تصميم بطاقة أعمال احترافية.', bullets: [] },
+  { id: 'certificate', cat: 'brand', kind: 'fixed', name: 'شهادة الحضور', price: 75, desc: 'تصميم شهادة رسمية متوافقة مع الهوية.', bullets: [] },
+  { id: 'idcard', cat: 'brand', kind: 'fixed', name: 'بطاقة ID', price: 50, desc: 'تصميم بطاقة تعريف متوافقة مع النظام البصري.', bullets: [] },
+  { id: 'stationery', cat: 'brand', kind: 'fixed', name: 'تطبيقات الهوية على المطبوعات', price: 150,
+    desc: 'تطبيق الهوية على الشنطة، غلاف النوت بوك، القلم، والأدوات المكتبية.', bullets: [] },
+  { id: 'digital_apps', cat: 'brand', kind: 'fixed', name: 'التطبيقات الرقمية للهوية', price: 250,
+    desc: 'Avatar للسوشيال ميديا + تصميم 3 بوستات افتتاحية.', bullets: [] },
+  { id: 'final_files', cat: 'brand', kind: 'fixed', name: 'تجهيز الملفات النهائية', price: 0,
+    desc: 'تنظيم ورفع جميع الملفات النهائية على Google Drive بصيغ AI / PDF / PNG / JPG.', bullets: [] },
+
+  // ---- نمو
+  { id: 'influencers', cat: 'growth', kind: 'fixed', name: 'إدارة حملة مؤثرين', price: 1000,
+    desc: 'ترشيح المؤثرين المناسبين والتفاوض وكتابة البريف ومتابعة النشر والنتائج (أجور المؤثرين تُدفع مباشرة).', bullets: [] },
+  { id: 'reports', cat: 'growth', kind: 'monthly', name: 'تقرير أداء شهري وتحليل المنافسين', price: 0,
+    desc: 'تقرير يوضح مؤشرات الأداء ومقارنة بالمنافسين وتوصيات الشهر التالي.', bullets: [] },
+  { id: 'email_mkt', cat: 'growth', kind: 'monthly', name: 'التسويق عبر البريد الإلكتروني', price: 600,
+    desc: 'تصميم وإرسال حملات بريدية وقياس الفتح والنقر.', bullets: [] },
+  { id: 'strategy', cat: 'growth', kind: 'fixed', name: 'خطة تسويقية واستراتيجية نمو', price: 1500,
+    desc: 'دراسة السوق والجمهور والمنافسين وبناء خطة تسويق عملية بأهداف ومؤشرات واضحة.', bullets: [] },
+];
+
+const DEFAULT_SETTINGS = {
+  company: {
+    nameAr: 'مؤسسة ديزاينلي آدفانسد التجارية',
+    nameEn: 'Designly Advanced Establishment Commercial',
+    unified: '7003080277', cr: '1010268607', vat: '300304271300003',
+    website: 'designly-agency.com',
+    slogan: 'ديزاينلي — نصمم حضورًا يمكن البناء عليه، وليس مجرد شكل بصري.',
+    goldLine: 'ديزاينلي تعمل على تقديم الصورة التي تستحقها الشركات الطموحة: هوية أقوى، ظهور أوسع، وتسويق أكثر تأثيراً.',
+    about: 'هي الجهة المنفذة للأعمال الإبداعية والتصميم والتسويق و الممثل داخل المملكة والمسؤولة عن خدمة العملاء محليًا وإصدار العقود والفواتير وفق الأنظمة السعودية.',
+  },
+  bank: { name: 'مصرف الأهلي', country: 'المملكة العربية السعودية', holder: 'مؤسسة ديزاينلي آدفانسد التجارية',
+    account: '54900000474302', iban: 'SA0910000054900000474302' },
+  vatRate: 15,
+  partners: [
+    'kingdom-coverage.com', 'www.woodhub-ksa.com', 'www.ishraq.sa', 'www.ofoqevents.sa', 'www.inicios.sa', 'www.fg2071.com',
+    'www.diiyar.com', 'maraialtamween.com', 'www.dana-event.com', 'www.hathaqa.com', 'www.lawyerabdulmalik.com.sa', '',
+  ].map(u => ({ url: u ? 'https://' + u : '', img: '' })),
+  logoImg: '', logosStripImg: '', bankDocImg: '',
+  ai: { key: '', textModel: 'gpt-5-mini', imageModel: 'gpt-image-1.5', quality: 'medium', useWebSearch: true },
+  imagePrompt: 'اريد تصميم أوبجكت ثري دي بدون خلفيه يكون له علاقه بمجال العميل ويكون بيوصف خطة العمل و خدمات عرض السعر بدون ذكر أسعار , يكون مودرن و إحترافي وبهوية البرانند',
+  defaultDuration: '',
+};
+
+/* ===== الحسابات: الأتعاب والضريبة والدفعات ===== */
+const r2 = n => Math.round((+n + Number.EPSILON) * 100) / 100;
+const fmt = (n, dec) => {
+  n = r2(n || 0);
+  const d = dec != null ? dec : (Math.abs(n % 1) > 0.001 ? 2 : 0);
+  return n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+};
+
+// صافي أتعاب ديزاينلي لكل بند (قبل الضريبة)
+function itemNet(it, q) {
+  const vr = (q.vatRate != null ? q.vatRate : 15) / 100;
+  let v = it.kind === 'ads' ? (+it.budget || 0) * (+it.fee || 0) / 100 : (+it.price || 0);
+  if (q.pricesIncludeVat && it.kind !== 'ads') v = v / (1 + vr);
+  return r2(v);
+}
+
+function computeQuote(q) {
+  const vr = (q.vatRate != null ? q.vatRate : 15) / 100;
+  const items = (q.items || []).filter(i => i.on !== false);
+  const rows = items.map(it => {
+    const net = itemNet(it, q);
+    const vat = r2(net * vr);
+    return { it, net, vat, gross: r2(net + vat), budget: it.kind === 'ads' ? (+it.budget || 0) : 0 };
+  });
+  const net = r2(rows.reduce((s, r) => s + r.net, 0));
+  const vat = r2(rows.reduce((s, r) => s + r.vat, 0));
+  const gross = r2(net + vat);
+  const budgets = r2(rows.reduce((s, r) => s + r.budget, 0));
+  const pays = computePayments(q, rows, gross);
+  return { rows, net, vat, gross, budgets, grand: r2(gross + budgets), pays, vr };
+}
+
+// كل دفعة: pct عام أو per[itemUid] نسبة لكل بند. آخر دفعة = المتبقي تلقائياً
+function computePayments(q, rows, totalGross) {
+  const P = q.payments || [];
+  if (!P.length) return [];
+  const used = {};
+  rows.forEach(r => used[r.it.uid] = 0);
+  const out = P.map((p, idx) => {
+    const last = idx === P.length - 1;
+    const parts = rows.map(r => {
+      let pct;
+      if (last) pct = Math.max(0, 100 - used[r.it.uid]);
+      else if (p.mode === 'custom') pct = +((p.per || {})[r.it.uid] ?? 0);
+      else pct = +p.pct || 0;
+      pct = Math.max(0, Math.min(pct, 100 - used[r.it.uid]));
+      used[r.it.uid] += pct;
+      return { r, pct, net: r2(r.net * pct / 100) };
+    }).filter(x => x.pct > 0 && x.r.net > 0);
+    const net = r2(parts.reduce((s, x) => s + x.net, 0));
+    const vat = r2(net * ((q.vatRate != null ? q.vatRate : 15) / 100));
+    return { p, parts, net, vat, gross: r2(net + vat) };
+  });
+  // تصحيح فروق التقريب في آخر دفعة
+  const sum = r2(out.slice(0, -1).reduce((s, x) => s + x.gross, 0));
+  const lastP = out[out.length - 1];
+  if (lastP && lastP.gross > 0) { lastP.gross = r2(totalGross - sum); lastP.vat = r2(lastP.gross - lastP.net); }
+  return out;
+}
+
+// نص تفصيل الدفعة: "قيمة X (1,500) + 50% من إدارة الحملتين (600) + الضريبة (315)"
+function paymentBreakdown(pay, allCount) {
+  const groups = {};
+  pay.parts.forEach(x => { (groups[x.pct] = groups[x.pct] || []).push(x); });
+  const segs = Object.keys(groups).sort((a, b) => b - a).map(pct => {
+    const g = groups[pct];
+    const names = [...new Set(g.map(x => x.r.it.short || x.r.it.name))];
+    const amt = g.reduce((s, x) => s + x.net, 0);
+    let label = names.length > 2 ? names.slice(0, -1).join('، ') + ' و' + names[names.length - 1] : names.join(' و');
+    if (allCount && g.length === allCount && g.length > 1) label = 'إجمالي أتعاب الخدمات';
+    else if (names.length > 3) label = names.length + ' خدمات (' + names.slice(0, 2).join('، ') + '…)';
+    return (+pct === 100 ? 'قيمة ' + label : fmt(pct) + '% من ' + label) + ' (' + fmt(amt) + ')';
+  });
+  if (pay.vat > 0) segs.push('الضريبة (' + fmt(pay.vat) + ')');
+  return segs.join(' + ');
+}
+
+const PAY_PRESETS = {
+  half: { name: '50% / 50%', make: q => [
+    { label: 'الدفعة الأولى | عند اعتماد العرض', mode: 'pct', pct: 50 },
+    { label: 'الدفعة الثانية | عند التسليم والاعتماد', mode: 'pct', pct: 50 }] },
+  three: { name: '50% / 25% / 25%', make: q => [
+    { label: 'الدفعة الأولى | عربون عند بدء المشروع', mode: 'pct', pct: 50 },
+    { label: 'الدفعة الثانية | بعد اعتماد المرحلة الأساسية', mode: 'pct', pct: 25 },
+    { label: 'الدفعة الثالثة | بعد اعتماد باقي الأعمال وقبل التسليم', mode: 'pct', pct: 25 }] },
+  full: { name: '100% مقدم', make: q => [{ label: 'دفعة واحدة | عند اعتماد العرض', mode: 'pct', pct: 100 }] },
+  monthly: { name: 'الشهري مقدم + 50% من الباقي', make: q => {
+    const per = {};
+    (q.items || []).forEach(i => per[i.uid] = i.kind === 'monthly' ? 100 : 50);
+    return [{ label: 'الدفعة الأولى | عند اعتماد التعاقد', mode: 'custom', per },
+      { label: 'الدفعة الثانية | نهاية الشهر / عند التسليم', mode: 'pct', pct: 0 }];
+  } },
+};
+
+
+/* ===== بناء صفحات عرض السعر ===== */
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+// يسمح بـ **عريض** داخل النصوص
+const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const two = n => String(n).padStart(2, '0');
+
+function buildBlocks(q, S, img) {
+  const C = computeQuote(q), co = S.company, B = [];
+  const add = (html, o = {}) => B.push(Object.assign({ html }, o));
+  const items = C.rows.map(r => r.it);
+  const logo = img(S.logoImg);
+  const cur = q.currency || 'ريال';
+
+  // ---------- الغلاف
+  add(`<div class="qh-banner">${logo ? `<img src="${logo}">` : `<span class="qh-word">DESIGNLY</span>`}</div>
+    <div class="qh-title">${esc(q.title)}</div><div class="qh-sub">${esc(q.subtitle)}</div>
+    <div class="qh-row"><div class="qh-from"><b>مقدم من : ${esc(co.nameAr)}</b><br>
+      الاسم التجاري: <b>${esc(co.nameEn)}</b><br>الرقم الوطني الموحد: <b>${esc(co.unified)}</b><br><b>الموقع:</b> ${esc(co.website)}</div>
+      <div class="qh-to"><b>مقدم إلى:</b><span>${esc(q.client.name)}</span>${q.no ? `<span style="color:#777;font-size:10px">رقم العرض: ${esc(q.no)}</span>` : ''}</div></div>
+    <div class="qline"></div>`);
+  add(`<div class="qtag">${esc(q.client.nameEn || q.client.name)} <span>/ ${esc(q.tagline || '')}</span>
+     ${q.date ? `<span style="float:left;font-size:11px;white-space:nowrap;margin-top:4px">${esc(fmtDate(q.date))}</span>` : ''}</div>`, { keep: 1 });
+  const hero = img(q.img3d);
+  if (hero) add(`<div class="qhero"><img src="${hero}"></div>`, { keep: 1 });
+  add(`<div class="qh1">${esc(q.headline || '')}${q.headlineAccent ? ` <em>${esc(q.headlineAccent)}</em>` : ''}</div>
+    ${q.subhead ? `<div class="qlead">${esc(q.subhead)}</div>` : ''}
+    ${q.intro ? `<div class="qp">${rich(q.intro)}</div>` : ''}`);
+  const stats = (q.stats && q.stats.length ? q.stats : autoStats(items)).slice(0, 3);
+  if (stats.length) add(`<div class="qstats">${stats.map(s => `<div class="qstat"><b>${esc(s.n)}</b><span>${esc(s.l)}</span></div>`).join('')}</div>`);
+
+  let sn = 0;
+  const sec = (kick, title, lead) => add(`<div class="qsec"><div class="qkick"><i>${two(++sn)}</i>|  ${esc(kick)}</div>
+     <div class="qh2">${esc(title)}</div>${lead ? `<div class="qlead">${rich(lead)}</div>` : ''}</div>`, { keep: 1 });
+
+  // ---------- الخدمات
+  sec(q.secServicesKick || 'نطاق العمل', q.secServicesTitle || 'ما الذي سنقدمه؟', q.secServicesLead || '');
+  items.forEach((it, i) => {
+    const r = C.rows[i];
+    let meta = '';
+    if (it.kind === 'ads') meta = '';
+    else if (r.net === 0) meta = `<b class="qfree">مجانًا</b>`;
+    else meta = `<b>${fmt(+it.price)} ${cur}</b>${it.kind === 'monthly' ? ' / شهريًا' : ''}${q.pricesIncludeVat ? ' شامل الضريبة' : ''}`;
+    if (it.platforms) meta += `  |  ${esc(it.platforms)}`;
+    let h = `<div class="qh3"><span class="n">${two(i + 1)}</span>${esc(it.title || it.name)}</div>`;
+    if (meta) h += `<div class="qmeta">${meta}</div>`;
+    if (it.kind === 'ads') {
+      h += `<div class="qbud"><div class="v"><b>${fmt(it.budget)} ${cur}</b><span>ميزانية إعلانية</span></div>
+        <div class="d"><b>${esc(it.objective || it.platform || '')}</b><p>${esc(it.desc || '')}</p></div></div>`;
+    } else if (it.desc) h += `<div class="qp">${rich(it.desc)}</div>`;
+    if (it.counts && it.counts.length) h += `<div class="qcounts">${it.counts.slice(0, 4).map(c => `<div><b>${esc(c.n)}</b><span>${esc(c.l)}</span></div>`).join('')}</div>`;
+    const bl = (it.bullets || []).filter(Boolean);
+    if (bl.length) h += `<ul class="qul">${bl.map(b => `<li>${rich(b.replace(/^([^:：]{2,28})[:：]/, '**$1:**'))}</li>`).join('')}</ul>`;
+    if (it.kind === 'ads') h += `<div class="qnote">أتعاب إنشاء وإدارة الحملة: <b>${fmt(it.fee)}%</b> من الميزانية الإعلانية (${fmt(r.net)} ${cur})، وتشمل إعداد الإعلانات والمتابعة والتحسين.</div>`;
+    add(`<div>${h}</div>`);
+  });
+  if (q.path && q.path.length) add(`<div class="qh3" style="font-size:14px">مسار النمو المقترح</div><div class="qchips">${q.path.map(p => `<span>${esc(p)}</span>`).join('')}</div>`);
+
+  // ---------- التكلفة
+  sec('تفاصيل الاستثمار', q.secCostTitle || 'الاستثمار بوضوح كامل',
+    C.budgets > 0 ? 'الميزانية الإعلانية تظل داخل حسابات المنصات باسم العميل، بينما تصدر ديزاينلي فاتورتها عن أتعاب التأسيس والإدارة فقط.'
+      : `القيمة الإجمالية للمشروع: ${fmt(C.net)} ${cur} قبل ضريبة القيمة المضافة. تم تسعير كل جزء بصورة مستقلة لشفافية أكبر.`);
+  const cols = '--cols:1.25fr 1.6fr .85fr .7fr .9fr';
+  add(`<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">قبل الضريبة</div><div class="num">الضريبة ${fmt(C.vr * 100)}%</div><div class="num">شامل الضريبة</div></div>`, { keep: 1 });
+  C.rows.forEach((r, ri) => {
+    const it = r.it;
+    const det = it.kind === 'ads' ? `${fmt(it.fee)}% × ${fmt(it.budget)} ${cur} (ميزانية المنصة)` : (it.costNote || shortDesc(it));
+    const free = r.net === 0;
+    add(`<div class="qtr" style="${cols}"><div class="nm">${esc(it.short || it.title || it.name)}</div><div class="ds">${esc(det)}</div>
+      ${free ? `<div class="num qfree">مجانًا</div><div class="num">—</div><div class="num qfree">مجانًا</div>`
+        : `<div class="num">${fmt(r.net)}</div><div class="num">${fmt(r.vat)}</div><div class="num">${fmt(r.gross)}</div>`}</div>`, { keep: ri === C.rows.length - 1 });
+  });
+  add(`<div class="qtr tot" style="${cols}"><div>الإجمالي</div><div></div><div class="num">${fmt(C.net)}</div><div class="num">${fmt(C.vat)}</div><div class="num">${fmt(C.gross)}</div></div>`);
+  let sumH = `<div class="qsum">إجمالي أتعاب ديزاينلي قبل الضريبة: <b>${fmt(C.net)} ${cur}</b><br>ضريبة القيمة المضافة (${fmt(C.vr * 100)}%): <b>${fmt(C.vat)} ${cur}</b><br>
+    <span class="big">إجمالي أتعاب ديزاينلي شامل الضريبة: ${fmt(C.gross)} ${cur}</span></div>`;
+  if (C.budgets > 0) {
+    const ads = items.filter(i => i.kind === 'ads');
+    sumH += `<div class="qh3" style="font-size:14px">ميزانيات الإعلانات المدفوعة للمنصات مباشرة</div>
+      <div class="qchips">${ads.map(a => `<span>${esc(a.platform || a.name)} • ${fmt(a.budget)} ر.س</span>`).join('')}</div>
+      <div class="qbar"><div class="v">${fmt(C.grand)} ر.س</div><div class="d">الاستثمار الإجمالي المخطط: ${fmt(C.budgets)} ر.س تُسدد للمنصات مباشرة + ${fmt(C.gross)} ر.س إجمالي أتعاب ديزاينلي شاملة الضريبة</div></div>`;
+  } else {
+    sumH += `<div class="qbar"><div class="v">${fmt(C.gross)} ر.س</div><div class="d">إجمالي الاستثمار شامل ضريبة القيمة المضافة — ${esc(q.investLine || 'استثمار واحد لبناء حضور متكامل ضمن منظومة واحدة متماسكة.')}</div></div>`;
+  }
+  add(sumH);
+
+  // ---------- الدفعات
+  if (C.pays.length) {
+    sec('الدفعات', 'جدول الدفعات — شامل الضريبة', 'دفعات مرتبطة بمراحل اعتماد واضحة، وكل دفعة موضّحة قبل الضريبة وبعدها.');
+    C.pays.forEach((p, i) => add(`<div class="qpay ${i % 2 ? 'alt' : ''}"><div class="v"><b>${fmt(p.gross)}</b><span>${cur} شامل الضريبة</span></div>
+      <div class="d"><b>${esc(p.p.label || ('الدفعة ' + (i + 1)))}</b><p>${esc(paymentBreakdown(p, C.rows.filter(r => r.net > 0).length))}</p>
+      ${p.p.note ? `<p>${esc(p.p.note)}</p>` : ''}</div></div>`));
+    if (C.budgets > 0) add(`<div class="qnote"><b>تنبيه مالي:</b> الميزانيات الإعلانية (${fmt(C.budgets)} ر.س) خارج دفعات ديزاينلي، ويدفعها العميل للمنصات مباشرة من حسابه؛ ولا تمر عبر حساب ديزاينلي، وتخضع لأي رسوم أو ضرائب تصدرها المنصة.</div>`);
+  }
+
+  // ---------- المراحل والمدة
+  const phases = (q.phases || []).filter(p => p && (p.title || p.desc));
+  if (phases.length) {
+    sec('التنفيذ والتسليم', q.secPhasesTitle || 'رحلة واضحة من الفكرة إلى النتائج', '');
+    phases.forEach((p, i) => add(`<div class="qtl"><div class="n">${two(i + 1)}</div><div class="k">${esc(p.tag || '')}</div>
+      <div class="d"><b>${esc(p.title)}</b><p>${esc(p.desc || '')}</p></div></div>`));
+  }
+  if (q.duration) add(`<div class="qbox2"><div><h4>مدة التنفيذ</h4><div class="big">${esc(q.duration)}</div>
+      <div style="font-size:11px;color:#777">${esc(q.durationNote || 'تبدأ بعد اعتماد العرض والدفعة الأولى واستلام المواد اللازمة.')}</div></div></div>`);
+
+  // ---------- الشروط
+  const terms = (q.terms || []).filter(Boolean);
+  if (terms.length) {
+    sec('ملاحظات مهمة', 'شروط نطاق العمل', '');
+    terms.forEach(t => add(`<ul class="qul" style="margin-top:2px"><li>${rich(t.replace(/^([^:：]{2,26})[:：]/, '**$1:**'))}</li></ul>`));
+  }
+
+  // ---------- الختام
+  add(`${q.closingTitle ? `<div class="qclose"><b>${esc(q.closingTitle)}</b><p>${esc(q.closingSub || '')}</p></div>` : ''}
+    <div class="qslogan">${esc(co.slogan)}</div>
+    <div class="qsign"><h5>اعتماد العرض</h5><div>الاسم: ________________________ &nbsp;&nbsp; التوقيع: ________________________</div>
+    <div>التاريخ: ________________________</div></div>`, { keep: 1 });
+  add(`<div class="qgoldtag">${esc(co.goldLine).replace('ديزاينلي', '<b>ديزاينلي</b>')}</div>
+    <div class="qabout">${logo ? `<img src="${logo}">` : `<div class="mk">D</div>`}<div><b>${esc(co.nameAr)}</b> ${esc(co.about)}<br>
+    س.ت : ${esc(co.cr)} | الرقم الموحد : ${esc(co.unified)} | الرقم الضريبي: ${esc(co.vat)}</div></div><div class="qline"></div>`);
+
+  // ---------- البنك والشركاء (صفحة جديدة)
+  const bk = S.bank, bdoc = img(S.bankDocImg);
+  add(`<div class="qbank"><div class="tb">
+    <div class="qbr h"><div>البنك / المصرف</div><div>${esc(bk.name)}</div></div>
+    <div class="qbr"><div>الدولة:</div><div>${esc(bk.country)}</div></div>
+    <div class="qbr"><div>اسم الحساب:</div><div>${esc(bk.holder)}</div></div>
+    <div class="qbr"><div>رقم الحساب:</div><div>${esc(bk.account)}</div></div>
+    <div class="qbr"><div>رقم الآيبان:</div><div>${esc(bk.iban)}</div></div></div>
+    ${bdoc ? `<div class="doc"><img src="${bdoc}"></div>` : ''}</div><div class="qline"></div>`, { newPage: 1 });
+  const parts = (S.partners || []).filter(p => p.url || p.img);
+  if (parts.length) {
+    add(`<div class="qpart-h">بعض شركائنا في النجاح</div>`, { keep: 1 });
+    for (let i = 0; i < parts.length; i += 4) {
+      add(`<div class="qpart">${parts.slice(i, i + 4).map(p => {
+        const im = img(p.img);
+        return `<a href="${esc(p.url || '#')}" data-link="${esc(p.url || '')}"><div class="im">${im ? `<img src="${im}">` : `<span class="ph">${esc((p.url || '').replace(/^https?:\/\/(www\.)?/, ''))}</span>`}</div>
+          <div class="bt">تصفح الموقع الإلكتروني</div></a>`;
+      }).join('')}</div>`);
+    }
+  }
+  const strip = img(S.logosStripImg);
+  if (strip) add(`<div class="qstrip"><img src="${strip}"></div><div class="qline"></div>`);
+  return B;
+}
+
+function shortDesc(it) {
+  const s = it.costNote || it.desc || '';
+  return s.length > 90 ? s.slice(0, 88) + '…' : s;
+}
+function autoStats(items) {
+  const st = [];
+  const pieces = items.reduce((s, i) => s + (i.counts || []).reduce((a, c) => a + (+c.n || 0), 0), 0);
+  const ads = items.filter(i => i.kind === 'ads').length;
+  const plats = new Set();
+  const np = x => x.trim().replace(/^(ا|إ)نست(ج|ق|غ)رام$/, 'إنستقرام').replace(/^ميتا.*/, 'إنستقرام');
+  items.forEach(i => { if (i.platform) plats.add(np(i.platform)); (i.platforms || '').split(/[+،,و]\s/).map(np).filter(Boolean).forEach(x => plats.add(x)); });
+  if (items.length && items.every(i => i.cat === 'brand')) return [{ n: '02', l: 'نموذجان للشعار مع الفلسفة' }, { n: two(items.length), l: 'عناصر ضمن منظومة الهوية' }, { n: 'AI / PDF', l: 'تسليم شامل لكل الصيغ' }];
+  if (pieces) st.push({ n: pieces, l: 'قطعة محتوى شهريًا' });
+  if (plats.size) st.push({ n: two(plats.size), l: plats.size === 2 ? 'منصتا نشر أساسيتان' : 'منصات مستهدفة' });
+  if (ads) st.push({ n: two(ads), l: ads === 1 ? 'حملة إعلانية' : ads === 2 ? 'حملتان متكاملتان' : 'حملات متكاملة' });
+  if (st.length < 2) st.push({ n: two(items.length), l: 'خدمات ضمن العرض' });
+  return st;
+}
+function fmtDate(d) {
+  try { return new Date(d).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return d; }
+}
+
+/* ---------- التقسيم على الصفحات ---------- */
+const PAGE_H = 1123 - 58 - 62; // ارتفاع منطقة المحتوى
+function paginate(blocks, themeStyle) {
+  const m = document.createElement('div');
+  m.className = 'qpage'; m.setAttribute('style', themeStyle + ';position:absolute;left:0;top:0;height:auto;visibility:hidden');
+  const inner = document.createElement('div'); inner.style.cssText = 'width:642px';
+  const jail = document.createElement('div'); jail.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;overflow:hidden';
+  m.appendChild(inner); jail.appendChild(m); document.body.appendChild(jail);
+  inner.innerHTML = blocks.map(b => `<div class="qblk">${b.html}</div>`).join('');
+  const els = [...inner.children];
+  const hs = els.map(e => e.getBoundingClientRect().height);
+  document.body.removeChild(jail);
+  const pages = [[]]; let used = 0;
+  for (let i = 0; i < blocks.length; i++) {
+    let h = hs[i];
+    // keep: يلتصق بالبلوك التالي (عناوين)
+    let need = h; if (blocks[i].keep && i + 1 < blocks.length) need += Math.min(hs[i + 1], 220);
+    const cur = pages[pages.length - 1];
+    if ((blocks[i].newPage && cur.length) || (used + need > PAGE_H && cur.length)) { pages.push([]); used = 0; }
+    pages[pages.length - 1].push(blocks[i]); used += h;
+  }
+  return pages;
+}
+
+const bidiPct = h => h.replace(/>([^<]+)</g, (m, t) => '>' + t.replace(/(\d[\d.,]*\s?%)/g, '<bdi dir="ltr">$1</bdi>') + '<');
+function renderPages(q, S, img) {
+  const theme = themeVars(q);
+  const pages = paginate(buildBlocks(q, S, img).map(b => Object.assign(b, { html: bidiPct(b.html) })), theme);
+  return pages.map((bl, i) => `<div class="qpage" style="${theme}"><div class="qbody">${bl.map(b => `<div class="qblk">${b.html}</div>`).join('')}</div>
+    <div class="qfoot"><span>${esc(S.company.website)} • عرض سعر ${esc(q.no || '')} • ${esc(q.client.name)}</span><span>${i + 1} / ${pages.length}</span></div></div>`).join('');
+}
+function themeVars(q) {
+  const c = q.client.colors || {};
+  const p = c.primary || '#14213d', a = c.accent || '#5b5bd6';
+  return `--p:${p};--a:${a};--t:${c.tint || tint(a)}`;
+}
+function tint(hex, k = .9) {
+  const n = hexToRgb(hex); if (!n) return '#eef0f6';
+  return '#' + n.map(v => Math.round(v + (255 - v) * k).toString(16).padStart(2, '0')).join('');
+}
+function hexToRgb(h) { const m = /^#?([0-9a-f]{6})$/i.exec(h || ''); if (!m) return null; const v = parseInt(m[1], 16); return [v >> 16 & 255, v >> 8 & 255, v & 255]; }
+
+/* ===================== Designly Quotes — التطبيق ===================== */
+const FB_CONFIG = { apiKey: 'AIzaSyCrJ0_mHTp8MttBqRXZZ3dDhUoa_yyJ9OU', authDomain: 'mizan-designly.firebaseapp.com', projectId: 'mizan-designly',
+  storageBucket: 'mizan-designly.firebasestorage.app', messagingSenderId: '862209378808', appId: '1:862209378808:web:c30dd56175622e9c3a2e0d' };
+const DEMO = /[?&]demo=1/.test(location.search);
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+const clone = o => JSON.parse(JSON.stringify(o));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ---------------- التخزين ---------------- */
+const Store = {
+  async init() {
+    if (DEMO) return;
+    firebase.initializeApp(FB_CONFIG);
+    this.db = firebase.firestore();
+    this.auth = firebase.auth();
+  },
+  _k: (c, id) => 'qs:' + c + ':' + id,
+  _idx(c) { try { return JSON.parse(localStorage.getItem('qs:idx:' + c) || '[]'); } catch (e) { return []; } },
+  async get(c, id) {
+    if (DEMO) { const v = localStorage.getItem(this._k(c, id)); return v ? JSON.parse(v) : null; }
+    const d = await this.db.collection(c).doc(id).get(); return d.exists ? d.data() : null;
+  },
+  async set(c, id, data) {
+    data = clone(data);
+    if (DEMO) {
+      try { localStorage.setItem(this._k(c, id), JSON.stringify(data)); } catch (e) { toast('مساحة التخزين المحلي امتلأت', 1); }
+      const ix = this._idx(c); if (!ix.includes(id)) { ix.push(id); localStorage.setItem('qs:idx:' + c, JSON.stringify(ix)); }
+      return;
+    }
+    await this.db.collection(c).doc(id).set(data);
+  },
+  async del(c, id) {
+    if (DEMO) { localStorage.removeItem(this._k(c, id)); localStorage.setItem('qs:idx:' + c, JSON.stringify(this._idx(c).filter(x => x !== id))); return; }
+    await this.db.collection(c).doc(id).delete();
+  },
+  async list(c) {
+    if (DEMO) return this._idx(c).map(id => Object.assign({ id }, JSON.parse(localStorage.getItem(this._k(c, id)) || '{}')));
+    const s = await this.db.collection(c).get(); return s.docs.map(d => Object.assign({ id: d.id }, d.data()));
+  },
+};
+
+/* ---------------- الصور (تتخزن مضغوطة في مستندات منفصلة) ---------------- */
+const IMG = {};
+const img = id => (id && IMG[id]) || '';
+async function putImage(dataUrl) {
+  const id = 'im_' + uid();
+  IMG[id] = dataUrl;
+  await Store.set('qs_images', id, { d: dataUrl, at: Date.now() });
+  return id;
+}
+async function loadImages(ids) {
+  await Promise.all([...new Set(ids.filter(Boolean))].filter(id => !IMG[id]).map(async id => {
+    try { const r = await Store.get('qs_images', id); if (r) IMG[id] = r.d; } catch (e) { console.warn(e); }
+  }));
+}
+function loadImgEl(src, cors) {
+  return new Promise((res, rej) => { const i = new Image(); if (cors) i.crossOrigin = 'anonymous'; i.onload = () => res(i); i.onerror = rej; i.src = src; });
+}
+// ضغط لصيغة WebP مع الحفاظ على الشفافية وتحت حد حجم مستند Firestore
+async function compressImage(src, maxW = 1400, maxLen = 680000) {
+  const im = await loadImgEl(src);
+  let w = Math.min(maxW, im.naturalWidth), q = 0.9, out = '';
+  for (let t = 0; t < 8; t++) {
+    const h = Math.round(im.naturalHeight * w / im.naturalWidth);
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    c.getContext('2d').drawImage(im, 0, 0, w, h);
+    out = c.toDataURL('image/webp', q);
+    if (!out.startsWith('data:image/webp')) out = c.toDataURL('image/png');
+    if (out.length < maxLen) break;
+    if (q > 0.62) q -= 0.12; else w = Math.round(w * 0.8);
+  }
+  return out;
+}
+const fileToDataUrl = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(f); });
+function pickFile(accept = 'image/*') {
+  return new Promise(res => { const i = document.createElement('input'); i.type = 'file'; i.accept = accept; i.onchange = () => res(i.files[0] || null); i.click(); });
+}
+
+/* ---------------- الحالة ---------------- */
+let S = clone(DEFAULT_SETTINGS);        // الإعدادات
+let SERVICES = [];                       // الكتالوج
+let QUOTES = [];                         // قائمة العروض
+let Q = null;                            // العرض المفتوح
+let VIEW = 'list', STEP = 'client';
+let USER = null;
+
+/* ---------------- أدوات الواجهة ---------------- */
+function toast(msg, err) {
+  const t = document.createElement('div'); t.className = 'toast' + (err ? ' err' : ''); t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), err ? 5000 : 2600);
+}
+function overlay(html) {
+  const o = document.createElement('div'); o.className = 'ov'; o.innerHTML = `<div class="box">${html}</div>`;
+  document.body.appendChild(o); o.addEventListener('click', e => { if (e.target === o && !o.dataset.lock) o.remove(); });
+  return o;
+}
+let saveT = null;
+function dirty() {
+  clearTimeout(saveT); saveT = setTimeout(saveQuote, 900);
+  updDock();
+}
+async function saveQuote() {
+  if (!Q) return;
+  Q.updatedAt = Date.now();
+  try { await Store.set('qs_quotes', Q.id, Q); const i = QUOTES.findIndex(x => x.id === Q.id); if (i >= 0) QUOTES[i] = clone(Q); else QUOTES.unshift(clone(Q)); }
+  catch (e) { toast('تعذر الحفظ: ' + e.message, 1); }
+}
+async function saveSettings() { await Store.set('qs_settings', 'main', S); }
+
+/* ======================= البداية ======================= */
+async function boot() {
+  await Store.init();
+  if (DEMO) { USER = { email: 'demo' }; return afterLogin(); }
+  Store.auth.onAuthStateChanged(u => { USER = u; if (u) afterLogin(); else showLogin(); });
+}
+function showLogin(msg) {
+  $('#navs').classList.add('hide');
+  $('#app').innerHTML = `<div class="card login"><h3>تسجيل الدخول</h3>
+    <p class="muted">بنفس حساب نظام ميزان.</p>${msg ? `<p style="color:var(--bad)">${msg}</p>` : ''}
+    <label class="f"><span>الإيميل</span><input id="lem" type="email" autocomplete="username"></label>
+    <label class="f"><span>كلمة المرور</span><input id="lpw" type="password" autocomplete="current-password"></label>
+    <button class="btn pri full" id="lgo">دخول</button></div>`;
+  $('#lgo').onclick = async () => {
+    try { await Store.auth.signInWithEmailAndPassword($('#lem').value.trim(), $('#lpw').value); }
+    catch (e) { toast('بيانات الدخول غير صحيحة', 1); }
+  };
+}
+async function afterLogin() {
+  $('#app').innerHTML = '<div class="spin" style="margin-top:30vh"></div>';
+  try {
+    const s = await Store.get('qs_settings', 'main');
+    if (s) S = deepMerge(clone(DEFAULT_SETTINGS), s); else if (!DEMO) await saveSettings();
+    const sv = await Store.list('qs_services');
+    if (sv.length) SERVICES = sv.sort((a, b) => (a.order || 0) - (b.order || 0));
+    else { SERVICES = DEFAULT_SERVICES.map((x, i) => Object.assign(clone(x), { order: i, active: true })); await Promise.all(SERVICES.map(x => Store.set('qs_services', x.id, x))); }
+    QUOTES = (await Store.list('qs_quotes')).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  } catch (e) {
+    if (String(e.code || e.message).includes('permission')) return showLogin('حسابك غير مضاف لنظام عروض الأسعار. اطلب من خالد إضافتك من الإعدادات، وتأكد أن قواعد Firestore منشورة.');
+    return showLogin('خطأ: ' + e.message);
+  }
+  await loadImages([S.logoImg]);
+  $('#navs').classList.remove('hide');
+  route();
+}
+function deepMerge(a, b) {
+  for (const k in b) { if (b[k] && typeof b[k] === 'object' && !Array.isArray(b[k]) && a[k] && typeof a[k] === 'object') deepMerge(a[k], b[k]); else a[k] = b[k]; }
+  return a;
+}
+function route() {
+  const h = location.hash.replace('#', '');
+  if (h.startsWith('q/')) return openQuote(h.slice(2));
+  if (h === 'settings') return showSettings();
+  if (h === 'new') return newQuote();
+  showList();
+}
+window.addEventListener('hashchange', () => { if (USER) route(); });
+function setNav(v) { VIEW = v; $$('#navs button').forEach(b => b.classList.toggle('on', b.dataset.v === v)); $('#dock').classList.toggle('hide', v !== 'editor'); }
+
+/* ======================= قائمة العروض ======================= */
+function showList(filter = '') {
+  setNav('list'); Q = null;
+  const f = filter.trim();
+  const items = QUOTES.filter(q => !f || (q.client?.name + ' ' + q.no + ' ' + (q.client?.nameEn || '')).toLowerCase().includes(f.toLowerCase()));
+  $('#app').innerHTML = `<button class="btn gold full hero-btn" onclick="location.hash='new'">＋ عرض سعر جديد</button>
+    <div style="height:12px"></div><input type="text" id="qsearch" placeholder="بحث باسم العميل أو رقم العرض" value="${esc(f)}">
+    <div style="height:12px"></div>
+    ${items.length ? items.map(q => {
+      const c = computeQuote(q);
+      return `<div class="card qitem"><div class="lg">${q.client?.logoImg && IMG[q.client.logoImg] ? `<img src="${IMG[q.client.logoImg]}">` : esc((q.client?.name || '?').slice(0, 1))}</div>
+      <div class="in"><b>${esc(q.client?.name || 'بدون اسم')}</b><span class="muted">${esc(q.no || '')} • ${esc(fmtDate(q.date))} • ${fmt(c.gross)} ر.س</span>
+      <div><span class="st ${q.status || ''}">${({ sent: 'تم الإرسال', won: 'تم القبول', lost: 'مرفوض' })[q.status] || 'مسودة'}</span></div></div>
+      <div class="acts"><button class="btn sm pri" onclick="location.hash='q/${q.id}'">فتح</button>
+      <button class="btn sm" onclick="dupQuote('${q.id}')">نسخ</button></div></div>`;
+    }).join('') : `<div class="card muted" style="text-align:center">لا توجد عروض بعد.</div>`}`;
+  const s = $('#qsearch'); s.oninput = () => { const v = s.value; showList(v); const n = $('#qsearch'); n.focus(); n.setSelectionRange(v.length, v.length); };
+  // تحميل الشعارات في الخلفية
+  const need = QUOTES.map(q => q.client?.logoImg).filter(id => id && !IMG[id]);
+  if (need.length) loadImages(need).then(() => { if (VIEW === 'list' && !f) showList(); });
+}
+async function dupQuote(id) {
+  const src = QUOTES.find(q => q.id === id); if (!src) return;
+  const q = clone(src); q.id = uid(); q.status = ''; q.date = todayISO(); q.no = makeNo(q); q.createdAt = q.updatedAt = Date.now();
+  q.client.name = q.client.name + ' (نسخة)';
+  QUOTES.unshift(q); await Store.set('qs_quotes', q.id, q); location.hash = 'q/' + q.id;
+}
+const todayISO = () => new Date().toISOString().slice(0, 10);
+function makeNo(q) {
+  const en = (q.client?.nameEn || '').replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 4);
+  const d = new Date(); const ymd = String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  const n = QUOTES.filter(x => (x.no || '').includes('DE' + ymd)).length + 1;
+  return (en || 'Q') + 'DE' + ymd + String(n).padStart(2, '0');
+}
+
+/* ======================= إنشاء / فتح عرض ======================= */
+function blankQuote() {
+  return { id: uid(), no: '', date: todayISO(), status: '', vatRate: S.vatRate, pricesIncludeVat: false, currency: 'ريال',
+    client: { name: '', nameEn: '', industry: '', about: '', links: [], logoImg: '', colors: {} },
+    items: [], payments: PAY_PRESETS.half.make({ items: [] }), payPreset: 'half',
+    title: '', subtitle: '', tagline: '', headline: '', headlineAccent: '', subhead: '', intro: '', stats: [], path: [],
+    phases: [], terms: [], duration: '', closingTitle: '', closingSub: '', img3d: '', imagePrompt: '', autoTerms: true, autoPhases: true,
+    createdAt: Date.now(), updatedAt: Date.now() };
+}
+async function newQuote() { Q = blankQuote(); STEP = 'client'; await saveQuote(); history.replaceState(null, '', '#q/' + Q.id); renderEditor(); }
+async function openQuote(id) {
+  let q = QUOTES.find(x => x.id === id);
+  if (!q) { q = await Store.get('qs_quotes', id); if (q) q.id = id; }
+  if (!q) { toast('العرض غير موجود', 1); location.hash = ''; return; }
+  Q = deepMerge(blankQuote(), clone(q)); Q.id = id;
+  await loadImages([Q.img3d, Q.client.logoImg]);
+  renderEditor();
+}
+
+/* ======================= المحرر ======================= */
+const STEPS = [['client', 'العميل'], ['services', 'الخدمات'], ['payments', 'الدفعات'], ['texts', 'النصوص'], ['art', 'الثري دي'], ['preview', 'المعاينة و PDF']];
+function renderEditor() {
+  setNav('editor');
+  $('#app').innerHTML = `<div class="steps">${STEPS.map(([k, n], i) => `<button data-s="${k}" class="${STEP === k ? 'on' : ''}"><i>${i + 1}</i>${n}</button>`).join('')}</div><div id="stepBody"></div>`;
+  $$('.steps button').forEach(b => b.onclick = () => { STEP = b.dataset.s; renderEditor(); window.scrollTo(0, 0); });
+  ({ client: stepClient, services: stepServices, payments: stepPayments, texts: stepTexts, art: stepArt, preview: stepPreview })[STEP]();
+  updDock();
+}
+function updDock() {
+  if (!Q) return;
+  const c = computeQuote(Q);
+  $('#dockTot').innerHTML = `<b>${fmt(c.gross)} ر.س</b><span>شامل الضريبة • ${c.rows.length} خدمة${c.budgets ? ' • ميزانيات ' + fmt(c.budgets) : ''}</span>`;
+}
+// ربط الحقول data-k="client.name" تلقائياً
+function bindFields(root, obj, onChange) {
+  $$('[data-k]', root).forEach(el => {
+    const path = el.dataset.k.split('.');
+    let o = obj; for (let i = 0; i < path.length - 1; i++) o = o[path[i]];
+    const k = path[path.length - 1];
+    if (el.type === 'checkbox') el.checked = !!o[k]; else el.value = o[k] ?? '';
+    el.addEventListener('input', () => {
+      let v = el.type === 'checkbox' ? el.checked : el.type === 'number' ? (el.value === '' ? '' : +el.value) : el.value;
+      if (el.dataset.lines != null) v = el.value.split('\n').map(s => s.trim()).filter(Boolean);
+      o[k] = v; (onChange || dirty)(el);
+    });
+    if (el.dataset.lines != null) el.value = (o[k] || []).join('\n');
+  });
+}
+
+/* ---------- الخطوة 1: العميل ---------- */
+function stepClient() {
+  const c = Q.client;
+  $('#stepBody').innerHTML = `
+  <div class="card"><h3>بيانات العميل</h3>
+    <label class="f"><span>اسم العميل / البراند (يظهر في العرض)</span><input type="text" data-k="name" placeholder="مثال: شركة فوق السحاب"></label>
+    <div class="row"><label class="f"><span>الاسم بالإنجليزي</span><input type="text" data-k="nameEn" dir="ltr" placeholder="BelovedOne"></label>
+    <label class="f"><span>المجال / النشاط</span><input type="text" data-k="industry" placeholder="رحلات المنطاد في العُلا"></label></div>
+    <label class="f"><span>نبذة أو ملاحظات عن العميل وهدفه (اختياري — تساعد في كتابة العرض)</span><textarea data-k="about" placeholder="عنده فرعين في الخبر، عايز يزود الحجوزات..."></textarea></label>
+  </div>
+  <div class="card"><h3>روابط السوشيال ميديا والموقع</h3>
+    <label class="f"><span>رابط في كل سطر — منها يتسحب الشعار والألوان وطابع البراند</span>
+    <textarea data-k="links" data-lines dir="ltr" placeholder="https://instagram.com/brand&#10;https://tiktok.com/@brand&#10;https://brand.com"></textarea></label>
+    <button class="btn pri full" id="grab">استخراج الشعار والهوية من الروابط</button>
+    <div style="height:12px"></div>
+    <div class="brandbox"><div class="lg" id="clogo" title="رفع الشعار">${img(c.logoImg) ? `<img src="${img(c.logoImg)}">` : '<span class="muted">+ شعار</span>'}</div>
+      <div style="flex:1"><div class="muted">ألوان الهوية (تُطبق على العرض والثري دي)</div>
+      <div class="sws"><label><input type="color" data-c="primary" value="${c.colors.primary || '#14213d'}">أساسي داكن</label>
+      <label><input type="color" data-c="accent" value="${c.colors.accent || '#5b5bd6'}">مميز</label>
+      <button class="btn sm ghost" id="fromLogo">من الشعار</button></div></div></div>
+    ${c.brandNotes ? `<p class="muted" style="margin-top:10px">${esc(c.brandNotes)}</p>` : ''}
+  </div>
+  <div class="card"><h3>بيانات العرض</h3>
+    <div class="row"><label class="f"><span>رقم العرض</span><input type="text" data-q="no" dir="ltr" placeholder="يتولد تلقائياً"></label>
+    <label class="f"><span>التاريخ</span><input type="date" data-q="date"></label></div>
+    <div class="row"><label class="f"><span>الحالة</span><select data-q="status"><option value="">مسودة</option><option value="sent">تم الإرسال</option><option value="won">تم القبول</option><option value="lost">مرفوض</option></select></label>
+    <label class="f"><span>الأسعار المدخلة</span><select data-q="pricesIncludeVat"><option value="">قبل الضريبة</option><option value="1">شاملة الضريبة</option></select></label></div>
+  </div>
+  <button class="btn gold full hero-btn" onclick="STEP='services';renderEditor();scrollTo(0,0)">التالي: اختيار الخدمات ←</button>`;
+  bindFields($('#stepBody'), c, () => dirty());
+  $$('[data-q]').forEach(el => {
+    const k = el.dataset.q; el.value = k === 'pricesIncludeVat' ? (Q[k] ? '1' : '') : (Q[k] || '');
+    el.oninput = () => { Q[k] = k === 'pricesIncludeVat' ? !!el.value : el.value; dirty(); };
+  });
+  $$('[data-c]').forEach(el => el.oninput = () => { c.colors[el.dataset.c] = el.value; c.colors.tint = ''; dirty(); });
+  $('#clogo').onclick = async () => {
+    const f = await pickFile(); if (!f) return;
+    const d = await compressImage(await fileToDataUrl(f), 600, 300000);
+    c.logoImg = await putImage(d); await colorsFromLogo(true); dirty(); renderEditor();
+  };
+  $('#fromLogo').onclick = async () => { if (!img(c.logoImg)) return toast('ارفع الشعار أو استخرجه أولاً', 1); await colorsFromLogo(true); dirty(); renderEditor(); };
+  $('#grab').onclick = async () => { const b = $('#grab'); b.disabled = true; b.textContent = 'جاري الاستخراج...'; await grabBrand(true); renderEditor(); };
+}
+
+/* ---------- الخطوة 2: الخدمات ---------- */
+function stepServices() {
+  const onIds = new Set(Q.items.map(i => i.src));
+  const cats = CATS.concat([{ id: 'custom', name: 'خدمات أخرى' }]);
+  const kindTag = k => k === 'monthly' ? '<span class="tag m">شهري</span>' : k === 'ads' ? '<span class="tag a">إعلان</span>' : '';
+  const svcPrice = s => s.kind === 'ads' ? `${fmt(s.budget)} + ${s.fee}%` : (+s.price ? fmt(s.price) + ' ر.س' : 'مجاني');
+  let h = `<div class="card"><h3>الخدمات المختارة (${Q.items.length})<span class="sp"></span><button class="btn sm gold" id="addCustom">＋ خدمة جديدة</button></h3>
+    ${Q.items.length ? '' : '<p class="muted">فعّل الخدمات من القائمة بالأسفل، وكل خدمة تقدر تعدل سعرها وتفاصيلها لهذا العرض بس.</p>'}
+    <div id="selItems"></div></div>`;
+  cats.forEach(cat => {
+    const list = SERVICES.filter(s => s.cat === cat.id && s.active !== false);
+    if (!list.length) return;
+    const n = list.filter(s => onIds.has(s.id)).length;
+    h += `<details class="cat card" ${n || cat.id === 'social' || cat.id === 'ads' ? 'open' : ''}><summary>${esc(cat.name)}<span class="c">${n}/${list.length}</span></summary>
+      ${list.map(s => `<div class="svc ${onIds.has(s.id) ? 'on' : ''}" data-src="${s.id}"><div class="hd"><div class="sw"></div><div class="nm">${esc(s.name)} ${kindTag(s.kind)}</div><div class="pr">${svcPrice(s)}</div></div></div>`).join('')}
+    </details>`;
+  });
+  $('#stepBody').innerHTML = h + `<button class="btn gold full hero-btn" onclick="STEP='payments';renderEditor();scrollTo(0,0)">التالي: الدفعات ←</button>`;
+  renderSelItems();
+  $$('.cat .svc').forEach(el => el.querySelector('.hd').onclick = () => {
+    const sid = el.dataset.src;
+    const ix = Q.items.findIndex(i => i.src === sid);
+    if (ix >= 0) Q.items.splice(ix, 1);
+    else { const s = SERVICES.find(x => x.id === sid); Q.items.push(itemFromService(s)); }
+    syncPayments(); dirty(); stepServices();
+  });
+  $('#addCustom').onclick = () => editCustomService();
+}
+function itemFromService(s) {
+  const it = clone(s); delete it.id; delete it.order; delete it.active; it.src = s.id; it.uid = uid(); it.on = true;
+  return it;
+}
+function renderSelItems() {
+  const box = $('#selItems'); if (!box) return;
+  const C = computeQuote(Q);
+  box.innerHTML = Q.items.map((it, i) => {
+    const r = C.rows.find(x => x.it.uid === it.uid) || { net: 0, gross: 0 };
+    return `<div class="svc on" data-u="${it.uid}"><div class="hd"><div class="nm">${i + 1}. ${esc(it.title || it.name)}</div>
+      <div class="pr">${fmt(r.gross)} شامل</div></div>
+      <div class="bd">
+        <label class="f"><span>العنوان في العرض</span><input type="text" data-k="title" placeholder="${esc(it.name)}"></label>
+        ${it.kind === 'ads' ? `<div class="row"><label class="f"><span>ميزانية المنصة (ر.س)</span><input type="number" inputmode="decimal" data-k="budget"></label>
+          <label class="f"><span>نسبة الإدارة %</span><input type="number" inputmode="decimal" data-k="fee"></label></div>
+          <div class="row"><label class="f"><span>المنصة</span><input type="text" data-k="platform"></label><label class="f"><span>هدف الحملة</span><input type="text" data-k="objective" placeholder="نمو المتابعين / مبيعات / طلبات حجز"></label></div>`
+        : `<div class="row"><label class="f"><span>السعر (ر.س)${Q.pricesIncludeVat ? ' شامل' : ' قبل الضريبة'}</span><input type="number" inputmode="decimal" data-k="price"></label>
+          <label class="f"><span>النوع</span><select data-k="kind"><option value="fixed">مرة واحدة</option><option value="monthly">شهري</option></select></label></div>`}
+        <label class="f"><span>الاسم المختصر في جدول التكلفة (اختياري)</span><input type="text" data-k="short"></label>
+        <label class="f"><span>الوصف</span><textarea data-k="desc"></textarea></label>
+        <label class="f"><span>النقاط (نقطة في كل سطر — "عنوان: شرح" يظهر العنوان بالخط العريض)</span><textarea data-k="bullets" data-lines></textarea></label>
+        ${it.kind !== 'ads' ? `<label class="f"><span>الأعداد (سطر لكل عدد: 16 | تصميم منشور ثابت)</span><textarea data-cnt style="min-height:60px">${(it.counts || []).map(c => c.n + ' | ' + c.l).join('\n')}</textarea></label>
+          <label class="f"><span>المنصات (اختياري)</span><input type="text" data-k="platforms" placeholder="تيك توك + إنستجرام"></label>` : ''}
+        <div class="row"><button class="btn sm ghost" data-mv="-1">↑ لأعلى</button><button class="btn sm ghost" data-mv="1">↓ لأسفل</button><button class="btn sm danger" data-rm>حذف</button></div>
+      </div></div>`;
+  }).join('');
+  $$('.svc', box).forEach(el => {
+    const it = Q.items.find(i => i.uid === el.dataset.u);
+    const bd = $('.bd', el); bd.classList.add('hide');
+    $('.hd', el).onclick = () => bd.classList.toggle('hide');
+    bindFields(el, it, (f) => { dirty(); if (['price', 'budget', 'fee', 'kind'].includes(f.dataset.k)) { const C = computeQuote(Q); const r = C.rows.find(x => x.it.uid === it.uid); $('.pr', el).textContent = fmt(r ? r.gross : 0) + ' شامل'; } });
+    const cnt = $('[data-cnt]', el);
+    if (cnt) cnt.oninput = () => { it.counts = cnt.value.split('\n').map(l => l.split('|')).filter(p => p.length > 1 && p[1].trim()).map(p => ({ n: p[0].trim(), l: p[1].trim() })); dirty(); };
+    $$('[data-mv]', el).forEach(b => b.onclick = () => {
+      const i = Q.items.indexOf(it), j = i + +b.dataset.mv; if (j < 0 || j >= Q.items.length) return;
+      Q.items.splice(i, 1); Q.items.splice(j, 0, it); dirty(); renderSelItems(); $(`[data-u="${it.uid}"] .bd`).classList.remove('hide');
+    });
+    $('[data-rm]', el).onclick = () => { Q.items = Q.items.filter(x => x !== it); syncPayments(); dirty(); stepServices(); };
+  });
+}
+function editCustomService(existing) {
+  const o = overlay(`<h3 style="margin-top:0">خدمة جديدة</h3>
+    <label class="f"><span>اسم الخدمة</span><input type="text" id="cn"></label>
+    <div class="row"><label class="f"><span>النوع</span><select id="ck"><option value="fixed">مرة واحدة</option><option value="monthly">شهري</option><option value="ads">حملة إعلانية (ميزانية + نسبة)</option></select></label>
+    <label class="f"><span>القسم</span><select id="cc">${CATS.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}<option value="custom">خدمات أخرى</option></select></label></div>
+    <div class="row"><label class="f"><span id="cpl">السعر</span><input type="number" id="cp" inputmode="decimal"></label><label class="f ck-ads hide"><span>نسبة الإدارة %</span><input type="number" id="cf" value="20"></label></div>
+    <label class="f"><span>الوصف</span><textarea id="cd"></textarea></label>
+    <label class="f"><input type="checkbox" id="csave" checked> احفظها في الكتالوج للعروض الجاية</label>
+    <div class="row"><button class="btn pri" id="cok">إضافة</button><button class="btn ghost" id="cx">إلغاء</button></div>`);
+  $('#ck', o).onchange = () => { const ads = $('#ck', o).value === 'ads'; $('.ck-ads', o).classList.toggle('hide', !ads); $('#cpl', o).textContent = ads ? 'ميزانية المنصة' : 'السعر'; };
+  $('#cx', o).onclick = () => o.remove();
+  $('#cok', o).onclick = async () => {
+    const name = $('#cn', o).value.trim(); if (!name) return toast('اكتب اسم الخدمة', 1);
+    const kind = $('#ck', o).value, v = +$('#cp', o).value || 0;
+    const s = { id: 'c_' + uid(), cat: $('#cc', o).value, kind, name, desc: $('#cd', o).value.trim(), bullets: [], order: SERVICES.length, active: true };
+    if (kind === 'ads') { s.budget = v; s.fee = +$('#cf', o).value || 20; s.platform = name.replace(/^حملة( إعلانية)?( على)?/, '').trim(); } else s.price = v;
+    if ($('#csave', o).checked) { SERVICES.push(s); await Store.set('qs_services', s.id, s); }
+    Q.items.push(itemFromService(s)); syncPayments(); dirty(); o.remove(); stepServices();
+  };
+}
+
+/* ---------- الخطوة 3: الدفعات ---------- */
+function syncPayments() {
+  if (Q.payPreset && PAY_PRESETS[Q.payPreset]) Q.payments = PAY_PRESETS[Q.payPreset].make(Q);
+}
+function stepPayments() {
+  const C = computeQuote(Q);
+  $('#stepBody').innerHTML = `<div class="card"><h3>جدول الدفعات (يُكتب شامل الضريبة تلقائياً)</h3>
+    <div class="chips">${Object.entries(PAY_PRESETS).map(([k, p]) => `<button class="chip ${Q.payPreset === k ? 'on' : ''}" data-p="${k}">${p.name}</button>`).join('')}
+    <button class="chip ${!Q.payPreset ? 'on' : ''}" data-p="">مخصص</button></div>
+    <p class="muted">آخر دفعة دايماً = المتبقي تلقائياً، عشان المجموع يطابق الإجمالي بالظبط.</p>
+    <div id="pays"></div>
+    <button class="btn sm ghost" id="addPay">＋ إضافة دفعة</button></div>
+    <div class="card"><h3>الملخص</h3><div class="kv">
+      <span>أتعاب ديزاينلي قبل الضريبة</span><b>${fmt(C.net)}</b>
+      <span>ضريبة القيمة المضافة ${fmt(C.vr * 100)}%</span><b>${fmt(C.vat)}</b>
+      <span>الإجمالي شامل الضريبة</span><b style="font-size:16px">${fmt(C.gross)}</b>
+      ${C.budgets ? `<span>ميزانيات المنصات (مباشرة)</span><b>${fmt(C.budgets)}</b><span>الاستثمار الإجمالي</span><b>${fmt(C.grand)}</b>` : ''}
+    </div></div>
+    <div class="card"><h3>المدة</h3><label class="f"><span>مدة التنفيذ (اختياري)</span><input type="text" id="dur" placeholder="10 – 14 يوم عمل"></label></div>
+    <button class="btn gold full hero-btn" onclick="STEP='texts';renderEditor();scrollTo(0,0)">التالي: النصوص ←</button>`;
+  $('#dur').value = Q.duration || ''; $('#dur').oninput = e => { Q.duration = e.target.value; dirty(); };
+  $$('[data-p]').forEach(b => b.onclick = () => { Q.payPreset = b.dataset.p; if (b.dataset.p) syncPayments(); dirty(); stepPayments(); });
+  $('#addPay').onclick = () => { Q.payPreset = ''; Q.payments.splice(Math.max(0, Q.payments.length - 1), 0, { label: 'دفعة', mode: 'pct', pct: 25 }); dirty(); stepPayments(); };
+  const box = $('#pays');
+  box.innerHTML = C.pays.map((p, i) => {
+    const P = Q.payments[i], last = i === Q.payments.length - 1;
+    return `<div class="pay" data-i="${i}"><div class="row" style="align-items:center"><div class="amt">${fmt(p.gross)} ر.س</div>
+      <span class="muted" style="flex:none">قبل الضريبة ${fmt(p.net)} + ضريبة ${fmt(p.vat)}</span></div>
+      <label class="f" style="margin-top:8px"><input type="text" data-pk="label" value="${esc(P.label || '')}" placeholder="الدفعة ${i + 1} | الموعد"></label>
+      <div class="br">${esc(paymentBreakdown(p, C.rows.filter(r => r.net > 0).length))}</div>
+      ${last ? '<p class="muted">المتبقي تلقائياً</p>' : `<div class="row" style="margin-top:8px"><select data-pk="mode"><option value="pct">نسبة موحدة لكل الخدمات</option><option value="custom">نسبة لكل خدمة</option></select>
+        ${P.mode === 'custom' ? '' : `<input type="number" data-pk="pct" value="${P.pct || 0}" style="max-width:90px" inputmode="decimal">`}</div>
+        ${P.mode === 'custom' ? `<div class="pct-grid">${C.rows.filter(r => r.net > 0).map(r => `<span>${esc(r.it.short || r.it.title || r.it.name)}</span><input type="number" data-per="${r.it.uid}" value="${(P.per || {})[r.it.uid] ?? 0}" inputmode="decimal">`).join('')}</div>` : ''}`}
+      <label class="f" style="margin-top:8px"><input type="text" data-pk="note" value="${esc(P.note || '')}" placeholder="ملاحظة إضافية (اختياري)"></label>
+      ${Q.payments.length > 1 ? '<button class="btn sm danger" data-rmp>حذف الدفعة</button>' : ''}</div>`;
+  }).join('');
+  $$('.pay', box).forEach(el => {
+    const P = Q.payments[+el.dataset.i];
+    $$('[data-pk]', el).forEach(f => {
+      if (f.tagName === 'SELECT') f.value = P.mode || 'pct';
+      f.onchange = f.oninput = e => {
+        const k = f.dataset.pk; P[k] = f.type === 'number' ? +f.value : f.value;
+        if (k !== 'label' && k !== 'note') Q.payPreset = '';
+        if (k === 'mode' && f.value === 'custom' && !P.per) { P.per = {}; Q.items.forEach(it => P.per[it.uid] = +P.pct || 0); }
+        dirty(); if (e.type === 'change' && k !== 'label' && k !== 'note') stepPayments();
+      };
+    });
+    $$('[data-per]', el).forEach(f => f.onchange = () => { P.per = P.per || {}; P.per[f.dataset.per] = +f.value; Q.payPreset = ''; dirty(); stepPayments(); });
+    const rm = $('[data-rmp]', el); if (rm) rm.onclick = () => { Q.payments.splice(+el.dataset.i, 1); Q.payPreset = ''; dirty(); stepPayments(); };
+  });
+}
+
+/* ---------- الخطوة 4: النصوص ---------- */
+function stepTexts() {
+  $('#stepBody').innerHTML = `<div class="card"><h3>نصوص العرض<span class="sp"></span><button class="btn sm gold" id="aiTxt">${S.ai.key ? 'اكتبها بالذكاء الاصطناعي' : 'تعبئة تلقائية'}</button></h3>
+    <label class="f"><span>عنوان العرض</span><input type="text" data-k="title" placeholder="عرض سعر تطوير الحضور الرقمي"></label>
+    <label class="f"><span>السطر تحت العنوان</span><input type="text" data-k="subtitle"></label>
+    <label class="f"><span>وسم بجانب اسم العميل</span><input type="text" data-k="tagline" placeholder="توسّع نحو السوق السعودي"></label>
+    <div class="row"><label class="f"><span>العنوان الرئيسي</span><input type="text" data-k="headline"></label><label class="f"><span>الجزء الملوّن منه</span><input type="text" data-k="headlineAccent"></label></div>
+    <label class="f"><span>السطر الفرعي</span><input type="text" data-k="subhead"></label>
+    <label class="f"><span>المقدمة (استخدم **نص** للخط العريض)</span><textarea data-k="intro" style="min-height:110px"></textarea></label>
+    <label class="f"><span>مسار النمو (كلمة في كل سطر — اختياري)</span><textarea data-k="path" data-lines style="min-height:60px"></textarea></label></div>
+    <div class="card"><h3>مراحل التنفيذ<span class="sp"></span><label class="muted"><input type="checkbox" id="autoPh" ${Q.autoPhases ? 'checked' : ''}> تلقائي</label></h3>
+    <textarea id="phs" style="min-height:120px" placeholder="الوسم | العنوان | الوصف"></textarea><p class="muted">سطر لكل مرحلة: الوسم | العنوان | الوصف</p></div>
+    <div class="card"><h3>الشروط والملاحظات<span class="sp"></span><label class="muted"><input type="checkbox" id="autoTm" ${Q.autoTerms ? 'checked' : ''}> تلقائي</label></h3>
+    <textarea id="tms" style="min-height:150px"></textarea></div>
+    <div class="card"><h3>الختام</h3><label class="f"><span>جملة الختام</span><input type="text" data-k="closingTitle"></label>
+    <label class="f"><span>السطر تحتها</span><input type="text" data-k="closingSub"></label></div>
+    <button class="btn gold full hero-btn" onclick="STEP='art';renderEditor();scrollTo(0,0)">التالي: الثري دي ←</button>`;
+  if (Q.autoPhases) Q.phases = defaultPhases(Q);
+  if (Q.autoTerms) Q.terms = defaultTerms(Q);
+  bindFields($('#stepBody'), Q);
+  const ph = $('#phs'), tm = $('#tms');
+  ph.value = Q.phases.map(p => [p.tag, p.title, p.desc].join(' | ')).join('\n');
+  tm.value = Q.terms.join('\n');
+  ph.oninput = () => { Q.autoPhases = false; $('#autoPh').checked = false; Q.phases = ph.value.split('\n').filter(l => l.trim()).map(l => { const p = l.split('|').map(s => s.trim()); return p.length > 2 ? { tag: p[0], title: p[1], desc: p.slice(2).join(' | ') } : { tag: '', title: p[0], desc: p[1] || '' }; }); dirty(); };
+  tm.oninput = () => { Q.autoTerms = false; $('#autoTm').checked = false; Q.terms = tm.value.split('\n').map(s => s.trim()).filter(Boolean); dirty(); };
+  $('#autoPh').onchange = e => { Q.autoPhases = e.target.checked; dirty(); stepTexts(); };
+  $('#autoTm').onchange = e => { Q.autoTerms = e.target.checked; dirty(); stepTexts(); };
+  $('#aiTxt').onclick = async () => {
+    const b = $('#aiTxt'); b.disabled = true; b.textContent = 'جاري الكتابة...';
+    try { await writeCopy(true); toast('تمت كتابة النصوص'); } catch (e) { toast(e.message, 1); }
+    dirty(); stepTexts();
+  };
+}
+
+/* ---------- الخطوة 5: الثري دي ---------- */
+function stepArt() {
+  const prompt = Q.imagePrompt || buildImagePrompt(Q);
+  $('#stepBody').innerHTML = `<div class="card"><h3>الأوبجكت الثري دي</h3>
+    <div class="img3d" id="art">${img(Q.img3d) ? `<img src="${img(Q.img3d)}">` : '<span class="muted">لسه ماتولدش</span>'}</div>
+    <div style="height:10px"></div>
+    ${S.ai.key ? `<button class="btn gold full" id="gen">توليد تلقائي بهوية العميل</button>` : `<p class="muted">مفيش مفتاح OpenAI API في الإعدادات — انسخ البرومبت وولّد الصورة من تطبيق ChatGPT، وبعدين ارفعها هنا.</p>`}
+    <div class="row" style="margin-top:8px"><button class="btn" id="cp">نسخ البرومبت${S.ai.key ? '' : ' وفتح ChatGPT'}</button><button class="btn" id="up">رفع صورة</button></div>
+    <div class="row" style="margin-top:8px"><button class="btn ghost sm" id="rmbg">إزالة خلفية بيضاء</button>${Q.img3d ? '<button class="btn ghost sm danger" id="del3d">حذف الصورة</button>' : ''}</div></div>
+    <div class="card"><h3>البرومبت<span class="sp"></span><button class="btn sm ghost" id="rst">إعادة بناء</button></h3>
+    <textarea id="pr" style="min-height:220px">${esc(prompt)}</textarea></div>
+    <button class="btn gold full hero-btn" onclick="STEP='preview';renderEditor();scrollTo(0,0)">التالي: المعاينة ←</button>`;
+  $('#pr').oninput = e => { Q.imagePrompt = e.target.value; dirty(); };
+  $('#rst').onclick = () => { Q.imagePrompt = ''; dirty(); stepArt(); };
+  $('#cp').onclick = async () => {
+    const t = $('#pr').value; try { await navigator.clipboard.writeText(t); toast('تم نسخ البرومبت'); } catch (e) { $('#pr').select(); document.execCommand('copy'); toast('تم النسخ'); }
+    if (!S.ai.key) setTimeout(() => window.open('https://chatgpt.com/', '_blank'), 300);
+  };
+  $('#up').onclick = async () => { const f = await pickFile(); if (!f) return; Q.img3d = await putImage(await compressImage(await fileToDataUrl(f))); dirty(); stepArt(); };
+  const g = $('#gen'); if (g) g.onclick = async () => {
+    g.disabled = true; g.innerHTML = '<span class="spin" style="width:18px;height:18px;margin:0;border-width:2px"></span> جاري التوليد (حوالي دقيقة)...';
+    try { await generate3D(); toast('تم توليد الأوبجكت'); } catch (e) { toast(e.message, 1); }
+    dirty(); stepArt();
+  };
+  $('#rmbg').onclick = async () => { if (!img(Q.img3d)) return; Q.img3d = await putImage(await compressImage(await removeWhiteBg(img(Q.img3d)))); dirty(); stepArt(); };
+  const d3 = $('#del3d'); if (d3) d3.onclick = () => { Q.img3d = ''; dirty(); stepArt(); };
+}
+
+/* ---------- الخطوة 6: المعاينة ---------- */
+async function ensureFonts() {
+  if (!document.fonts) return;
+  try { await Promise.all([400, 500, 600, 700].map(w => document.fonts.load(`${w} 16px "IBM Plex Sans Arabic"`, 'عرض سعر'))); await document.fonts.ready; } catch (e) { }
+}
+async function stepPreview() {
+  fillDefaults(Q); await ensureFonts();
+  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...S.partners.map(p => p.img)]);
+  $('#stepBody').innerHTML = `<div class="card"><div class="row"><button class="btn gold" id="pdf">تحميل PDF</button><button class="btn pri" id="share">مشاركة (واتساب…)</button></div></div>
+    <div class="pv" id="pv"></div>`;
+  const pv = $('#pv');
+  pv.innerHTML = renderPages(Q, S, img);
+  const w = Math.min(794, pv.clientWidth || window.innerWidth - 24), s = w / 794;
+  $$('.qpage', pv).forEach(p => { const wrap = document.createElement('div'); wrap.className = 'pw'; wrap.style.cssText = `width:${794 * s}px;height:${1123 * s}px`; p.parentNode.insertBefore(wrap, p); wrap.appendChild(p); p.style.transform = `scale(${s})`; });
+  $('#pdf').onclick = () => exportPDF('download');
+  $('#share').onclick = () => exportPDF('share');
+}
+// يملأ أي خانة فاضية بنصوص تلقائية قبل المعاينة
+function fillDefaults(q) {
+  const t = templateCopy(q);
+  if (!q.headline) { q.headline = t.headline; q.headlineAccent = t.headlineAccent; }
+  ['title', 'subtitle', 'tagline', 'subhead', 'intro', 'closingTitle', 'closingSub'].forEach(k => { if (!q[k]) q[k] = t[k]; });
+  if (q.autoPhases || !q.phases.length) q.phases = defaultPhases(q);
+  if (q.autoTerms || !q.terms.length) q.terms = defaultTerms(q);
+  if (!q.duration) q.duration = defaultDuration(q);
+  if (!q.no) q.no = makeNo(q);
+}
+
+/* ======================= النصوص التلقائية (بدون AI) ======================= */
+function cats(q) { const s = new Set(q.items.map(i => i.cat)); return { brand: s.has('brand'), ads: s.has('ads'), social: s.has('social'), web: s.has('web'), local: s.has('local'), monthly: q.items.some(i => i.kind === 'monthly') }; }
+function templateCopy(q) {
+  const c = cats(q), name = q.client.name || 'العميل', ind = q.client.industry;
+  const names = q.items.map(i => i.short || i.title || i.name);
+  const list = names.length > 1 ? names.slice(0, -1).join('، ') + ' و' + names[names.length - 1] : (names[0] || '');
+  let title = 'عرض سعر تطوير الحضور الرقمي', subtitle = 'يهيئ العلامة لاستقبال فرص جديدة من البحث والحملات الإعلانية';
+  if (c.brand && !c.ads && !c.social) { title = 'تصميم وتطوير هوية بصرية'; subtitle = ind ? 'لمشروع متخصص في ' + ind : 'هوية متكاملة قابلة للتوسع'; }
+  else if (c.web && !c.ads && !c.social) { title = 'عرض سعر تأسيس رقمي'; subtitle = 'حضور رقمي احترافي يسهّل وصول العميل واتخاذه للخطوة التالية'; }
+  else if (c.ads && !c.social) subtitle = 'خطة إعلانية لبناء جمهور مؤهل وتحويل الاهتمام إلى طلبات';
+  else if (c.social) subtitle = 'يهيئ العلامة للانتشار أكثر من خلال التواجد الإلكتروني والحملات الإعلانية';
+  const tagline = c.monthly ? 'مقترح شهري لإدارة المحتوى والحملات' : 'عرض سعر مخصص';
+  let headline = 'نصنع حضورًا يُلهم |', accent = 'ونحوّل الاهتمام إلى فرص حقيقية';
+  if (c.brand && !c.social && !c.ads) { headline = 'استثمار واحد'; accent = 'لبناء حضور بصري متكامل'; }
+  else if (c.web && !c.social && !c.ads) { headline = 'واجهة رقمية أرقى'; accent = '• ظهور أوضح • تواصل أسرع'; }
+  return {
+    title, subtitle, tagline, headline, headlineAccent: accent,
+    subhead: ind ? `خطة مصممة خصيصًا لـ${name} في مجال ${ind}.` : `خطة مصممة خصيصًا لـ${name}.`,
+    intro: `إلى فريق **${name}**، نقترح ${c.monthly ? 'شراكة تسويقية' : 'حلًا متكاملًا'} يجمع بين ${list}، ضمن خطة واضحة المراحل وقابلة للقياس، تبرز تميز العلامة وتحوّل الاهتمام إلى نتائج ملموسة.`,
+    closingTitle: `${name} تستحق حضورًا رقميًا بتميّز تجربتها.`,
+    closingSub: 'مع ديزاينلي، نبرز العلامة بصورة ملهمة ونحوّل الاهتمام إلى فرص حقيقية.',
+  };
+}
+function defaultPhases(q) {
+  const c = cats(q);
+  if (c.brand && !c.social && !c.ads) return [
+    { tag: 'بداية المشروع', title: 'الانطلاق والدراسة', desc: 'استلام العربون والمحتوى المتاح، ثم دراسة النشاط وبناء الـ Mood Board والتوجه البصري.' },
+    { tag: 'اعتماد أساسي', title: 'الشعار والهوية', desc: 'تقديم اتجاهين للشعار، تطوير الاتجاه المختار، واعتماد الشعار والألوان والخطوط.' },
+    { tag: 'مرحلة تطبيق', title: 'تطبيقات الهوية', desc: 'تنفيذ التطبيقات والمطبوعات والتصاميم الرقمية المتفق عليها.' },
+    { tag: 'إغلاق المشروع', title: 'التجهيز والتسليم', desc: 'إجراء الاعتمادات النهائية وتنظيم ملفات المشروع ورفعها على Google Drive.' }];
+  if (c.web && !c.social && !c.ads) return [
+    { tag: 'التهيئة', title: 'التخطيط وجمع المحتوى', desc: 'تحديد الأقسام والمحتوى والصور وبيانات التواصل.' },
+    { tag: 'التصميم', title: 'التصميم والاعتماد', desc: 'تصميم الواجهات بهوية العلامة واعتمادها.' },
+    { tag: 'التنفيذ', title: 'التطوير والربط', desc: 'بناء الصفحات وربط وسائل التواصل والخرائط.' },
+    { tag: 'الإطلاق', title: 'الإطلاق والتسليم', desc: 'المراجعة النهائية والنشر وتسليم بيانات الدخول.' }];
+  const ph = [{ tag: 'مرحلة 01', title: 'التهيئة', desc: 'مراجعة الحسابات والملفات، تحديد الجمهور، وتجهيز خطة المحتوى' + (c.ads ? ' والحملات.' : '.') }];
+  ph.push({ tag: 'مرحلة 02', title: 'الإطلاق', desc: (c.social ? 'بدء نشر المحتوى' : 'تجهيز المواد') + (c.ads ? ' وتشغيل الحملات الإعلانية واختبار الرسائل والشرائح.' : ' وفق الخطة المعتمدة.') });
+  ph.push({ tag: 'مرحلة 03', title: 'التحسين', desc: 'قراءة النتائج وتحسين الاستهداف والرسائل وتوزيع الإنفاق.' });
+  ph.push({ tag: 'مرحلة 04', title: 'التقرير والتوسع', desc: 'تقرير أداء واضح وتوصية بالقنوات الأكثر فاعلية للمرحلة التالية.' });
+  return ph;
+}
+function defaultTerms(q) {
+  const c = cats(q), T = [], C = computeQuote(q);
+  T.push(q.pricesIncludeVat ? 'الضريبة: الأسعار المذكورة شاملة ضريبة القيمة المضافة.' : `الضريبة: الأسعار المذكورة قبل ضريبة القيمة المضافة (${fmt(C.vr * 100)}%)، وجدول الدفعات موضّح شاملًا الضريبة.`);
+  if (c.ads) T.push('شفافية الإعلان: يمول العميل الحملات مباشرة من حسابه على المنصات، والميزانية الإعلانية ليست إيرادًا لديزاينلي ولا تدخل ضمن فاتورتها الضريبية.');
+  if (c.monthly) T.push('مرونة الاشتراك: التعاقد شهر بشهر، والتجديد بموافقة العميل فقط ودون رسوم جزائية.');
+  T.push('آلية الانطلاق: تبدأ الأعمال بعد الموافقة والدفعة الأولى وتسليم الوصول للحسابات والمواد.');
+  if (c.social && !q.items.some(i => i.src === 'shooting' || i.src === 'smm_reels')) T.push('ملاحظة: التصوير الميداني غير مشمول، وإنتاج الفيديوهات يعتمد على مواد العميل أو مواد مرخصة متفق عليها.');
+  if (c.web) T.push('الدومين والاستضافة وبوابات الدفع غير مشمولة ما لم تُذكر ضمن الخدمات.');
+  if (c.brand) { T.push('التعديلات مفتوحة خلال مرحلة تطوير التوجه المختار حتى الاعتماد، أما تغيير التوجه بالكامل بعد الاعتماد فيُقيّم ويُسعّر بشكل مستقل.'); T.push('يشمل العرض التصميم فقط ولا يشمل الطباعة أو الإنتاج أو التوريد.'); }
+  if (c.ads || c.social) T.push('النتائج: تتأثر النتائج بالموسم والمنافسة واستجابة السوق، ولا يمكن ضمان عدد محدد من المبيعات أو الحجوزات.');
+  T.push('أي متطلبات إضافية خارج البنود المذكورة تُسعّر بشكل منفصل بعد موافقة العميل.');
+  return T;
+}
+function defaultDuration(q) {
+  const c = cats(q);
+  if (c.monthly && !c.brand && !c.web) return '';
+  if (c.brand) return '10 – 14 يوم عمل';
+  if (c.web) return '15 – 20 يوم عمل';
+  return '';
+}
+
+/* ======================= الهوية من الروابط ======================= */
+function parseLink(u) {
+  u = u.trim(); if (!u) return null; if (!/^https?:/i.test(u)) u = 'https://' + u.replace(/^@/, 'instagram.com/');
+  let url; try { url = new URL(u); } catch (e) { return null; }
+  const h = url.hostname.replace(/^www\./, ''), seg = url.pathname.split('/').filter(Boolean);
+  const user = (seg[0] || '').replace(/^@/, '');
+  if (/instagram\.com$/.test(h)) return { p: 'instagram', user };
+  if (/tiktok\.com$/.test(h)) return { p: 'tiktok', user };
+  if (/(x|twitter)\.com$/.test(h)) return { p: 'x', user };
+  if (/facebook\.com$/.test(h)) return { p: 'facebook', user };
+  if (/youtube\.com$/.test(h)) return { p: 'youtube', user };
+  if (/snapchat\.com$/.test(h)) return { p: 'snapchat', user: seg[1] || user };
+  if (/linkedin\.com$/.test(h)) return { p: 'linkedin', user: seg[1] || user };
+  return { p: 'web', user: h };
+}
+async function grabBrand(interactive) {
+  const c = Q.client, links = (c.links || []).map(parseLink).filter(Boolean);
+  if (!links.length) { if (interactive) toast('أضف رابط واحد على الأقل', 1); return false; }
+  if (!c.nameEn) { const u = links.find(l => l.p !== 'web') || links[0]; c.nameEn = u.user.replace(/\..*$/, '').replace(/[._-]+/g, ' ').replace(/\b\w/g, m => m.toUpperCase()); }
+  let ok = false;
+  if (!img(c.logoImg)) {
+    const order = ['instagram', 'tiktok', 'x', 'facebook', 'youtube', 'web'];
+    links.sort((a, b) => order.indexOf(a.p) - order.indexOf(b.p));
+    for (const l of links) {
+      if (!['instagram', 'tiktok', 'x', 'facebook', 'youtube', 'web'].includes(l.p)) continue;
+      const src = 'https://unavatar.io/' + (l.p === 'web' ? '' : l.p + '/') + encodeURIComponent(l.user) + '?fallback=false';
+      try {
+        const im = await loadImgEl(src, true);
+        if (im.naturalWidth < 40) continue;
+        const cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+        cv.getContext('2d').drawImage(im, 0, 0);
+        const d = cv.toDataURL('image/png');
+        c.logoImg = await putImage(await compressImage(d, 600, 300000)); ok = true; break;
+      } catch (e) { console.warn('logo fail', l, e); }
+    }
+  } else ok = true;
+  if (img(c.logoImg) && !c.colors.manual) await colorsFromLogo(false);
+  if (S.ai.key) {
+    try { await aiBrandResearch(); } catch (e) { console.warn(e); if (interactive) toast('تحليل الهوية بالذكاء الاصطناعي: ' + e.message, 1); }
+  }
+  if (interactive) toast(ok ? 'تم استخراج الشعار والألوان' : 'ما قدرتش أسحب الشعار تلقائياً — ارفعه يدوياً (سكرين شوت من الحساب)', !ok);
+  dirty(); return ok;
+}
+async function colorsFromLogo(manual) {
+  const src = img(Q.client.logoImg); if (!src) return;
+  const pal = await extractPalette(src);
+  Q.client.colors = Object.assign({}, Q.client.colors, pal, { tint: '' }); if (manual) Q.client.colors.manual = false;
+}
+async function extractPalette(src) {
+  const im = await loadImgEl(src); const n = 64; const cv = document.createElement('canvas'); cv.width = cv.height = n;
+  const x = cv.getContext('2d'); x.drawImage(im, 0, 0, n, n);
+  const d = x.getImageData(0, 0, n, n).data, bins = {};
+  for (let i = 0; i < d.length; i += 4) {
+    if (d[i + 3] < 128) continue;
+    const r = d[i], g = d[i + 1], b = d[i + 2], k = (r >> 4) + ',' + (g >> 4) + ',' + (b >> 4);
+    (bins[k] = bins[k] || { r: 0, g: 0, b: 0, n: 0 }); bins[k].r += r; bins[k].g += g; bins[k].b += b; bins[k].n++;
+  }
+  const cols = Object.values(bins).map(o => { const r = o.r / o.n, g = o.g / o.n, b = o.b / o.n; const [h, s, l] = rgb2hsl(r, g, b); return { r, g, b, n: o.n, h, s, l }; });
+  const sat = cols.filter(c => c.s > .28 && c.l > .12 && c.l < .88).sort((a, b) => b.n * b.s - a.n * a.s);
+  const dark = cols.filter(c => c.l < .3).sort((a, b) => b.n - a.n);
+  const hex = c => '#' + [c.r, c.g, c.b].map(v => Math.round(v).toString(16).padStart(2, '0')).join('');
+  let P;
+  if (dark[0] && dark[0].n > 20) P = dark[0];
+  else if (sat[0]) P = { h: sat[0].h, s: Math.min(sat[0].s, .6), l: .2 };
+  const primary = P ? (P.r != null ? hex(P) : hslHex(P.h, P.s, P.l)) : '#1d1d1f';
+  const pr = hexToRgb(primary), dist = c => Math.hypot(c.r - pr[0], c.g - pr[1], c.b - pr[2]);
+  const A = sat.find(c => dist(c) > 90);
+  let accent;
+  if (A) accent = A.l > .7 ? hslHex(A.h, A.s, .5) : hex(A);
+  else if (P && P.s > .2) accent = hslHex(P.h, Math.max(P.s, .45), .42);
+  else accent = '#a8832f';
+  return { primary, accent };
+}
+function rgb2hsl(r, g, b) { r /= 255; g /= 255; b /= 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b); let h = 0, s = 0; const l = (mx + mn) / 2;
+  if (mx !== mn) { const d = mx - mn; s = l > .5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h /= 6; } return [h, s, l]; }
+function hslHex(h, s, l) { const f = n => { const k = (n + h * 12) % 12, a = s * Math.min(l, 1 - l); return Math.round(255 * (l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, '0'); }; return '#' + f(0) + f(8) + f(4); }
+async function removeWhiteBg(src) {
+  const im = await loadImgEl(src); const cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+  const x = cv.getContext('2d'); x.drawImage(im, 0, 0); const D = x.getImageData(0, 0, cv.width, cv.height), d = D.data, W = cv.width, H = cv.height;
+  const seen = new Uint8Array(W * H), st = [];
+  const isBg = i => d[i * 4] > 232 && d[i * 4 + 1] > 232 && d[i * 4 + 2] > 232;
+  for (let x0 = 0; x0 < W; x0++) { st.push(x0, (H - 1) * W + x0); } for (let y0 = 0; y0 < H; y0++) { st.push(y0 * W, y0 * W + W - 1); }
+  while (st.length) { const p = st.pop(); if (seen[p] || !isBg(p)) continue; seen[p] = 1; d[p * 4 + 3] = 0; const px = p % W;
+    if (px > 0) st.push(p - 1); if (px < W - 1) st.push(p + 1); if (p >= W) st.push(p - W); if (p < W * (H - 1)) st.push(p + W); }
+  x.putImageData(D, 0, 0); return cv.toDataURL('image/png');
+}
+
+/* ======================= OpenAI ======================= */
+async function oaJSON(sys, user, webSearch) {
+  const body = { model: S.ai.textModel || 'gpt-5-mini', input: [{ role: 'system', content: sys }, { role: 'user', content: user }] };
+  if (webSearch) body.tools = [{ type: 'web_search' }]; else body.text = { format: { type: 'json_object' } };
+  const r = await fetch('https://api.openai.com/v1/responses', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + S.ai.key }, body: JSON.stringify(body) });
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error?.message || ('OpenAI ' + r.status));
+  let txt = j.output_text || '';
+  if (!txt) (j.output || []).forEach(o => (o.content || []).forEach(c => { if (c.type === 'output_text') txt += c.text; }));
+  const m = txt.match(/\{[\s\S]*\}/); if (!m) throw new Error('رد غير مفهوم من الذكاء الاصطناعي');
+  return JSON.parse(m[0]);
+}
+async function aiBrandResearch() {
+  const c = Q.client;
+  const j = await oaJSON('أنت محلل علامات تجارية. ابحث في الروابط المعطاة وأعد JSON فقط بدون أي نص آخر.',
+    `العميل: ${c.name || ''} ${c.nameEn || ''}\nالروابط:\n${(c.links || []).join('\n')}\n\nأعد JSON بالمفاتيح: name_ar, name_en, industry (المجال بالعربي باختصار), about (سطرين عن النشاط والجمهور والمنتجات بالعربي), tone (طابع الهوية), colors (مصفوفة ألوان hex للهوية إن عرفتها), visual (وصف قصير بالإنجليزي لعناصر بصرية مميزة للبراند والمنتجات).`,
+    S.ai.useWebSearch !== false);
+  if (!c.name && j.name_ar) c.name = j.name_ar;
+  if (!c.nameEn && j.name_en) c.nameEn = j.name_en;
+  if (!c.industry && j.industry) c.industry = j.industry;
+  if (!c.about && j.about) c.about = j.about;
+  c.brandNotes = [j.tone, j.about].filter(Boolean).join(' — ');
+  c.visual = j.visual || '';
+  if (!img(c.logoImg) && Array.isArray(j.colors) && j.colors.length) {
+    const hx = j.colors.filter(x => /^#[0-9a-f]{6}$/i.test(x));
+    if (hx[0]) { const rgb = hexToRgb(hx[0]); const [h, s, l] = rgb2hsl(...rgb); c.colors = { accent: hx[0], primary: l < .3 ? hx[0] : hslHex(h, Math.min(s, .6), .2) }; if (hx[1]) c.colors.primary = hx[1]; }
+  }
+}
+async function writeCopy(interactive) {
+  if (!S.ai.key) { const t = templateCopy(Q); Object.assign(Q, t); Q.phases = defaultPhases(Q); Q.terms = defaultTerms(Q); return; }
+  const c = Q.client, C = computeQuote(Q);
+  const items = Q.items.map(i => ({ uid: i.uid, name: i.name, kind: i.kind, platform: i.platform, counts: i.counts, desc: i.desc }));
+  const j = await oaJSON(
+    `أنت كاتب محتوى تسويقي محترف لوكالة "ديزاينلي" السعودية. تكتب عروض أسعار فخمة، مختصرة، مقنعة، بلغة عربية فصحى سلسة قريبة من السوق السعودي. لا تذكر أي أسعار أو أرقام مالية في النصوص. أعد JSON فقط.`,
+    `العميل: ${c.name} (${c.nameEn || ''})\nالمجال: ${c.industry || ''}\nعن العميل: ${c.about || ''} ${c.brandNotes || ''}\nالخدمات المختارة:\n${JSON.stringify(items)}\n${C.budgets ? 'يوجد حملات إعلانية بميزانية تُدفع للمنصات مباشرة.' : ''}
+أعد JSON بالمفاتيح:
+title (عنوان العرض مثل "عرض سعر تطوير الحضور الرقمي"), subtitle (سطر تحته), tagline (وسم قصير بجانب اسم العميل مثل "توسّع نحو السوق السعودي"),
+headline (عنوان رئيسي جذاب قصير), headlineAccent (تكملة ملوّنة قصيرة للعنوان), subhead (سطر واحد), intro (فقرة 2-3 أسطر تبدأ بـ "إلى فريق **${c.name}**،" أو بصياغة مناسبة، استخدم **للتغميق**),
+path (مصفوفة 4 كلمات لمسار النمو مثل وعي وانتشار),
+items (كائن مفاتيحه uid وقيمته {title: عنوان الخدمة في العرض مخصص للعميل (للحملات مثل "الحملة الأولى / نمو المتابعين والتفاعل"), objective: هدف الحملة (للإعلانات فقط), desc: سطر وصف مخصص لنشاط العميل, bullets: 2-3 نقاط بصيغة "عنوان قصير: شرح"}),
+phases (4 مراحل: [{tag, title, desc}]),
+closingTitle (جملة ختام عن العميل), closingSub (سطر ختام يذكر ديزاينلي),
+scene (وصف بالإنجليزي لمشهد ثري دي واحد متماسك يعبر عن مجال العميل وخدمات العرض ومراحل الخطة، بعناصر محددة من مجال العميل).`);
+  ['title', 'subtitle', 'tagline', 'headline', 'headlineAccent', 'subhead', 'intro', 'closingTitle', 'closingSub'].forEach(k => { if (j[k]) Q[k] = j[k]; });
+  if (Array.isArray(j.path)) Q.path = j.path.slice(0, 5);
+  if (Array.isArray(j.phases) && j.phases.length) { Q.phases = j.phases; Q.autoPhases = false; }
+  if (j.items) Q.items.forEach(it => { const x = j.items[it.uid]; if (!x) return; if (x.title) it.title = x.title; if (x.objective) it.objective = x.objective; if (x.desc) it.desc = x.desc; if (Array.isArray(x.bullets) && x.bullets.length) it.bullets = x.bullets; });
+  Q.scene = j.scene || '';
+  Q.imagePrompt = '';
+  if (Q.autoTerms) Q.terms = defaultTerms(Q);
+}
+function buildImagePrompt(q) {
+  const c = q.client, col = c.colors || {};
+  const svc = q.items.map(i => (i.title || i.name) + (i.platform ? ' (' + i.platform + ')' : '')).join('، ');
+  const ph = (q.phases.length ? q.phases : defaultPhases(q)).map(p => p.title).join(' ← ');
+  return `${S.imagePrompt}
+
+تفاصيل هذا العرض:
+- العميل: ${c.name || ''} ${c.nameEn ? '(' + c.nameEn + ')' : ''}
+- المجال: ${c.industry || ''}
+- الخدمات: ${svc}
+- خطة العمل: ${ph}
+- ألوان الهوية: ${col.primary || ''} ، ${col.accent || ''}
+${img(c.logoImg) ? '- استخدم شعار العميل المرفق كما هو على قاعدة التصميم وعلى شاشة واحدة.\n' : ''}
+Art direction: one cohesive premium 3D composition (glossy, clay/plastic + metal materials, soft studio lighting, isometric 3/4 view) built around a floating circular platform themed on the client's industry${c.visual ? ' (' + c.visual + ')' : ''}. Surround it with small 3D elements that represent each service in the quote (e.g. smartphone with social feed, megaphone/ads, analytics chart going up, map pin, website screen, content camera — only those relevant), arranged like a flowing path that shows the plan stages. ${q.scene || ''}
+Use the brand colors ${col.primary || ''} and ${col.accent || ''} with subtle gold accents. NO prices, NO currency, NO numbers of money, minimal text. Fully transparent background (PNG with alpha), no backdrop, no frame, centered, high detail, modern and professional.`;
+}
+async function generate3D() {
+  if (!S.ai.key) throw new Error('أضف مفتاح OpenAI API من الإعدادات');
+  const prompt = Q.imagePrompt || buildImagePrompt(Q);
+  const logo = img(Q.client.logoImg);
+  const common = { model: S.ai.imageModel || 'gpt-image-1.5', size: '1536x1024', quality: S.ai.quality || 'medium', background: 'transparent', output_format: 'png' };
+  const call = async (bg) => {
+    let r;
+    if (logo) {
+      const fd = new FormData();
+      Object.entries(Object.assign({}, common, { background: bg })).forEach(([k, v]) => fd.append(k, v));
+      fd.append('prompt', prompt);
+      const blob = await (await fetch(await toPng(logo))).blob();
+      fd.append('image[]', blob, 'logo.png');
+      r = await fetch('https://api.openai.com/v1/images/edits', { method: 'POST', headers: { Authorization: 'Bearer ' + S.ai.key }, body: fd });
+    } else {
+      r = await fetch('https://api.openai.com/v1/images/generations', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + S.ai.key },
+        body: JSON.stringify(Object.assign({}, common, { background: bg, prompt })) });
+    }
+    const j = await r.json(); if (!r.ok) throw new Error(j.error?.message || ('OpenAI ' + r.status));
+    return j.data[0].b64_json;
+  };
+  let b64;
+  try { b64 = await call('transparent'); } catch (e) { if (/background|transparent/i.test(e.message)) b64 = await call('auto'); else throw e; }
+  let d = 'data:image/png;base64,' + b64;
+  Q.img3d = await putImage(await compressImage(d));
+}
+async function toPng(src) { const im = await loadImgEl(src); const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; c.getContext('2d').drawImage(im, 0, 0); return c.toDataURL('image/png'); }
+
+/* ======================= إنشاء تلقائي كامل ======================= */
+async function autoAll() {
+  if (!Q.client.name && !(Q.client.links || []).length) { STEP = 'client'; renderEditor(); return toast('اكتب اسم العميل أو روابطه أولاً', 1); }
+  if (!Q.items.length) { STEP = 'services'; renderEditor(); return toast('اختر الخدمات أولاً', 1); }
+  const steps = [['brand', 'استخراج الشعار والألوان'], ['copy', S.ai.key ? 'كتابة نصوص العرض بالذكاء الاصطناعي' : 'تجهيز النصوص'], ['art', 'توليد الأوبجكت الثري دي'], ['pdf', 'تجهيز المعاينة']];
+  const o = overlay(`<div class="prog"><div class="spin"></div><b>إنشاء العرض تلقائياً</b><ol>${steps.map(s => `<li data-s="${s[0]}">${s[1]}</li>`).join('')}</ol></div>`);
+  o.dataset.lock = 1;
+  const mark = (k, st) => { const li = $(`[data-s="${k}"]`, o); if (li) li.className = st; };
+  const run = async (k, fn) => { mark(k, 'run'); try { await fn(); mark(k, 'done'); } catch (e) { console.warn(e); mark(k, 'fail'); $(`[data-s="${k}"]`, o).textContent += ' — ' + e.message; await sleep(1500); } };
+  if ((Q.client.links || []).length) await run('brand', () => grabBrand(false)); else mark('brand', 'done');
+  await run('copy', () => writeCopy(false));
+  if (S.ai.key && !Q.img3d) await run('art', generate3D); else mark('art', Q.img3d ? 'done' : 'fail');
+  if (!S.ai.key && !Q.img3d) $('[data-s="art"]', o).textContent += ' — يدوي (مفيش مفتاح API)';
+  mark('pdf', 'run'); fillDefaults(Q); await saveQuote(); mark('pdf', 'done');
+  await sleep(500); o.remove(); STEP = 'preview'; renderEditor(); window.scrollTo(0, 0);
+}
+
+/* ======================= تصدير PDF ======================= */
+// تضمين خط IBM Plex Sans Arabic (العربي واللاتيني فقط) كـ base64 عشان الـ PDF يطلع بنفس الخط على أي جهاز
+let FONT_CSS = null;
+async function getFontCSS() {
+  if (FONT_CSS != null) return FONT_CSS;
+  try {
+    const href = [...document.querySelectorAll('link[rel=stylesheet]')].map(l => l.href).find(h => h.includes('fonts.googleapis'));
+    const css = await (await fetch(href)).text();
+    const blocks = css.split(/(?=\/\*\s*[\w-]+\s*\*\/)/).filter(b => /\/\*\s*(arabic|latin)\s*\*\//.test(b));
+    const use = blocks.length ? blocks : [css];
+    const out = await Promise.all(use.map(async b => {
+      const urls = [...new Set([...b.matchAll(/url\(([^)]+)\)/g)].map(m => m[1]))];
+      for (const raw of urls) {
+        const blob = await (await fetch(raw.replace(/["']/g, ''))).blob();
+        const d = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
+        b = b.split('url(' + raw + ')').join('url(' + d + ')');
+      }
+      return b;
+    }));
+    FONT_CSS = out.join('\n');
+  } catch (e) { console.warn('font embed', e); FONT_CSS = ''; }
+  return FONT_CSS;
+}
+async function exportPDF(mode) {
+  fillDefaults(Q); await saveQuote();
+  const o = overlay(`<div class="prog"><div class="spin"></div><b id="pg">تجهيز الـ PDF...</b></div>`); o.dataset.lock = 1;
+  try {
+    await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...S.partners.map(p => p.img)]);
+    await ensureFonts();
+    const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:0;top:0;width:794px;z-index:-1;opacity:0;pointer-events:none';
+    host.innerHTML = renderPages(Q, S, img); document.body.appendChild(host);
+    const pages = $$('.qpage', host);
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
+    const fontCSS = await getFontCSS();
+    const opts = { pixelRatio: 2, backgroundColor: '#ffffff', fontEmbedCSS: fontCSS, width: 794, height: 1123 };
+    if (/iP(hone|ad|od)|Safari/.test(navigator.userAgent) && !/Chrome|Android/.test(navigator.userAgent)) { try { await htmlToImage.toCanvas(pages[0], opts); } catch (e) { } }
+    for (let i = 0; i < pages.length; i++) {
+      $('#pg', o).textContent = `صفحة ${i + 1} من ${pages.length}...`;
+      const cv = await htmlToImage.toCanvas(pages[i], opts);
+      if (i) pdf.addPage();
+      pdf.addImage(cv.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+      const pr = pages[i].getBoundingClientRect(), k = 210 / 794;
+      $$('a[data-link]', pages[i]).forEach(a => { const u = a.dataset.link; if (!u) return; const r = a.getBoundingClientRect(); pdf.link((r.left - pr.left) * k, (r.top - pr.top) * k, r.width * k, r.height * k, { url: u }); });
+    }
+    host.remove();
+    const name = `عرض سعر - ${Q.client.name || ''} - ${Q.no}.pdf`.replace(/[\\/:*?"<>|]/g, '');
+    const blob = pdf.output('blob');
+    if (!Q.status) { Q.status = 'sent'; dirty(); }
+    o.remove();
+    if (mode === 'share' && navigator.canShare) {
+      const file = new File([blob], name, { type: 'application/pdf' });
+      if (navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: name }); return; } catch (e) { if (e.name === 'AbortError') return; } }
+    }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+    toast('تم تجهيز الـ PDF');
+  } catch (e) { console.error(e); o.remove(); toast('تعذر إنشاء PDF: ' + e.message, 1); }
+}
+window.__exportPDFBlob = async () => { // للاختبار
+  const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:0;top:0;width:794px;z-index:-1;opacity:0;pointer-events:none';
+  host.innerHTML = renderPages(Q, S, img); document.body.appendChild(host); await document.fonts.ready;
+  const pages = $$('.qpage', host); const fontCSS = await getFontCSS();
+  const { jsPDF } = window.jspdf; const pdf = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
+  for (let i = 0; i < pages.length; i++) { const cv = await htmlToImage.toCanvas(pages[i], { pixelRatio: 2, backgroundColor: '#fff', fontEmbedCSS: fontCSS, width: 794, height: 1123 }); if (i) pdf.addPage(); pdf.addImage(cv.toDataURL('image/jpeg', .9), 'JPEG', 0, 0, 210, 297); }
+  host.remove(); return pdf.output('datauristring');
+};
+
+/* ======================= الإعدادات ======================= */
+async function showSettings() {
+  setNav('settings'); Q = null;
+  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, ...S.partners.map(p => p.img)]);
+  const imgBox = (k, label) => `<div style="text-align:center"><div class="brandbox"><div class="lg" data-img="${k}" style="width:100%;height:90px">${img(S[k]) ? `<img src="${img(S[k])}">` : '<span class="muted">+ رفع</span>'}</div></div><span class="muted">${label}</span></div>`;
+  $('#app').innerHTML = `
+  <div class="card"><h3>المظهر والصور الثابتة</h3><div class="row">${imgBox('logoImg', 'شعار ديزاينلي')}${imgBox('bankDocImg', 'صورة شهادة الحساب')}${imgBox('logosStripImg', 'شعارات العملاء (صورة)')}</div></div>
+  <div class="card"><h3>الذكاء الاصطناعي (OpenAI)</h3>
+    <label class="f"><span>مفتاح API — من platform.openai.com (منفصل عن اشتراك ChatGPT)</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
+    <div class="row"><label class="f"><span>موديل النصوص</span><input type="text" data-k="ai.textModel" dir="ltr"></label><label class="f"><span>موديل الصور</span><input type="text" data-k="ai.imageModel" dir="ltr"></label></div>
+    <div class="row"><label class="f"><span>جودة الصورة</span><select data-k="ai.quality"><option value="low">منخفضة (أرخص)</option><option value="medium">متوسطة</option><option value="high">عالية</option></select></label>
+    <label class="f"><span>بحث الويب لتحليل الهوية</span><select id="ws"><option value="1">مفعّل</option><option value="">متوقف</option></select></label></div>
+    <label class="f"><span>البرومبت الأساسي للثري دي</span><textarea data-k="imagePrompt" style="min-height:100px"></textarea></label>
+    <p class="muted">⚠️ المفتاح بيتحفظ في قاعدة البيانات ويقدر يشوفه أي حد مضاف للنظام. ضع حد صرف شهري للمفتاح من لوحة OpenAI.</p></div>
+  <div class="card"><h3>بيانات المؤسسة</h3>
+    <label class="f"><span>الاسم بالعربي</span><input type="text" data-k="company.nameAr"></label>
+    <label class="f"><span>الاسم بالإنجليزي</span><input type="text" data-k="company.nameEn" dir="ltr"></label>
+    <div class="row"><label class="f"><span>الرقم الموحد</span><input type="text" data-k="company.unified"></label><label class="f"><span>السجل التجاري</span><input type="text" data-k="company.cr"></label></div>
+    <div class="row"><label class="f"><span>الرقم الضريبي</span><input type="text" data-k="company.vat"></label><label class="f"><span>الموقع</span><input type="text" data-k="company.website" dir="ltr"></label></div>
+    <div class="row"><label class="f"><span>نسبة الضريبة %</span><input type="number" data-k="vatRate"></label><span></span></div>
+    <label class="f"><span>الشعار النصي</span><input type="text" data-k="company.slogan"></label>
+    <label class="f"><span>الشريط الذهبي</span><input type="text" data-k="company.goldLine"></label>
+    <label class="f"><span>نبذة المؤسسة في الفوتر</span><textarea data-k="company.about"></textarea></label></div>
+  <div class="card"><h3>الحساب البنكي</h3>
+    <div class="row"><label class="f"><span>البنك</span><input type="text" data-k="bank.name"></label><label class="f"><span>الدولة</span><input type="text" data-k="bank.country"></label></div>
+    <label class="f"><span>اسم الحساب</span><input type="text" data-k="bank.holder"></label>
+    <div class="row"><label class="f"><span>رقم الحساب</span><input type="text" data-k="bank.account" dir="ltr"></label><label class="f"><span>الآيبان</span><input type="text" data-k="bank.iban" dir="ltr"></label></div></div>
+  <div class="card"><h3>شركاء النجاح (تظهر بروابط قابلة للضغط في الـ PDF)</h3><div id="parts"></div><button class="btn sm ghost" id="addPart">＋ شريك</button></div>
+  <div class="card"><h3>كتالوج الخدمات والأسعار الافتراضية<span class="sp"></span><button class="btn sm gold" id="addSvc">＋ خدمة</button></h3><div id="cat"></div></div>
+  ${DEMO ? '' : `<div class="card"><h3>الفريق</h3><p class="muted">الإيميلات المسموح لها تدخل النظام (بنفس حسابات ميزان).</p><div id="team"></div>
+    <div class="row"><input type="email" id="tem" placeholder="email@example.com" dir="ltr"><button class="btn pri" id="tadd" style="flex:none">إضافة</button></div></div>
+    <button class="btn ghost full" onclick="Store.auth.signOut()">تسجيل الخروج</button>`}`;
+  let st = null; const save = () => { clearTimeout(st); st = setTimeout(() => saveSettings().then(() => toast('تم الحفظ')), 800); };
+  bindFields($('#app'), S, save);
+  $('#ws').value = S.ai.useWebSearch === false ? '' : '1'; $('#ws').oninput = e => { S.ai.useWebSearch = !!e.target.value; save(); };
+  $$('[data-img]').forEach(el => el.onclick = async () => { const f = await pickFile(); if (!f) return; S[el.dataset.img] = await putImage(await compressImage(await fileToDataUrl(f), 1400, 600000)); await saveSettings(); showSettings(); });
+  const renderParts = () => {
+    $('#parts').innerHTML = S.partners.map((p, i) => `<div class="row" style="align-items:center;margin-bottom:8px"><div class="brandbox" style="flex:none"><div class="lg" data-pi="${i}" style="width:56px;height:56px">${img(p.img) ? `<img src="${img(p.img)}">` : '<span class="muted">+</span>'}</div></div>
+      <input type="url" data-pu="${i}" value="${esc(p.url)}" dir="ltr" placeholder="https://"><button class="btn sm danger" data-pd="${i}" style="flex:none">×</button></div>`).join('');
+    $$('[data-pi]').forEach(el => el.onclick = async () => { const f = await pickFile(); if (!f) return; S.partners[+el.dataset.pi].img = await putImage(await compressImage(await fileToDataUrl(f), 500, 250000)); await saveSettings(); renderParts(); });
+    $$('[data-pu]').forEach(el => el.oninput = () => { S.partners[+el.dataset.pu].url = el.value.trim(); save(); });
+    $$('[data-pd]').forEach(el => el.onclick = () => { S.partners.splice(+el.dataset.pd, 1); save(); renderParts(); });
+  };
+  renderParts();
+  $('#addPart').onclick = () => { S.partners.push({ url: '', img: '' }); renderParts(); };
+  renderCatalog();
+  $('#addSvc').onclick = () => editCatalogSvc({ id: 'c_' + uid(), cat: 'social', kind: 'fixed', name: '', price: 0, desc: '', bullets: [], order: SERVICES.length, active: true }, true);
+  if (!DEMO) renderTeam();
+}
+function renderCatalog() {
+  $('#cat').innerHTML = CATS.concat([{ id: 'custom', name: 'خدمات أخرى' }]).map(c => {
+    const l = SERVICES.filter(s => s.cat === c.id); if (!l.length) return '';
+    return `<details class="cat"><summary>${c.name}<span class="c">${l.length}</span></summary>${l.map(s => `<div class="svc ${s.active !== false ? 'on' : ''}"><div class="hd" data-e="${s.id}">
+      <div class="nm">${esc(s.name)}</div><div class="pr">${s.kind === 'ads' ? fmt(s.budget) + ' + ' + s.fee + '%' : fmt(s.price || 0)}</div></div></div>`).join('')}</details>`;
+  }).join('');
+  $$('[data-e]').forEach(el => el.onclick = () => editCatalogSvc(SERVICES.find(s => s.id === el.dataset.e)));
+}
+function editCatalogSvc(s, isNew) {
+  const o = overlay(`<h3 style="margin-top:0">${isNew ? 'خدمة جديدة' : 'تعديل خدمة'}</h3>
+    <label class="f"><span>الاسم</span><input type="text" data-k="name"></label>
+    <div class="row"><label class="f"><span>القسم</span><select data-k="cat">${CATS.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}<option value="custom">خدمات أخرى</option></select></label>
+    <label class="f"><span>النوع</span><select data-k="kind"><option value="fixed">مرة واحدة</option><option value="monthly">شهري</option><option value="ads">حملة إعلانية</option></select></label></div>
+    <div class="row"><label class="f"><span>السعر الافتراضي</span><input type="number" data-k="price"></label><label class="f"><span>ميزانية افتراضية (للحملات)</span><input type="number" data-k="budget"></label><label class="f"><span>نسبة الإدارة %</span><input type="number" data-k="fee"></label></div>
+    <label class="f"><span>المنصة (للحملات)</span><input type="text" data-k="platform"></label>
+    <label class="f"><span>الوصف</span><textarea data-k="desc"></textarea></label>
+    <label class="f"><span>النقاط (سطر لكل نقطة)</span><textarea data-k="bullets" data-lines></textarea></label>
+    <label class="f"><input type="checkbox" data-k="active"> ظاهرة في اختيار الخدمات</label>
+    <div class="row"><button class="btn pri" id="ok">حفظ</button>${isNew ? '' : '<button class="btn danger" id="del">حذف</button>'}<button class="btn ghost" id="cx">إلغاء</button></div>`);
+  const tmp = clone(s); bindFields(o, tmp, () => { });
+  $('#cx', o).onclick = () => o.remove();
+  $('#ok', o).onclick = async () => { if (!tmp.name) return toast('اكتب الاسم', 1); Object.assign(s, tmp); if (isNew) SERVICES.push(s); await Store.set('qs_services', s.id, s); o.remove(); renderCatalog(); toast('تم الحفظ'); };
+  const d = $('#del', o); if (d) d.onclick = async () => { if (!confirm('حذف الخدمة من الكتالوج؟')) return; SERVICES = SERVICES.filter(x => x !== s); await Store.del('qs_services', s.id); o.remove(); renderCatalog(); };
+}
+async function renderTeam() {
+  let list = []; try { list = await Store.list('qs_team'); } catch (e) { $('#team').innerHTML = '<p class="muted">إدارة الفريق للمالك فقط.</p>'; return; }
+  $('#team').innerHTML = list.map(t => `<div class="row" style="align-items:center;margin-bottom:6px"><span dir="ltr">${esc(t.id)}</span><button class="btn sm danger" style="flex:none" data-t="${esc(t.id)}">حذف</button></div>`).join('') || '<p class="muted">لا يوجد أعضاء غيرك.</p>';
+  $$('[data-t]').forEach(b => b.onclick = async () => { await Store.del('qs_team', b.dataset.t); renderTeam(); });
+  $('#tadd').onclick = async () => { const e = $('#tem').value.trim().toLowerCase(); if (!e.includes('@')) return; try { await Store.set('qs_team', e, { at: Date.now(), by: USER.email }); $('#tem').value = ''; renderTeam(); } catch (er) { toast(er.message, 1); } };
+}
+
+/* ---------- تشغيل ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  $$('#navs button').forEach(b => b.onclick = () => { location.hash = b.dataset.v === 'list' ? '' : b.dataset.v; if (b.dataset.v === 'list') showList(); });
+  $('#dockAuto').onclick = autoAll;
+  $('#dockPdf').onclick = () => { if (STEP !== 'preview') { STEP = 'preview'; renderEditor(); } else exportPDF('share'); };
+  boot();
+});
+</script>
+</body>
+</html>

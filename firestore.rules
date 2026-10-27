@@ -1,0 +1,116 @@
+rules_version = '2';
+// ==========================================================
+//  قواعد أمان ميزان — انسخها في Firebase Console:
+//  Firestore Database → Rules → Publish
+//  الصلاحيات بتتطبق على السيرفر، مش في المتصفح بس.
+// ==========================================================
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function myEmail() { return request.auth.token.email.lower(); }
+    function memberPath(cid) { return /databases/$(database)/documents/companies/$(cid)/members/$(request.auth.uid); }
+    function isMember(cid) { return signedIn() && exists(memberPath(cid)); }
+    function me(cid) { return get(memberPath(cid)).data; }
+    function isOwner(cid) { return isMember(cid) && me(cid).role == 'owner'; }
+    function can(cid, p) { return isMember(cid) && (me(cid).role == 'owner' || me(cid).perms.get(p, false) == true); }
+
+    // ---------- user profile (list of companies)
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // ---------- invites (discoverable by the invited email)
+    match /invites/{inviteId} {
+      allow read: if signedIn() && (resource.data.email == myEmail() || can(resource.data.companyId, 'users_manage'));
+      allow create: if signedIn()
+        && inviteId == request.resource.data.companyId + '_' + request.resource.data.email
+        && can(request.resource.data.companyId, 'users_manage')
+        && request.resource.data.role != 'owner';
+      allow delete: if signedIn() && (resource.data.email == myEmail() || can(resource.data.companyId, 'users_manage'));
+    }
+
+    match /companies/{cid} {
+      allow read: if isMember(cid);
+      allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow update: if can(cid, 'settings_manage') && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if isOwner(cid);
+
+      // ---------- members
+      match /members/{memberId} {
+        allow read: if isMember(cid);
+        allow create: if signedIn() && (
+          // owner bootstrap when creating the company (same batch)
+          (memberId == request.auth.uid && request.resource.data.role == 'owner'
+            && getAfter(/databases/$(database)/documents/companies/$(cid)).data.ownerId == request.auth.uid)
+          // accepting an invite
+          || (memberId == request.auth.uid
+            && exists(/databases/$(database)/documents/invites/$(cid + '_' + myEmail()))
+            && request.resource.data.role == get(/databases/$(database)/documents/invites/$(cid + '_' + myEmail())).data.role
+            && request.resource.data.perms == get(/databases/$(database)/documents/invites/$(cid + '_' + myEmail())).data.perms)
+          // admin creating a pending-invite placeholder
+          || (memberId.matches('inv_.*') && can(cid, 'users_manage') && request.resource.data.role != 'owner')
+        );
+        allow update: if
+          // change someone else's role/perms (never the owner, never promote to owner)
+          (can(cid, 'users_manage') && memberId != request.auth.uid
+            && resource.data.role != 'owner' && request.resource.data.role != 'owner')
+          // update my own display name only
+          || (memberId == request.auth.uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name']));
+        allow delete: if
+          (can(cid, 'users_manage') && resource.data.role != 'owner')
+          || (memberId == request.auth.uid && resource.data.role != 'owner')            // leave company
+          || (memberId == 'inv_' + myEmail())                                           // invite accepted
+          || isOwner(cid);                                                              // deleting company
+      }
+
+      // ---------- transactions
+      match /transactions/{tid} {
+        allow read: if can(cid, 'tx_view');
+        allow create: if request.resource.data.amount is number && request.resource.data.amount >= 0 && (
+          (can(cid, 'tx_create') && request.resource.data.createdBy == request.auth.uid)
+          || can(cid, 'settings_manage'));                                   // restore from backup
+        allow update: if (
+          (can(cid, 'tx_edit_all') || (can(cid, 'tx_edit_own') && resource.data.createdBy == request.auth.uid))
+            && request.resource.data.createdBy == resource.data.createdBy
+            && request.resource.data.updatedBy == request.auth.uid)
+          || can(cid, 'settings_manage');                                    // restore from backup
+        allow delete: if can(cid, 'tx_delete') || isOwner(cid);
+      }
+
+      // ---------- gateways & categories
+      match /gateways/{id} {
+        allow read: if isMember(cid);
+        allow write: if can(cid, 'gateways_manage') || (request.method == 'create' && can(cid, 'tx_create'));
+      }
+      match /categories/{id} {
+        allow read: if isMember(cid);
+        allow write: if can(cid, 'categories_manage') || (request.method == 'create' && can(cid, 'tx_create'));
+      }
+
+      // ---------- audit log: append-only, tamper-proof
+      match /audit/{aid} {
+        allow read: if can(cid, 'audit_view');
+        allow create: if isMember(cid) && request.resource.data.uid == request.auth.uid;
+        allow delete: if isOwner(cid);
+        allow update: if false;
+      }
+    }
+  
+    // ==========================================================
+    //  نظام عروض الأسعار (Designly Quotes)
+    //  المالك: info@designly-agency.com — والفريق في qs_team/{email}
+    // ==========================================================
+    function qsOwner() { return signedIn() && myEmail() == 'info@designly-agency.com'; }
+    function qsMember() { return qsOwner() || (signedIn() && exists(/databases/$(database)/documents/qs_team/$(myEmail()))); }
+
+    match /qs_team/{email} {
+      allow read: if qsOwner() || (signedIn() && email == myEmail());
+      allow write: if qsOwner();
+    }
+    match /qs_settings/{id} { allow read, write: if qsMember(); }
+    match /qs_services/{id} { allow read, write: if qsMember(); }
+    match /qs_quotes/{id}   { allow read, write: if qsMember(); }
+    match /qs_images/{id}   { allow read, create: if qsMember(); allow update, delete: if qsOwner(); }
+  }
+}
