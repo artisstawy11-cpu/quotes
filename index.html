@@ -111,7 +111,7 @@ textarea{min-height:76px;resize:vertical;line-height:1.6}
 .kv b{text-align:left;direction:ltr}
 @media (min-width:760px){ .two{display:grid;grid-template-columns:1fr 1fr;gap:12px} }
 
-@media (max-width:520px){ .top .brand small{display:none} .top nav button{padding:7px 8px;font-size:13px} .top{gap:6px} }
+@media (max-width:520px){ .top .brand small{display:none} .top .brand .wm{display:none} .top nav button{padding:7px 8px;font-size:13px} .top{gap:6px} }
 html,body{overflow-x:hidden}
 </style>
 <style>/* ===== قالب عرض السعر (صفحات A4 بعرض 794px) ===== */
@@ -231,8 +231,8 @@ html,body{overflow-x:hidden}
 </style>
 </head>
 <body>
-<header class="top"><div class="brand"><span class="dot">D</span>DESIGNLY <small>عروض الأسعار</small></div>
-  <nav id="navs" class="hide"><button data-v="list">العروض</button><button data-v="new">＋ جديد</button><button data-v="settings">الإعدادات</button></nav></header>
+<header class="top"><div class="brand"><span class="dot">D</span><span class="wm">DESIGNLY</span> <small>عروض الأسعار</small></div>
+  <nav id="navs" class="hide"><button data-v="list">العروض</button><button data-v="brief">✍️ من نص</button><button data-v="new">＋ جديد</button><button data-v="settings">الإعدادات</button></nav></header>
 <main id="app"></main>
 <div class="dock hide" id="dock"><div class="tot" id="dockTot"></div>
   <button class="btn gold" id="dockAuto">⚡ إنشاء تلقائي</button><button class="btn pri" id="dockPdf">PDF</button></div>
@@ -333,6 +333,9 @@ const DEFAULT_SERVICES = [
   { id: 'brand_core', cat: 'brand', kind: 'fixed', name: 'الهوية البصرية الأساسية', price: 400,
     desc: 'دراسة التوجه، Mood Board، نموذجان للشعار مع الفلسفة، تطوير الشعار، الألوان، الخطوط، والنسخ الأساسية.',
     bullets: ['دراسة وتحديد التوجه البصري بما يتناسب مع النشاط.', 'تقديم نموذجين متكاملين للشعار مع شرح الفكرة والفلسفة.', 'تطوير الشعار المختار حتى الاعتماد وتجهيز نسخه المختلفة.'] },
+  { id: 'company_profile', cat: 'brand', kind: 'fixed', name: 'تصميم ملف تعريفي للشركة (بروفايل)', price: 350,
+    desc: 'ملف تعريفي احترافي يعرض نبذة الشركة وخدماتها وأعمالها وأرقام التواصل بهوية العلامة، جاهز للإرسال والطباعة.',
+    bullets: ['صياغة المحتوى وترتيب الأقسام: من نحن، الخدمات، الأعمال، العملاء، التواصل.', 'تصميم الصفحات بهوية الشركة وتسليم نسخة PDF عالية الجودة.'] },
   { id: 'brand_guide', cat: 'brand', kind: 'fixed', name: 'الدليل الإرشادي للهوية', price: 200,
     desc: 'توثيق الاستخدامات الأساسية للشعار والألوان والخطوط بما يضمن ثبات الهوية مستقبلاً.', bullets: [] },
   { id: 'brochure', cat: 'brand', kind: 'fixed', name: 'البروشور التعريفي', price: 150,
@@ -447,7 +450,10 @@ function paymentBreakdown(pay, allCount) {
   pay.parts.forEach(x => { (groups[x.pct] = groups[x.pct] || []).push(x); });
   const segs = Object.keys(groups).sort((a, b) => b - a).map(pct => {
     const g = groups[pct];
-    const names = [...new Set(g.map(x => x.r.it.short || x.r.it.name))];
+    const cnt = {};
+    g.forEach(x => { const k = x.r.it.group || x.r.it.short || x.r.it.name; cnt[k] = (cnt[k] || 0) + 1; });
+    const grp = new Set(g.filter(x => x.r.it.group).map(x => x.r.it.group));
+    const names = Object.keys(cnt).map(k => cnt[k] > 1 && !grp.has(k) ? k + ' (×' + cnt[k] + ')' : k);
     const amt = g.reduce((s, x) => s + x.net, 0);
     let label = names.length > 2 ? names.slice(0, -1).join('، ') + ' و' + names[names.length - 1] : names.join(' و');
     if (allCount && g.length === allCount && g.length > 1) label = 'إجمالي أتعاب الخدمات';
@@ -512,23 +518,29 @@ function buildBlocks(q, S, img) {
 
   // ---------- الخدمات
   sec(q.secServicesKick || 'نطاق العمل', q.secServicesTitle || 'ما الذي سنقدمه؟', q.secServicesLead || '');
+  let sNo = 0;
   items.forEach((it, i) => {
     const r = C.rows[i];
+    // بنود متكررة لكل نشاط/مجال: كارت واحد يجمعها
+    const same = it.group ? items.filter(x => x.group === it.group) : [it];
+    if (same.length > 1 && same[0] !== it) return;
+    const each = same.length > 1 ? ' لكل ' + (q.client.entityWord ? 'نشاط' : 'نشاط') : '';
     let meta = '';
     if (it.kind === 'ads') meta = '';
     else if (r.net === 0) meta = `<b class="qfree">مجانًا</b>`;
-    else meta = `<b>${fmt(+it.price)} ${cur}</b>${it.kind === 'monthly' ? ' / شهريًا' : ''}${q.pricesIncludeVat ? ' شامل الضريبة' : ''}`;
+    else meta = `<b>${fmt(+it.price)} ${cur}</b>${it.kind === 'monthly' ? ' / شهريًا' : ''}${each}${q.pricesIncludeVat ? ' شامل الضريبة' : ''}`;
     if (it.platforms) meta += `  |  ${esc(it.platforms)}`;
-    let h = `<div class="qh3"><span class="n">${two(i + 1)}</span>${esc(it.title || it.name)}</div>`;
+    let h = `<div class="qh3"><span class="n">${two(++sNo)}</span>${esc(same.length > 1 ? it.name + ' — ' + same.length + ' حسابات / أنشطة' : (it.title || it.name))}</div>`;
     if (meta) h += `<div class="qmeta">${meta}</div>`;
+    if (same.length > 1) h += `<div class="qchips">${same.map(x => `<span>${esc(x.entity || x.title)}</span>`).join('')}</div>`;
     if (it.kind === 'ads') {
-      h += `<div class="qbud"><div class="v"><b>${fmt(it.budget)} ${cur}</b><span>ميزانية إعلانية</span></div>
-        <div class="d"><b>${esc(it.objective || it.platform || '')}</b><p>${esc(it.desc || '')}</p></div></div>`;
+      h += `<div class="qbud"><div class="v"><b>${fmt(it.budget)} ${cur}</b><span>ميزانية إعلانية${each}</span></div>
+        <div class="d"><b>${esc(same.length > 1 ? 'حملة مستقلة لكل نشاط على ' + (it.platform || '') : (it.objective || it.platform || ''))}</b><p>${esc(it.desc || '')}</p></div></div>`;
     } else if (it.desc) h += `<div class="qp">${rich(it.desc)}</div>`;
     if (it.counts && it.counts.length) h += `<div class="qcounts">${it.counts.slice(0, 4).map(c => `<div><b>${esc(c.n)}</b><span>${esc(c.l)}</span></div>`).join('')}</div>`;
     const bl = (it.bullets || []).filter(Boolean);
     if (bl.length) h += `<ul class="qul">${bl.map(b => `<li>${rich(b.replace(/^([^:：]{2,28})[:：]/, '**$1:**'))}</li>`).join('')}</ul>`;
-    if (it.kind === 'ads') h += `<div class="qnote">أتعاب إنشاء وإدارة الحملة: <b>${fmt(it.fee)}%</b> من الميزانية الإعلانية (${fmt(r.net)} ${cur})، وتشمل إعداد الإعلانات والمتابعة والتحسين.</div>`;
+    if (it.kind === 'ads') h += `<div class="qnote">أتعاب إنشاء وإدارة الحملة: <b>${fmt(it.fee)}%</b> من الميزانية الإعلانية (${fmt(r.net)} ${cur}${each})، وتشمل إعداد الإعلانات والمتابعة والتحسين.</div>`;
     add(`<div>${h}</div>`);
   });
   if (q.path && q.path.length) add(`<div class="qh3" style="font-size:14px">مسار النمو المقترح</div><div class="qchips">${q.path.map(p => `<span>${esc(p)}</span>`).join('')}</div>`);
@@ -839,6 +851,7 @@ function route() {
   if (h.startsWith('q/')) return openQuote(h.slice(2));
   if (h === 'settings') return showSettings();
   if (h === 'new') return newQuote();
+  if (h === 'brief') return showBrief();
   showList();
 }
 window.addEventListener('hashchange', () => { if (USER) route(); });
@@ -849,7 +862,7 @@ function showList(filter = '') {
   setNav('list'); Q = null;
   const f = filter.trim();
   const items = QUOTES.filter(q => !f || (q.client?.name + ' ' + q.no + ' ' + (q.client?.nameEn || '')).toLowerCase().includes(f.toLowerCase()));
-  $('#app').innerHTML = `<button class="btn gold full hero-btn" onclick="location.hash='new'">＋ عرض سعر جديد</button>
+  $('#app').innerHTML = `<div class="row"><button class="btn gold hero-btn" onclick="location.hash='brief'">✍️ عرض من نص</button><button class="btn pri hero-btn" onclick="location.hash='new'">＋ عرض خطوة بخطوة</button></div>
     <div style="height:12px"></div><input type="text" id="qsearch" placeholder="بحث باسم العميل أو رقم العرض" value="${esc(f)}">
     <div style="height:12px"></div>
     ${items.length ? items.map(q => {
@@ -1207,7 +1220,7 @@ function fillDefaults(q) {
 function cats(q) { const s = new Set(q.items.map(i => i.cat)); return { brand: s.has('brand'), ads: s.has('ads'), social: s.has('social'), web: s.has('web'), local: s.has('local'), monthly: q.items.some(i => i.kind === 'monthly') }; }
 function templateCopy(q) {
   const c = cats(q), name = q.client.name || 'العميل', ind = q.client.industry;
-  const names = q.items.map(i => i.short || i.title || i.name);
+  const names = [...new Set(q.items.map(i => i.group ? i.name : (i.short || i.title || i.name)))];
   const list = names.length > 1 ? names.slice(0, -1).join('، ') + ' و' + names[names.length - 1] : (names[0] || '');
   let title = 'عرض سعر تطوير الحضور الرقمي', subtitle = 'يهيئ العلامة لاستقبال فرص جديدة من البحث والحملات الإعلانية';
   if (c.brand && !c.ads && !c.social) { title = 'تصميم وتطوير هوية بصرية'; subtitle = ind ? 'لمشروع متخصص في ' + ind : 'هوية متكاملة قابلة للتوسع'; }
@@ -1619,6 +1632,224 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#dockPdf').onclick = () => { if (STEP !== 'preview') { STEP = 'preview'; renderEditor(); } else exportPDF('share'); };
   boot();
 });
+
+/* ===================== عرض من نص حر + أسئلة قبل الإصدار ===================== */
+const findSvc = id => SERVICES.find(s => s.id === id) || DEFAULT_SERVICES.find(s => s.id === id);
+
+// كلمات مفتاحية → خدمة من الكتالوج (الترتيب مهم: الأدق أولاً)
+const KW = [
+  [/حمل[ةه].*(جوجل ?ماب|خرائط|ماب)/, 'ads_maps'], [/حمل[ةه].*تيك ?توك/, 'ads_tiktok'], [/حمل[ةه].*(ان|إن)ست/, 'ads_instagram'],
+  [/حمل[ةه].*سناب/, 'ads_snap'], [/حمل[ةه].*(تويتر|اكس|إكس)/, 'ads_x'], [/حمل[ةه].*(ميتا|فيس)/, 'ads_meta'], [/حمل[ةه].*يوتيوب/, 'ads_youtube'],
+  [/حمل[ةه].*لينكد/, 'ads_linkedin'], [/حمل[ةه].*جوجل/, 'ads_google'],
+  [/ملف (ال)?شرك[ةه]|بروفايل|ملف تعريفي|company profile/i, 'company_profile'],
+  [/(ملف|حساب|تظبيط|تجهيز|إنشاء|انشاء).*(جوجل ?ماب|خرائط ?جوجل|google ?map)/i, 'gmaps'],
+  [/هوي[ةه] (ال)?سوشيال/, 'social_identity'], [/سوشيال|إدارة (ال)?حسابات|ادارة (ال)?حسابات|سوشال/, 'smm_full'],
+  [/متجر/, 'store'], [/صفح[ةه] هبوط|لاندنج|landing/i, 'landing'], [/موقع/, 'website'], [/seo|سيو|محركات البحث/i, 'seo'],
+  [/دليل|جايدلاين|guideline/i, 'brand_guide'], [/هوي[ةه]|شعار|لوجو|logo/i, 'brand_core'], [/بروشور|بروشر/, 'brochure'],
+  [/كارت|بزنس ?كارد|بطاق[ةه] (أعمال|اعمال)/, 'bcard'], [/واتس/, 'wa_business'], [/تصوير|صانع محتوى/, 'shooting'],
+  [/موشن|انيميشن/, 'motion'], [/مؤثر|انفلونسر/, 'influencers'], [/كتاب[ةه] (ال)?محتوى/, 'copywriting'], [/تقرير/, 'reports'],
+];
+const PLATS = [[/(ان|إن)ست(ج|ق|غ)رام|instagram/i, 'إنستقرام'], [/تيك ?توك|tiktok/i, 'تيك توك'], [/تويتر|twitter|(^| )x( |$)|إكس/i, 'إكس (تويتر)'],
+  [/سناب/, 'سناب شات'], [/فيس ?بوك|facebook/i, 'فيسبوك'], [/يوتيوب|youtube/i, 'يوتيوب'], [/لينكد/, 'لينكدإن'], [/واتس/, 'واتساب']];
+const num = s => +String(s).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/,/g, '');
+
+function parseBrief(text) {
+  const lines = text.replace(/[⁠​‎‏‪-‮]/g, '').split(/\n+/)
+    .map(l => l.replace(/^[\s*•\-–—·▪●◦○✓✔☑]+/, '').trim())
+    .filter(Boolean);
+  const out = { client: '', items: [], entities: [], notes: [] };
+  let cur = null, entMode = false, lastAds = null, platMode = false;
+  const priceOf = l => { const m = l.match(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.?\s?س|sar|﷼)/i); return m ? num(m[1]) : null; };
+  for (let raw of lines) {
+    const l = raw.replace(/\s*:\s*$/, '').trim();
+    if (/عرض\s*سعر/.test(l) && !out.client) { out.client = l.replace(/.*عرض\s*سعر\s*(ل|لـ)?\s*/, '').replace(/[:：]/g, '').replace('إلاعمال', 'الأعمال').trim(); continue; }
+    const price = priceOf(l), pct = l.match(/(\d+(?:\.\d+)?)\s*%/), free = /مجان|مجاناً|مجانا|free/i.test(l);
+    const per = /لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم|منص[ةه])/.test(l);
+    const entH = !price && l.match(/(\d+)\s*(مجالات|أنشطة|انشطة|نشاطات|فروع|حسابات|براندات|أقسام)/);
+    if (entH) { entMode = true; platMode = false; out.entityWord = entH[2]; continue; }
+    const kw = KW.find(([re]) => re.test(l));
+    // نسبة إدارة الحملة
+    if (pct && /إدار|ادار/.test(l) && !kw) { (lastAds || cur || {}).fee = +pct[1]; if (lastAds) lastAds.feeSet = true; continue; }
+    if (kw) {
+      entMode = false; platMode = false;
+      const svc = findSvc(kw[1]);
+      cur = { src: kw[1], name: cleanName(l) || (svc && svc.name), kind: svc ? svc.kind : 'fixed', per, details: [], platforms: [] };
+      if (/شهر|شهري/.test(l) && cur.kind !== 'ads') cur.kind = 'monthly';
+      if (free) cur.price = 0;
+      if (price != null) { if (cur.kind === 'ads') cur.budget = price; else cur.price = price; }
+      if (pct && cur.kind === 'ads') cur.fee = +pct[1];
+      out.items.push(cur); if (cur.kind === 'ads') lastAds = cur;
+      continue;
+    }
+    if (/^منصات$|^المنصات$/.test(l)) { platMode = true; continue; }
+    const plat = PLATS.find(([re]) => re.test(l));
+    if (plat && l.length < 30 && cur) { cur.platforms.push(plat[1]); continue; }
+    if (entMode && !price && l.length < 40) { out.entities.push(l); continue; }
+    if (cur) {
+      if (per) cur.per = true;
+      if (price != null) { if (cur.kind === 'ads') cur.budget = price; else cur.price = price; }
+      if (free && price == null) cur.price = 0;
+      if (/شهر|شهري/.test(l) && cur.kind !== 'ads') cur.kind = 'monthly';
+      const d = cleanName(l); if (d && !/^لكل\s*\S+$/.test(d)) cur.details.push(d);
+    } else out.notes.push(l);
+  }
+  return out;
+}
+function cleanName(l) {
+  return l.replace(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.?\s?س|sar|﷼)(\s*(\/|في|ب)?\s*(ال)?(شهر|شهري|شهريا|شهرياً))?/ig, '')
+    .replace(/(\d+(?:\.\d+)?)\s*%/g, '').replace(/\b(مجاني|مجانا|مجاناً)\b|مجاني[ةه]?/g, '').replace(/لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم)/g, '')
+    .replace(/[:：]+/g, '').replace(/\s{2,}/g, ' ').trim();
+}
+
+// تحويل نتيجة التحليل لبنود عرض
+function briefToItems(p) {
+  const items = [];
+  const ents = p.entities.length ? p.entities : [''];
+  p.items.forEach(b => {
+    const svc = findSvc(b.src) || {};
+    const list = b.per && p.entities.length ? ents : [''];
+    list.forEach(ent => {
+      const it = itemFromService(Object.assign({ id: b.src }, clone(svc)));
+      it.kind = b.kind;
+      if (b.kind === 'ads') { if (b.budget != null) it.budget = b.budget; if (b.fee != null) it.fee = b.fee; }
+      else if (b.price != null) it.price = b.price;
+      const base = svc.name || b.name;
+      it.name = base;
+      if (ent) { it.title = base + ' — ' + ent; it.short = shortOf(b.src, base) + ': ' + ent; it.entity = ent; it.group = groupOf(b.src, base, list.length); }
+      if (b.platforms.length) it.platforms = b.platforms.join(' + ');
+      if (b.kind === 'ads') { it.platform = svc.platform || it.platform; if (ent) it.objective = 'الظهور المحلي لـ' + ent; }
+      if (b.details.length) {
+        const det = b.details.filter(d => d.length > 2);
+        if (b.src.startsWith('smm') && det.some(d => /نشر يومي/.test(d))) it.counts = [{ n: 30, l: 'منشور شهريًا (نشر يومي)' }];
+        else if (b.src.startsWith('smm')) it.counts = [];
+        it.bullets = det.map(d => d + (ent ? '' : '')).concat((svc.bullets || []).slice(0, 2)).slice(0, 4);
+      } else if (b.src.startsWith('smm')) it.counts = [];
+      items.push(it);
+    });
+  });
+  return items;
+}
+function groupOf(src, name, n) {
+  const w = n === 2 ? 'للنشاطين' : n === 3 ? 'للأنشطة الثلاثة' : 'لـ' + n + ' أنشطة';
+  return ({ smm_full: 'باقات السوشيال ميديا', smm_basic: 'باقات السوشيال ميديا', ads_maps: 'إدارة حملات خرائط جوجل', ads_tiktok: 'إدارة حملات تيك توك', ads_instagram: 'إدارة حملات إنستقرام', ads_snap: 'إدارة حملات سناب شات', ads_google: 'إدارة حملات جوجل' })[src] ? ({ smm_full: 'باقات السوشيال ميديا', smm_basic: 'باقات السوشيال ميديا', ads_maps: 'إدارة حملات خرائط جوجل', ads_tiktok: 'إدارة حملات تيك توك', ads_instagram: 'إدارة حملات إنستقرام', ads_snap: 'إدارة حملات سناب شات', ads_google: 'إدارة حملات جوجل' })[src] + ' ' + w : name + ' ' + w;
+}
+function shortOf(src, name) {
+  return ({ smm_full: 'سوشيال ميديا', ads_maps: 'حملة خرائط جوجل', ads_tiktok: 'حملة تيك توك', ads_instagram: 'حملة إنستقرام', gmaps: 'ملف خرائط جوجل' })[src] || name;
+}
+
+/* ---------- الواجهة ---------- */
+function showBrief() {
+  setNav('brief'); Q = null;
+  $('#app').innerHTML = `<div class="card"><h3>✍️ اكتب العرض بحرية</h3>
+    <p class="muted">اكتب أو الصق المطلوب زي ما بتكتبه للعميل في واتساب: اسم العميل، الخدمات، الأسعار، "مجاني"، "لكل مجال"، نسبة الإدارة… والسيستم هيفهمه ويسألك كام سؤال قبل ما يطلع العرض.</p>
+    <textarea id="brief" style="min-height:260px" placeholder="عرض سعر مدارات الأعمال:&#10;* ملف شركة 350 ريال&#10;* باقة سوشيال ميديا لكل مجال:&#10;  انستجرام، تيك توك، تويتر&#10;  نشر يومي 1000 ريال&#10;* 3 مجالات:&#10;  مدارات للصيانة&#10;  مدارات للديكور&#10;* حملة إعلانية جوجل ماب لكل نشاط 1500 ريال شهر&#10;* إدارة حملة 20%"></textarea>
+    <div style="height:10px"></div>
+    <label class="f"><span>روابط سوشيال العميل (اختياري — لسحب الشعار والألوان)</span><textarea id="blinks" dir="ltr" style="min-height:60px"></textarea></label>
+    <button class="btn gold full hero-btn" id="bgo">تحليل النص ←</button></div>`;
+  try { const d = sessionStorage.getItem('qs_brief'); if (d) $('#brief').value = d; } catch (e) { }
+  $('#brief').oninput = e => { try { sessionStorage.setItem('qs_brief', e.target.value); } catch (er) { } };
+  $('#bgo').onclick = async () => {
+    const txt = $('#brief').value.trim(); if (!txt) return toast('اكتب المطلوب أولاً', 1);
+    const b = $('#bgo'); b.disabled = true; b.textContent = 'جاري التحليل...';
+    let p = parseBrief(txt);
+    if (S.ai.key) { try { p = await aiParseBrief(txt, p); } catch (e) { console.warn(e); } }
+    const q = blankQuote();
+    q.client.name = p.client || 'العميل';
+    q.client.links = $('#blinks').value.split('\n').map(s => s.trim()).filter(Boolean);
+    if (p.entities.length) q.client.industry = p.entities.map(e => e.replace(/^\S+\s+(لل|ل)?/, '')).join(' • ');
+    q.client.entities = p.entities; q.client.entityWord = p.entityWord || '';
+    q.items = briefToItems(p);
+    q.brief = txt;
+    if (!q.items.length) { b.disabled = false; b.textContent = 'تحليل النص ←'; return toast('ماقدرتش أتعرف على خدمات في النص — اكتب كل خدمة في سطر', 1); }
+    Q = q; await saveQuote(); history.replaceState(null, '', '#q/' + Q.id);
+    showQuestions();
+  };
+}
+async function aiParseBrief(txt, fallback) {
+  const ids = (SERVICES.length ? SERVICES : DEFAULT_SERVICES).map(s => s.id + ': ' + s.name + ' [' + s.kind + ']').join('\n');
+  const j = await oaJSON('أنت مساعد مبيعات في وكالة تسويق. حوّل النص لبنود عرض سعر. أعد JSON فقط.',
+    `النص:\n${txt}\n\nكتالوج الخدمات (id: الاسم [النوع]):\n${ids}\n\nأعد JSON: {client: اسم العميل, entities: [أسماء المجالات/الأنشطة/الفروع إن وجدت], items: [{src: id من الكتالوج أو company_profile أو custom, name: اسم الخدمة كما في النص, kind: fixed|monthly|ads, price: رقم أو null, budget: ميزانية الإعلان للحملات, fee: نسبة الإدارة %, per: true لو الخدمة متكررة لكل مجال/نشاط, platforms: [المنصات], details: [تفاصيل مذكورة]}]}. لا تخترع أسعاراً غير مذكورة (null).`);
+  if (!Array.isArray(j.items) || !j.items.length) return fallback;
+  return { client: j.client || fallback.client, entities: j.entities || fallback.entities,
+    items: j.items.map(i => ({ src: findSvc(i.src) ? i.src : 'custom', name: i.name, kind: i.kind || 'fixed', price: i.price, budget: i.budget, fee: i.fee, per: !!i.per, platforms: i.platforms || [], details: i.details || [] })) };
+}
+
+function showQuestions() {
+  setNav('editor');
+  const C = computeQuote(Q), c = cats(Q);
+  const hasAds = Q.items.some(i => i.kind === 'ads'), hasMonthly = Q.items.some(i => i.kind === 'monthly'), hasSocial = Q.items.some(i => (i.src || '').startsWith('smm'));
+  const hasFixed = Q.items.some(i => i.kind === 'fixed' && (+i.price > 0));
+  const chips = (name, opts, val) => `<div class="chips" data-q="${name}">${opts.map(([v, t]) => `<button class="chip ${String(val) === String(v) ? 'on' : ''}" data-v="${v}">${t}</button>`).join('')}</div>`;
+  const ans = Q._ans = Q._ans || { vat: 'before', pay: hasMonthly ? 'monthly' : (hasFixed ? 'half' : 'full'), term: hasMonthly ? '1' : '', budget: 'direct', posts: 30, videos: 0, dur: '', fixedDur: '7 – 10 أيام عمل' };
+  $('#app').innerHTML = `
+  <div class="card"><h3>فهمت من النص (${Q.items.length} بند)</h3>
+    ${Q.items.map((it, i) => `<div class="row" style="align-items:center;border-bottom:1px dashed var(--line);padding:6px 0;font-size:14px">
+      <span style="flex:2">${i + 1}. ${esc(it.title || it.name)} ${it.kind === 'monthly' ? '<span class="tag m">شهري</span>' : it.kind === 'ads' ? '<span class="tag a">إعلان</span>' : ''}</span>
+      <span style="flex:1;text-align:left" class="muted">${it.kind === 'ads' ? `ميزانية ${fmt(it.budget)} + ${fmt(it.fee)}%` : (+it.price ? fmt(it.price) + ' ر.س' : 'مجاني')}</span></div>`).join('')}
+    <div class="row" style="margin-top:8px"><label class="f"><span>اسم العميل</span><input type="text" id="qn" value="${esc(Q.client.name)}"></label>
+    <label class="f"><span>المجال</span><input type="text" id="qi" value="${esc(Q.client.industry || '')}"></label></div>
+    <button class="btn sm ghost" onclick="STEP='services';renderEditor()">تعديل البنود بالتفصيل</button></div>
+
+  <div class="card"><h3><i class="qn"></i>الضريبة</h3><p class="muted">الأسعار اللي كتبتها…</p>
+    ${chips('vat', [['before', 'قبل الضريبة (تُضاف 15%)'], ['incl', 'شاملة الضريبة']], ans.vat)}</div>
+
+  <div class="card"><h3><i class="qn"></i>الدفعات</h3>
+    ${chips('pay', [['monthly', 'الشهري مقدم + 50% من الباقي'], ['half', '50% / 50%'], ['three', '50% / 25% / 25%'], ['full', '100% مقدم']], ans.pay)}
+    <div id="payPrev" class="muted" style="margin-top:8px"></div></div>
+
+  ${hasMonthly ? `<div class="card"><h3><i class="qn"></i>مدة التعاقد للخدمات الشهرية</h3>
+    ${chips('term', [['1', 'شهر بشهر (يتجدد)'], ['3', '3 شهور'], ['6', '6 شهور'], ['12', 'سنة']], ans.term)}</div>` : ''}
+
+  ${hasAds ? `<div class="card"><h3><i class="qn"></i>ميزانية الإعلانات</h3>
+    ${chips('budget', [['direct', 'العميل يدفعها للمنصة مباشرة'], ['card', 'من بطاقة العميل على حسابه الإعلاني']], ans.budget)}
+    <p class="muted">في الحالتين الميزانية خارج فاتورة ديزاينلي وما عليها ضريبة منّا — الضريبة على نسبة الإدارة بس.</p></div>` : ''}
+
+  ${hasSocial ? `<div class="card"><h3><i class="qn"></i>محتوى السوشيال الشهري (لكل حساب)</h3>
+    <div class="row"><label class="f"><span>عدد المنشورات</span><input type="number" id="qp" value="${ans.posts}"></label>
+    <label class="f"><span>منها فيديوهات / ريلز</span><input type="number" id="qv" value="${ans.videos}"></label></div></div>` : ''}
+
+  ${hasFixed ? `<div class="card"><h3><i class="qn"></i>مدة تنفيذ الأعمال لمرة واحدة</h3><input type="text" id="qd" value="${esc(ans.fixedDur)}"></div>` : ''}
+
+  <div class="card"><h3>ملاحظات إضافية تحب تظهر في العرض (اختياري)</h3><textarea id="qx" placeholder="مثال: التصوير على العميل، يبدأ العمل بعد استلام صلاحيات الحسابات">${esc(ans.extra || '')}</textarea></div>
+  <button class="btn gold full hero-btn" id="qgo">⚡ إصدار العرض</button>`;
+  const prev = () => {
+    applyAnswers(false);
+    const C = computeQuote(Q);
+    $('#payPrev').innerHTML = `الإجمالي <b>${fmt(C.gross)} ر.س</b> شامل الضريبة${C.budgets ? ` + ميزانيات ${fmt(C.budgets)} للمنصات` : ''}<br>` +
+      C.pays.map((p, i) => `• ${esc(p.p.label)}: <b>${fmt(p.gross)}</b>`).join('<br>');
+    updDock();
+  };
+  $$('[data-q]').forEach(g => $$('.chip', g).forEach(b => b.onclick = () => { ans[g.dataset.q] = b.dataset.v; $$('.chip', g).forEach(x => x.classList.toggle('on', x === b)); prev(); dirty(); }));
+  ['qp', 'qv', 'qd', 'qx', 'qn', 'qi'].forEach(id => { const el = $('#' + id); if (el) el.oninput = () => { prev(); dirty(); }; });
+  $$('.qn').forEach((e, i) => e.outerHTML = (i + 1) + '. ');
+  prev();
+  $('#qgo').onclick = async () => { applyAnswers(true); await saveQuote(); autoAll(); };
+}
+function applyAnswers(final) {
+  const a = Q._ans; const v = id => { const e = $('#' + id); return e ? e.value : undefined; };
+  if (v('qn') != null) Q.client.name = v('qn').trim() || Q.client.name;
+  if (v('qi') != null) Q.client.industry = v('qi').trim();
+  if (v('qp') != null) a.posts = +v('qp') || 0; if (v('qv') != null) a.videos = +v('qv') || 0;
+  if (v('qd') != null) a.fixedDur = v('qd'); if (v('qx') != null) a.extra = v('qx');
+  Q.pricesIncludeVat = a.vat === 'incl';
+  Q.payPreset = a.pay; syncPayments();
+  Q.items.forEach(it => {
+    if ((it.src || '').startsWith('smm')) {
+      const st = Math.max(0, a.posts - a.videos);
+      it.counts = [st ? { n: st, l: 'تصميم منشور شهريًا' } : null, a.videos ? { n: a.videos, l: 'فيديو / ريلز' } : null].filter(Boolean);
+      if (!it.counts.length) it.counts = [];
+    }
+  });
+  const termTxt = { '1': 'شهري — يتجدد بموافقة العميل', '3': '3 شهور', '6': '6 شهور', '12': '12 شهرًا' }[a.term];
+  Q.duration = Q.items.some(i => i.kind === 'fixed' && +i.price > 0) ? (a.fixedDur || '') : '';
+  Q.durationNote = termTxt ? 'للأعمال لمرة واحدة. ومدة التعاقد للخدمات الشهرية: ' + termTxt + '.' : '';
+  Q.autoTerms = true;
+  const T = defaultTerms(Q);
+  if (a.term && a.term !== '1') { const i = T.findIndex(t => t.startsWith('مرونة')); const t = `مدة التعاقد: ${termTxt}، وتُسدد الخدمات الشهرية في بداية كل شهر وفق جدول الدفعات.`; if (i >= 0) T[i] = t; else T.push(t); }
+  if (a.budget === 'card') T.push('تمويل الإعلانات: تُخصم الميزانية من بطاقة العميل مباشرة على حسابه الإعلاني، مع إمكانية متابعة الإنفاق والفواتير من الحساب بكل شفافية.');
+  (a.extra || '').split('\n').map(s => s.trim()).filter(Boolean).forEach(t => T.push(t));
+  if (final) { Q.terms = T; Q.autoTerms = false; } else Q.terms = T;
+}
 </script>
 </body>
 </html>
