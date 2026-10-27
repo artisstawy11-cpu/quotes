@@ -287,7 +287,14 @@ input[type=text],input[type=number],input[type=email],input[type=password],input
 <body>
 <header class="top"><div class="brand"><span class="dot">D</span><span class="wm">DESIGNLY</span> <small>عروض الأسعار</small></div>
   <nav id="navs" class="hide"><button data-v="list">العروض</button><button data-v="brief">🎙️ عرض جديد</button><button data-v="settings">الإعدادات</button></nav></header>
-<main id="app"></main>
+<main id="app"><div style="text-align:center;margin-top:30vh;color:#888">جاري التحميل…</div></main>
+<script>
+window.__errs=[];
+window.addEventListener('error',function(e){window.__errs.push((e.message||'')+' @'+(e.filename||'').split('/').pop()+':'+(e.lineno||''));showBootErr();});
+window.addEventListener('unhandledrejection',function(e){window.__errs.push(String(e.reason&&e.reason.message||e.reason));showBootErr();});
+function showBootErr(){var a=document.getElementById('app');if(!a||window.__booted)return;a.innerHTML='<div style="margin:20vh 16px 0;padding:16px;border-radius:14px;background:#fff3f2;color:#a12;font-size:14px;line-height:1.7;direction:rtl">السيستم ما اشتغلش على المتصفح ده. صوّر الشاشة دي وابعتها:<br><code style="direction:ltr;display:block;font-size:12px;color:#333;word-break:break-all">'+window.__errs.join('<br>')+'<br>'+navigator.userAgent+'</code></div>';}
+setTimeout(function(){if(!window.__booted&&!window.__errs.length){window.__errs.push('timeout: firebase='+(typeof firebase)+' h2i='+(typeof htmlToImage)+' pdf='+(typeof jspdf));showBootErr();}},15000);
+</script>
 <div class="dock hide" id="dock"><div class="tot" id="dockTot"></div>
   <button class="btn gold" id="dockAuto">⚡ إنشاء تلقائي</button><button class="btn pri" id="dockPdf">PDF</button></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -898,6 +905,7 @@ async function boot() {
   Store.auth.onAuthStateChanged(u => { USER = u; if (u) afterLogin(); else showLogin(); });
 }
 function showLogin(msg) {
+  window.__booted = true;
   $('#navs').classList.add('hide');
   $('#app').innerHTML = `<div class="card login"><h3>تسجيل الدخول</h3>
     <p class="muted">بنفس حساب نظام ميزان.</p>${msg ? `<p style="color:var(--bad)">${msg}</p>` : ''}
@@ -910,6 +918,7 @@ function showLogin(msg) {
   };
 }
 async function afterLogin() {
+  window.__booted = true;
   $('#app').innerHTML = '<div class="spin" style="margin-top:30vh"></div>';
   try {
     const s = await Store.get('qs_settings', 'main');
