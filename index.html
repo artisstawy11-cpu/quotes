@@ -387,6 +387,19 @@ const DEFAULT_SETTINGS = {
   defaultDuration: '',
 };
 
+// ===== نصوص قالب العرض (تتعدل من الإعدادات وتتطبق على كل العروض، الجديدة والقديمة)
+const DEFAULT_TPL = {
+  svcKick: 'نطاق العمل', svcTitle: 'ما الذي سنقدمه؟', svcLead: '',
+  costKick: 'تفاصيل الاستثمار', costTitle: 'الاستثمار بوضوح كامل',
+  costLeadAds: 'الميزانية الإعلانية تظل داخل حسابات المنصات باسم العميل، بينما تصدر ديزاينلي فاتورتها عن أتعاب التأسيس والإدارة فقط.',
+  payKick: 'الدفعات', payTitle: 'جدول الدفعات — شامل الضريبة', payLead: 'دفعات مرتبطة بمراحل اعتماد واضحة، وكل دفعة موضّحة قبل الضريبة وبعدها.',
+  adsNote: 'الميزانيات الإعلانية ({budget} ر.س) خارج دفعات ديزاينلي، ويدفعها العميل للمنصات مباشرة من حسابه؛ ولا تمر عبر حساب ديزاينلي، وتخضع لأي رسوم أو ضرائب تصدرها المنصة.',
+  phKick: 'التنفيذ والتسليم', phTitle: 'رحلة واضحة من الفكرة إلى النتائج', phLead: '',
+  durNote: 'تبدأ بعد اعتماد العرض والدفعة الأولى واستلام المواد اللازمة.',
+  termsKick: 'ملاحظات مهمة', termsTitle: 'شروط نطاق العمل', globalTerms: [],
+  signTitle: 'اعتماد العرض', bankTitle: 'بيانات التحويل البنكي', partnersTitle: 'بعض شركائنا في النجاح', logosTitle: 'عملاء وثقوا بنا',
+};
+
 /* ===== الحسابات: الأتعاب والضريبة والدفعات ===== */
 const r2 = n => Math.round((+n + Number.EPSILON) * 100) / 100;
 const fmt = (n, dec) => {
@@ -493,6 +506,7 @@ const two = n => String(n).padStart(2, '0');
 
 function buildBlocks(q, S, img) {
   const C = computeQuote(q), co = S.company, B = [];
+  const T = Object.assign({}, DEFAULT_TPL, S.tpl || {});
   const add = (html, o = {}) => B.push(Object.assign({ html }, o));
   const items = C.rows.map(r => r.it);
   const logo = img(S.logoImg);
@@ -522,7 +536,7 @@ function buildBlocks(q, S, img) {
      <div class="qh2">${esc(title)}</div>${lead ? `<div class="qlead">${rich(lead)}</div>` : ''}</div>`, { keep: 1 });
 
   // ---------- الخدمات
-  sec(q.secServicesKick || 'نطاق العمل', q.secServicesTitle || 'ما الذي سنقدمه؟', q.secServicesLead || '');
+  sec(q.secServicesKick || T.svcKick, q.secServicesTitle || T.svcTitle, q.secServicesLead || T.svcLead);
   let sNo = 0;
   items.forEach((it, i) => {
     const r = C.rows[i];
@@ -551,8 +565,8 @@ function buildBlocks(q, S, img) {
   if (q.path && q.path.length) add(`<div class="qh3" style="font-size:14px">مسار النمو المقترح</div><div class="qchips">${q.path.map(p => `<span>${esc(p)}</span>`).join('')}</div>`);
 
   // ---------- التكلفة
-  sec('تفاصيل الاستثمار', q.secCostTitle || 'الاستثمار بوضوح كامل',
-    C.budgets > 0 ? 'الميزانية الإعلانية تظل داخل حسابات المنصات باسم العميل، بينما تصدر ديزاينلي فاتورتها عن أتعاب التأسيس والإدارة فقط.'
+  sec(T.costKick, q.secCostTitle || T.costTitle,
+    C.budgets > 0 ? T.costLeadAds
       : `القيمة الإجمالية للمشروع: ${fmt(C.net)} ${cur} قبل ضريبة القيمة المضافة. تم تسعير كل جزء بصورة مستقلة لشفافية أكبر.`);
   const cols = '--cols:1.25fr 1.6fr .85fr .7fr .9fr';
   add(`<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">قبل الضريبة</div><div class="num">الضريبة ${fmt(C.vr * 100)}%</div><div class="num">شامل الضريبة</div></div>`, { keep: 1 });
@@ -579,34 +593,34 @@ function buildBlocks(q, S, img) {
 
   // ---------- الدفعات
   if (C.pays.length) {
-    sec('الدفعات', 'جدول الدفعات — شامل الضريبة', 'دفعات مرتبطة بمراحل اعتماد واضحة، وكل دفعة موضّحة قبل الضريبة وبعدها.');
+    sec(T.payKick, T.payTitle, T.payLead);
     C.pays.forEach((p, i) => add(`<div class="qpay ${i % 2 ? 'alt' : ''}"><div class="v"><b>${fmt(p.gross)}</b><span>${cur} شامل الضريبة</span></div>
       <div class="d"><b>${esc(p.p.label || ('الدفعة ' + (i + 1)))}</b><p>${esc(paymentBreakdown(p, C.rows.filter(r => r.net > 0).length))}</p>
       ${p.p.note ? `<p>${esc(p.p.note)}</p>` : ''}</div></div>`));
-    if (C.budgets > 0) add(`<div class="qnote"><b>تنبيه مالي:</b> الميزانيات الإعلانية (${fmt(C.budgets)} ر.س) خارج دفعات ديزاينلي، ويدفعها العميل للمنصات مباشرة من حسابه؛ ولا تمر عبر حساب ديزاينلي، وتخضع لأي رسوم أو ضرائب تصدرها المنصة.</div>`);
+    if (C.budgets > 0) add(`<div class="qnote"><b>تنبيه مالي:</b> ${esc(T.adsNote.replace('{budget}', fmt(C.budgets)))}</div>`);
   }
 
   // ---------- المراحل والمدة
   const phases = (q.phases || []).filter(p => p && (p.title || p.desc));
   if (phases.length) {
-    sec('التنفيذ والتسليم', q.secPhasesTitle || 'رحلة واضحة من الفكرة إلى النتائج', '');
+    sec(T.phKick, q.secPhasesTitle || T.phTitle, T.phLead);
     phases.forEach((p, i) => add(`<div class="qtl"><div class="n">${two(i + 1)}</div><div class="k">${esc(p.tag || '')}</div>
       <div class="d"><b>${esc(p.title)}</b><p>${esc(p.desc || '')}</p></div></div>`));
   }
   if (q.duration) add(`<div class="qbox2"><div><h4>مدة التنفيذ</h4><div class="big">${esc(q.duration)}</div>
-      <div style="font-size:11px;color:#777">${esc(q.durationNote || 'تبدأ بعد اعتماد العرض والدفعة الأولى واستلام المواد اللازمة.')}</div></div></div>`);
+      <div style="font-size:11px;color:#777">${esc(q.durationNote || T.durNote)}</div></div></div>`);
 
   // ---------- الشروط
-  const terms = (q.terms || []).filter(Boolean);
+  const terms = [...new Set([...(q.terms || []), ...(T.globalTerms || [])].filter(Boolean))];
   if (terms.length) {
-    sec('ملاحظات مهمة', 'شروط نطاق العمل', '');
+    sec(T.termsKick, T.termsTitle, '');
     terms.forEach(t => add(`<ul class="qul" style="margin-top:2px"><li>${rich(t.replace(/^([^:：]{2,26})[:：]/, '**$1:**'))}</li></ul>`));
   }
 
   // ---------- الختام (مقسم لبلوكات صغيرة عشان يملأ الصفحة بدون فراغات)
   if (q.closingTitle) add(`<div class="qclose"><b>${esc(q.closingTitle)}</b><p>${esc(q.closingSub || '')}</p></div>`);
   add(`<div class="qslogan">${esc(co.slogan)}</div>
-    <div class="qsign"><h5>اعتماد العرض</h5><div>الاسم: ________________________ &nbsp;&nbsp; التوقيع: ________________________</div>
+    <div class="qsign"><h5>${esc(T.signTitle)}</h5><div>الاسم: ________________________ &nbsp;&nbsp; التوقيع: ________________________</div>
     <div>التاريخ: ________________________</div></div>`);
   add(`<div class="qgoldtag">${esc(co.goldLine).replace('ديزاينلي', '<b>ديزاينلي</b>')}</div>
     <div class="qabout">${img(S.iconImg) ? `<img src="${img(S.iconImg)}">` : `<div class="mk">D</div>`}<div><b>${esc(co.nameAr)}</b> ${esc(co.about)}<br>
@@ -614,7 +628,7 @@ function buildBlocks(q, S, img) {
 
   // ---------- البنك
   const bk = S.bank, bdoc = img(S.bankDocImg);
-  add(`<div class="qh3" style="font-size:15px;color:var(--gold)">بيانات التحويل البنكي</div>`, { keep: 1 });
+  add(`<div class="qh3" style="font-size:15px;color:var(--gold)">${esc(T.bankTitle)}</div>`, { keep: 1 });
   add(`<div class="qbank"><div class="tb">
     <div class="qbr h"><div>البنك / المصرف</div><div>${esc(bk.name)}</div></div>
     <div class="qbr"><div>الدولة:</div><div>${esc(bk.country)}</div></div>
@@ -627,7 +641,7 @@ function buildBlocks(q, S, img) {
   let parts = (S.partners || []).filter(p => p.url || p.img);
   if (parts.some(p => p.img && img(p.img))) parts = parts.filter(p => p.img && img(p.img));
   if (q.showPartners !== false && parts.length) {
-    add(`<div class="qpart-h">بعض شركائنا في النجاح</div>`, { keep: 1 });
+    add(`<div class="qpart-h">${esc(T.partnersTitle)}</div>`, { keep: 1 });
     for (let i = 0; i < parts.length; i += 4) {
       add(`<div class="qpart">${parts.slice(i, i + 4).map(p => {
         const im = img(p.img);
@@ -638,7 +652,7 @@ function buildBlocks(q, S, img) {
   }
   const logos = (S.clientLogos || []).map(img).filter(Boolean);
   if (q.showLogos !== false && logos.length) {
-    if (!(q.showPartners !== false && parts.length)) add(`<div class="qpart-h">عملاء وثقوا بنا</div>`, { keep: 1 });
+    if (!(q.showPartners !== false && parts.length)) add(`<div class="qpart-h">${esc(T.logosTitle)}</div>`, { keep: 1 });
     for (let i = 0; i < logos.length; i += 4) add(`<div class="qlogos">${logos.slice(i, i + 4).map(s => `<div><img src="${s}"></div>`).join('')}</div>`);
     add(`<div class="qline"></div>`);
   }
@@ -889,7 +903,7 @@ function showList(filter = '') {
       return `<div class="card qitem"><div class="lg">${q.client?.logoImg && IMG[q.client.logoImg] ? `<img src="${IMG[q.client.logoImg]}">` : esc((q.client?.name || '?').slice(0, 1))}</div>
       <div class="in"><b>${esc(q.client?.name || 'بدون اسم')}</b><span class="muted">${esc(q.no || '')} • ${esc(fmtDate(q.date))} • ${fmt(c.gross)} ر.س</span>
       <div><span class="st ${q.status || ''}">${({ sent: 'تم الإرسال', won: 'تم القبول', lost: 'مرفوض' })[q.status] || 'مسودة'}</span></div></div>
-      <div class="acts"><button class="btn sm pri" onclick="location.hash='q/${q.id}'">فتح</button>
+      <div class="acts"><button class="btn sm pri" onclick="location.hash='q/${q.id}'">فتح وتعديل</button>
       <button class="btn sm" onclick="dupQuote('${q.id}')">نسخ</button></div></div>`;
     }).join('') : `<div class="card muted" style="text-align:center">لا توجد عروض بعد.</div>`}`;
   const s = $('#qsearch'); s.oninput = () => { const v = s.value; showList(v); const n = $('#qsearch'); n.focus(); n.setSelectionRange(v.length, v.length); };
@@ -1571,10 +1585,28 @@ window.__exportPDFBlob = async () => { // للاختبار
 /* ======================= الإعدادات ======================= */
 async function showSettings() {
   setNav('settings'); Q = null;
+  S.tpl = Object.assign({}, DEFAULT_TPL, S.tpl || {});
   await loadImages([S.logoImg, S.iconImg, S.bankDocImg, S.logosStripImg, ...staticImgs()]);
   const imgBox = (k, label) => `<div style="text-align:center"><div class="brandbox"><div class="lg" data-img="${k}" style="width:100%;height:90px">${img(S[k]) ? `<img src="${img(S[k])}">` : '<span class="muted">+ رفع</span>'}</div></div><span class="muted">${label}</span></div>`;
   $('#app').innerHTML = `
   <div class="card"><h3>المظهر والصور الثابتة</h3><div class="row">${imgBox('logoImg', 'شعار ديزاينلي')}${imgBox('iconImg', 'أيقونة D (الفوتر)')}${imgBox('bankDocImg', 'صورة شهادة الحساب')}${imgBox('logosStripImg', 'صورة شعارات مجمعة (اختياري)')}</div></div>
+  <div class="card"><h3>نصوص قالب العرض</h3><p class="muted">أي تعديل هنا بيتطبق على كل العروض — الجديدة والقديمة — أول ما تفتحها أو تطلع منها PDF.</p>
+    <details><summary class="btn sm ghost">عناوين الأقسام</summary><div style="height:8px"></div>
+    <div class="row"><label class="f"><span>وسم قسم الخدمات</span><input type="text" data-k="tpl.svcKick"></label><label class="f"><span>عنوان قسم الخدمات</span><input type="text" data-k="tpl.svcTitle"></label></div>
+    <label class="f"><span>مقدمة قسم الخدمات</span><input type="text" data-k="tpl.svcLead"></label>
+    <div class="row"><label class="f"><span>وسم قسم التكلفة</span><input type="text" data-k="tpl.costKick"></label><label class="f"><span>عنوان قسم التكلفة</span><input type="text" data-k="tpl.costTitle"></label></div>
+    <label class="f"><span>مقدمة التكلفة (لما يكون فيه إعلانات)</span><textarea data-k="tpl.costLeadAds"></textarea></label>
+    <div class="row"><label class="f"><span>وسم الدفعات</span><input type="text" data-k="tpl.payKick"></label><label class="f"><span>عنوان الدفعات</span><input type="text" data-k="tpl.payTitle"></label></div>
+    <label class="f"><span>مقدمة الدفعات</span><input type="text" data-k="tpl.payLead"></label>
+    <label class="f"><span>التنبيه المالي للإعلانات ({budget} = قيمة الميزانيات)</span><textarea data-k="tpl.adsNote"></textarea></label>
+    <div class="row"><label class="f"><span>وسم المراحل</span><input type="text" data-k="tpl.phKick"></label><label class="f"><span>عنوان المراحل</span><input type="text" data-k="tpl.phTitle"></label></div>
+    <label class="f"><span>ملاحظة مدة التنفيذ</span><input type="text" data-k="tpl.durNote"></label>
+    <div class="row"><label class="f"><span>وسم الشروط</span><input type="text" data-k="tpl.termsKick"></label><label class="f"><span>عنوان الشروط</span><input type="text" data-k="tpl.termsTitle"></label></div>
+    <div class="row"><label class="f"><span>عنوان الاعتماد</span><input type="text" data-k="tpl.signTitle"></label><label class="f"><span>عنوان البنك</span><input type="text" data-k="tpl.bankTitle"></label></div>
+    <div class="row"><label class="f"><span>عنوان صور العملاء</span><input type="text" data-k="tpl.partnersTitle"></label><label class="f"><span>عنوان الشعارات</span><input type="text" data-k="tpl.logosTitle"></label></div>
+    </details>
+    <label class="f" style="margin-top:10px"><span>شروط ثابتة تظهر في كل العروض (شرط في كل سطر)</span><textarea data-k="tpl.globalTerms" data-lines style="min-height:110px" placeholder="مثال: صلاحية العرض 14 يوم من تاريخه."></textarea></label>
+  </div>
   <div class="card"><h3>الذكاء الاصطناعي (OpenAI)</h3>
     <label class="f"><span>مفتاح API — من platform.openai.com (منفصل عن اشتراك ChatGPT)</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
     <div class="row"><label class="f"><span>موديل النصوص</span><input type="text" data-k="ai.textModel" dir="ltr"></label><label class="f"><span>موديل الصور</span><input type="text" data-k="ai.imageModel" dir="ltr"></label></div>
