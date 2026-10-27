@@ -228,6 +228,9 @@ html,body{overflow-x:hidden}
 .qpart .im .ph{font-size:11px;color:#999;direction:ltr}
 .qpart .bt{background:linear-gradient(180deg,#9b7a2b,#7a5c1a);color:#fff;font-size:11.5px;font-weight:700;text-align:center;padding:4px}
 .qstrip{margin-top:8px;text-align:center;height:210px}.qstrip img{width:100%;height:100%;object-fit:contain}
+.qlogos{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #e6e6e6}
+.qlogos>div{height:74px;display:flex;align-items:center;justify-content:center;padding:8px 14px;border-left:1px solid #e6e6e6}
+.qlogos>div:nth-child(4n){border-left:0}.qlogos img{max-width:100%;max-height:100%;object-fit:contain}
 </style>
 </head>
 <body>
@@ -378,7 +381,7 @@ const DEFAULT_SETTINGS = {
     'kingdom-coverage.com', 'www.woodhub-ksa.com', 'www.ishraq.sa', 'www.ofoqevents.sa', 'www.inicios.sa', 'www.fg2071.com',
     'www.diiyar.com', 'maraialtamween.com', 'www.dana-event.com', 'www.hathaqa.com', 'www.lawyerabdulmalik.com.sa', '',
   ].map(u => ({ url: u ? 'https://' + u : '', img: '' })),
-  logoImg: '', logosStripImg: '', bankDocImg: '',
+  logoImg: '', logosStripImg: '', bankDocImg: '', clientLogos: [],
   ai: { key: '', textModel: 'gpt-5-mini', imageModel: 'gpt-image-1.5', quality: 'medium', useWebSearch: true },
   imagePrompt: 'اريد تصميم أوبجكت ثري دي بدون خلفيه يكون له علاقه بمجال العميل ويكون بيوصف خطة العمل و خدمات عرض السعر بدون ذكر أسعار , يكون مودرن و إحترافي وبهوية البرانند',
   defaultDuration: '',
@@ -598,37 +601,47 @@ function buildBlocks(q, S, img) {
     terms.forEach(t => add(`<ul class="qul" style="margin-top:2px"><li>${rich(t.replace(/^([^:：]{2,26})[:：]/, '**$1:**'))}</li></ul>`));
   }
 
-  // ---------- الختام
-  add(`${q.closingTitle ? `<div class="qclose"><b>${esc(q.closingTitle)}</b><p>${esc(q.closingSub || '')}</p></div>` : ''}
-    <div class="qslogan">${esc(co.slogan)}</div>
+  // ---------- الختام (مقسم لبلوكات صغيرة عشان يملأ الصفحة بدون فراغات)
+  if (q.closingTitle) add(`<div class="qclose"><b>${esc(q.closingTitle)}</b><p>${esc(q.closingSub || '')}</p></div>`);
+  add(`<div class="qslogan">${esc(co.slogan)}</div>
     <div class="qsign"><h5>اعتماد العرض</h5><div>الاسم: ________________________ &nbsp;&nbsp; التوقيع: ________________________</div>
-    <div>التاريخ: ________________________</div></div>`, { keep: 1 });
+    <div>التاريخ: ________________________</div></div>`);
   add(`<div class="qgoldtag">${esc(co.goldLine).replace('ديزاينلي', '<b>ديزاينلي</b>')}</div>
     <div class="qabout">${logo ? `<img src="${logo}">` : `<div class="mk">D</div>`}<div><b>${esc(co.nameAr)}</b> ${esc(co.about)}<br>
     س.ت : ${esc(co.cr)} | الرقم الموحد : ${esc(co.unified)} | الرقم الضريبي: ${esc(co.vat)}</div></div><div class="qline"></div>`);
 
-  // ---------- البنك والشركاء (صفحة جديدة)
+  // ---------- البنك
   const bk = S.bank, bdoc = img(S.bankDocImg);
+  add(`<div class="qh3" style="font-size:15px;color:var(--gold)">بيانات التحويل البنكي</div>`, { keep: 1 });
   add(`<div class="qbank"><div class="tb">
     <div class="qbr h"><div>البنك / المصرف</div><div>${esc(bk.name)}</div></div>
     <div class="qbr"><div>الدولة:</div><div>${esc(bk.country)}</div></div>
     <div class="qbr"><div>اسم الحساب:</div><div>${esc(bk.holder)}</div></div>
     <div class="qbr"><div>رقم الحساب:</div><div>${esc(bk.account)}</div></div>
     <div class="qbr"><div>رقم الآيبان:</div><div>${esc(bk.iban)}</div></div></div>
-    ${bdoc ? `<div class="doc"><img src="${bdoc}"></div>` : ''}</div><div class="qline"></div>`, { newPage: 1 });
-  const parts = (S.partners || []).filter(p => p.url || p.img);
-  if (parts.length) {
+    ${bdoc ? `<div class="doc"><img src="${bdoc}"></div>` : ''}</div><div class="qline"></div>`);
+
+  // ---------- العملاء السابقين: صور الأعمال + الشعارات
+  let parts = (S.partners || []).filter(p => p.url || p.img);
+  if (parts.some(p => p.img && img(p.img))) parts = parts.filter(p => p.img && img(p.img));
+  if (q.showPartners !== false && parts.length) {
     add(`<div class="qpart-h">بعض شركائنا في النجاح</div>`, { keep: 1 });
     for (let i = 0; i < parts.length; i += 4) {
       add(`<div class="qpart">${parts.slice(i, i + 4).map(p => {
         const im = img(p.img);
         return `<a href="${esc(p.url || '#')}" data-link="${esc(p.url || '')}"><div class="im">${im ? `<img src="${im}">` : `<span class="ph">${esc((p.url || '').replace(/^https?:\/\/(www\.)?/, ''))}</span>`}</div>
-          <div class="bt">تصفح الموقع الإلكتروني</div></a>`;
+          ${p.url ? '<div class="bt">تصفح الموقع الإلكتروني</div>' : (p.name ? `<div class="bt">${esc(p.name)}</div>` : '')}</a>`;
       }).join('')}</div>`);
     }
   }
+  const logos = (S.clientLogos || []).map(img).filter(Boolean);
+  if (q.showLogos !== false && logos.length) {
+    if (!(q.showPartners !== false && parts.length)) add(`<div class="qpart-h">عملاء وثقوا بنا</div>`, { keep: 1 });
+    for (let i = 0; i < logos.length; i += 4) add(`<div class="qlogos">${logos.slice(i, i + 4).map(s => `<div><img src="${s}"></div>`).join('')}</div>`);
+    add(`<div class="qline"></div>`);
+  }
   const strip = img(S.logosStripImg);
-  if (strip) add(`<div class="qstrip"><img src="${strip}"></div><div class="qline"></div>`);
+  if (strip && q.showLogos !== false) add(`<div class="qstrip"><img src="${strip}"></div><div class="qline"></div>`);
   return B;
 }
 
@@ -772,6 +785,10 @@ async function compressImage(src, maxW = 1400, maxLen = 680000) {
   return out;
 }
 const fileToDataUrl = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(f); });
+const staticImgs = () => [...(S.partners || []).map(p => p.img), ...(S.clientLogos || [])];
+function pickFiles(accept = 'image/*') {
+  return new Promise(res => { const i = document.createElement('input'); i.type = 'file'; i.accept = accept; i.multiple = true; i.onchange = () => res([...i.files]); i.click(); });
+}
 function pickFile(accept = 'image/*') {
   return new Promise(res => { const i = document.createElement('input'); i.type = 'file'; i.accept = accept; i.onchange = () => res(i.files[0] || null); i.click(); });
 }
@@ -1195,13 +1212,17 @@ async function ensureFonts() {
 }
 async function stepPreview() {
   fillDefaults(Q); await ensureFonts();
-  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...S.partners.map(p => p.img)]);
-  $('#stepBody').innerHTML = `<div class="card"><div class="row"><button class="btn gold" id="pdf">تحميل PDF</button><button class="btn pri" id="share">مشاركة (واتساب…)</button></div></div>
+  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...staticImgs()]);
+  $('#stepBody').innerHTML = `<div class="card"><div class="row"><button class="btn gold" id="pdf">تحميل PDF</button><button class="btn pri" id="share">مشاركة (واتساب…)</button></div>
+    <div class="chips" style="margin-top:10px"><label class="chip"><input type="checkbox" id="shP" ${Q.showPartners !== false ? 'checked' : ''}> صور العملاء السابقين</label>
+    <label class="chip"><input type="checkbox" id="shL" ${Q.showLogos !== false ? 'checked' : ''}> شعارات العملاء</label></div></div>
     <div class="pv" id="pv"></div>`;
   const pv = $('#pv');
   pv.innerHTML = renderPages(Q, S, img);
   const w = Math.min(794, pv.clientWidth || window.innerWidth - 24), s = w / 794;
   $$('.qpage', pv).forEach(p => { const wrap = document.createElement('div'); wrap.className = 'pw'; wrap.style.cssText = `width:${794 * s}px;height:${1123 * s}px`; p.parentNode.insertBefore(wrap, p); wrap.appendChild(p); p.style.transform = `scale(${s})`; });
+  $('#shP').onchange = e => { Q.showPartners = e.target.checked; dirty(); stepPreview(); };
+  $('#shL').onchange = e => { Q.showLogos = e.target.checked; dirty(); stepPreview(); };
   $('#pdf').onclick = () => exportPDF('download');
   $('#share').onclick = () => exportPDF('share');
 }
@@ -1504,7 +1525,7 @@ async function exportPDF(mode) {
   fillDefaults(Q); await saveQuote();
   const o = overlay(`<div class="prog"><div class="spin"></div><b id="pg">تجهيز الـ PDF...</b></div>`); o.dataset.lock = 1;
   try {
-    await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...S.partners.map(p => p.img)]);
+    await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, Q.img3d, ...staticImgs()]);
     await ensureFonts();
     const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:0;top:0;width:794px;z-index:-1;opacity:0;pointer-events:none';
     host.innerHTML = renderPages(Q, S, img); document.body.appendChild(host);
@@ -1548,10 +1569,10 @@ window.__exportPDFBlob = async () => { // للاختبار
 /* ======================= الإعدادات ======================= */
 async function showSettings() {
   setNav('settings'); Q = null;
-  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, ...S.partners.map(p => p.img)]);
+  await loadImages([S.logoImg, S.bankDocImg, S.logosStripImg, ...staticImgs()]);
   const imgBox = (k, label) => `<div style="text-align:center"><div class="brandbox"><div class="lg" data-img="${k}" style="width:100%;height:90px">${img(S[k]) ? `<img src="${img(S[k])}">` : '<span class="muted">+ رفع</span>'}</div></div><span class="muted">${label}</span></div>`;
   $('#app').innerHTML = `
-  <div class="card"><h3>المظهر والصور الثابتة</h3><div class="row">${imgBox('logoImg', 'شعار ديزاينلي')}${imgBox('bankDocImg', 'صورة شهادة الحساب')}${imgBox('logosStripImg', 'شعارات العملاء (صورة)')}</div></div>
+  <div class="card"><h3>المظهر والصور الثابتة</h3><div class="row">${imgBox('logoImg', 'شعار ديزاينلي')}${imgBox('bankDocImg', 'صورة شهادة الحساب')}${imgBox('logosStripImg', 'صورة شعارات مجمعة (اختياري)')}</div></div>
   <div class="card"><h3>الذكاء الاصطناعي (OpenAI)</h3>
     <label class="f"><span>مفتاح API — من platform.openai.com (منفصل عن اشتراك ChatGPT)</span><input type="password" data-k="ai.key" dir="ltr" placeholder="sk-..."></label>
     <div class="row"><label class="f"><span>موديل النصوص</span><input type="text" data-k="ai.textModel" dir="ltr"></label><label class="f"><span>موديل الصور</span><input type="text" data-k="ai.imageModel" dir="ltr"></label></div>
@@ -1572,7 +1593,11 @@ async function showSettings() {
     <div class="row"><label class="f"><span>البنك</span><input type="text" data-k="bank.name"></label><label class="f"><span>الدولة</span><input type="text" data-k="bank.country"></label></div>
     <label class="f"><span>اسم الحساب</span><input type="text" data-k="bank.holder"></label>
     <div class="row"><label class="f"><span>رقم الحساب</span><input type="text" data-k="bank.account" dir="ltr"></label><label class="f"><span>الآيبان</span><input type="text" data-k="bank.iban" dir="ltr"></label></div></div>
-  <div class="card"><h3>شركاء النجاح (تظهر بروابط قابلة للضغط في الـ PDF)</h3><div id="parts"></div><button class="btn sm ghost" id="addPart">＋ شريك</button></div>
+  <div class="card"><h3>العملاء السابقين — صور الأعمال<span class="sp"></span><button class="btn sm gold" id="bulkPart">رفع صور متعددة</button></h3>
+    <p class="muted">بتظهر في آخر العرض في شبكة 4 أعمدة، وكل صورة عليها زرار «تصفح الموقع» لو حطيت رابط. الصور اللي بخلفية شفافة (ثري دي) بتطلع أحلى.</p>
+    <div id="parts"></div><button class="btn sm ghost" id="addPart">＋ عميل</button></div>
+  <div class="card"><h3>شعارات العملاء<span class="sp"></span><button class="btn sm gold" id="bulkLogos">رفع شعارات متعددة</button></h3>
+    <p class="muted">بتظهر تحت صور الأعمال في شبكة شعارات.</p><div id="logos" class="chips"></div></div>
   <div class="card"><h3>كتالوج الخدمات والأسعار الافتراضية<span class="sp"></span><button class="btn sm gold" id="addSvc">＋ خدمة</button></h3><div id="cat"></div></div>
   ${DEMO ? '' : `<div class="card"><h3>الفريق</h3><p class="muted">الإيميلات المسموح لها تدخل النظام (بنفس حسابات ميزان).</p><div id="team"></div>
     <div class="row"><input type="email" id="tem" placeholder="email@example.com" dir="ltr"><button class="btn pri" id="tadd" style="flex:none">إضافة</button></div></div>
@@ -1583,13 +1608,25 @@ async function showSettings() {
   $$('[data-img]').forEach(el => el.onclick = async () => { const f = await pickFile(); if (!f) return; S[el.dataset.img] = await putImage(await compressImage(await fileToDataUrl(f), 1400, 600000)); await saveSettings(); showSettings(); });
   const renderParts = () => {
     $('#parts').innerHTML = S.partners.map((p, i) => `<div class="row" style="align-items:center;margin-bottom:8px"><div class="brandbox" style="flex:none"><div class="lg" data-pi="${i}" style="width:56px;height:56px">${img(p.img) ? `<img src="${img(p.img)}">` : '<span class="muted">+</span>'}</div></div>
-      <input type="url" data-pu="${i}" value="${esc(p.url)}" dir="ltr" placeholder="https://"><button class="btn sm danger" data-pd="${i}" style="flex:none">×</button></div>`).join('');
+      <input type="url" data-pu="${i}" value="${esc(p.url)}" dir="ltr" placeholder="https://"><button class="btn sm ghost" data-pm="${i}" data-d="-1" style="flex:none">↑</button><button class="btn sm danger" data-pd="${i}" style="flex:none">×</button></div>`).join('');
+    $$('[data-pm]').forEach(el => el.onclick = () => { const i = +el.dataset.pm, j = i + +el.dataset.d; if (j < 0 || j >= S.partners.length) return; const t = S.partners[i]; S.partners[i] = S.partners[j]; S.partners[j] = t; save(); renderParts(); });
     $$('[data-pi]').forEach(el => el.onclick = async () => { const f = await pickFile(); if (!f) return; S.partners[+el.dataset.pi].img = await putImage(await compressImage(await fileToDataUrl(f), 500, 250000)); await saveSettings(); renderParts(); });
     $$('[data-pu]').forEach(el => el.oninput = () => { S.partners[+el.dataset.pu].url = el.value.trim(); save(); });
     $$('[data-pd]').forEach(el => el.onclick = () => { S.partners.splice(+el.dataset.pd, 1); save(); renderParts(); });
   };
   renderParts();
   $('#addPart').onclick = () => { S.partners.push({ url: '', img: '' }); renderParts(); };
+  const bulk = async (files, max, len, fn) => { const o = overlay(`<div class="prog"><div class="spin"></div><b id="bp">جاري الرفع...</b></div>`); o.dataset.lock = 1;
+    for (let k = 0; k < files.length; k++) { $('#bp', o).textContent = `صورة ${k + 1} من ${files.length}`; try { fn(await putImage(await compressImage(await fileToDataUrl(files[k]), max, len))); } catch (e) { toast('تعذر رفع ' + files[k].name, 1); } }
+    await saveSettings(); o.remove(); };
+  $('#bulkPart').onclick = async () => { const fs = await pickFiles(); if (!fs.length) return; await bulk(fs, 520, 260000, id => S.partners.push({ url: '', img: id })); renderParts(); };
+  S.clientLogos = S.clientLogos || [];
+  const renderLogos = () => {
+    $('#logos').innerHTML = S.clientLogos.map((id, i) => `<div class="brandbox"><div class="lg" style="width:70px;height:56px;position:relative" data-ld="${i}">${img(id) ? `<img src="${img(id)}">` : ''}<span style="position:absolute;top:0;left:2px;color:var(--bad);font-weight:700">×</span></div></div>`).join('') || '<span class="muted">مفيش شعارات لسه</span>';
+    $$('[data-ld]').forEach(el => el.onclick = async () => { if (!confirm('حذف الشعار؟')) return; S.clientLogos.splice(+el.dataset.ld, 1); await saveSettings(); renderLogos(); });
+  };
+  renderLogos();
+  $('#bulkLogos').onclick = async () => { const fs = await pickFiles(); if (!fs.length) return; await bulk(fs, 400, 120000, id => S.clientLogos.push(id)); renderLogos(); };
   renderCatalog();
   $('#addSvc').onclick = () => editCatalogSvc({ id: 'c_' + uid(), cat: 'social', kind: 'fixed', name: '', price: 0, desc: '', bullets: [], order: SERVICES.length, active: true }, true);
   if (!DEMO) renderTeam();
