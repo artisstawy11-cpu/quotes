@@ -165,6 +165,9 @@ input[type=text],input[type=number],input[type=email],input[type=password],input
 .rv-kind{margin-inline-start:auto}
 .rv-top .rv-kind,.rv-top .rv-x{order:3}
 .cmp-ok{margin-top:12px;font-size:12.5px;background:rgba(46,204,113,.14);color:#9be7b8;border-radius:12px;padding:7px 12px;display:inline-block}
+.cmp-link{margin-top:14px;background:rgba(255,255,255,.07);border:1px solid rgba(216,180,95,.45);border-radius:14px;padding:12px;text-align:right;font-size:13px;line-height:1.7}
+.cmp-link b{display:block;color:#f1dca6;margin-bottom:2px}.cmp-link span{display:block;opacity:.85;margin-bottom:8px}
+.cmp-link input{background:#fff!important;color:#111}
 </style>
 <style>/* ===== قالب عرض السعر (صفحات A4 بعرض 794px) ===== */
 .qpage{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;color:#1d1d1f;
@@ -523,6 +526,15 @@ const DEFAULT_SERVICES = [
     price: 100,
     desc: "صفحة مركزة للحملات تتضمن محتوى مختصراً ودعوة واضحة للتواصل، بتصميم متجاوب مع الهوية.",
     bullets: []
+  },
+  {
+    id: "funnel",
+    cat: "web",
+    kind: "fixed",
+    name: "تحسين رحلة العميل (Funnel Optimization)",
+    price: 1e3,
+    desc: "تحسين رحلة العميل داخل المتجر أو الموقع من أول زيارة حتى إتمام الطلب، وربطه بأدوات تتبع المبيعات.",
+    bullets: ["ربط المتجر بأدوات تتبع المبيعات والتحويلات (Pixel / Google Tag / Analytics).", "تحليل نقاط التسرب في رحلة العميل وتحسين صفحات المنتج والسلة والدفع.", "تعديلات مستمرة مبنية على نتائج أدوات التتبع."]
   },
   {
     id: "seo",
@@ -2781,7 +2793,8 @@ const KW = [
   [/ملف (ال)?شرك[ةه]|بروفايل (ال)?شرك|ملف تعريفي|company profile/i, "company_profile"],
   [/هوي[ةه].*(سوشيال|سوشال)/, "social_identity"],
   [/سوشيال|إدارة (ال)?حسابات|ادارة (ال)?حسابات|سوشال/, "smm_full"],
-  [/متجر/, "store"],
+  [/رحل[ةه] العميل|funnel|فانل|قمع المبيعات/i, "funnel"],
+  [/(تأسيس|انشاء|إنشاء|تصميم|عمل)\s*(ال)?متجر/, "store"],
   [/صفح[ةه] هبوط|لاندنج|landing/i, "landing"],
   [/موقع/, "website"],
   [/seo|سيو|محركات البحث/i, "seo"],
@@ -2823,17 +2836,26 @@ function parseBrief(text) {
   const out = { client: "", items: [], entities: [], notes: [] };
   let cur = null, entMode = false, lastAds = null, platMode = false, groupFee = null;
   const priceOf = (l) => {
-    let m = l.match(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.\s?س\.?|sar|﷼)/i);
-    if (!m) m = l.match(/(?:ميزاني[ةه]|مزاني[ةه]|بقيم[ةه]|قيمتها|بسعر)\s*([\d٠-٩][\d٠-٩,\.]*)/);
+    let m = l.match(/(?:ميزاني[ةه]|مزاني[ةه]|بقيم[ةه]|قيم[ةه](?:\s*ال)?\s*(?:الخدم[ةه])?|قيمتها|بسعر|سعرها|السعر)\s*[:：]?\s*([\d٠-٩][\d٠-٩,\.]*)/);
+    if (!m) {
+      const s = l.replace(/\([^)]*(يومي|يوميا|يومياً|باليوم)[^)]*\)/g, " ");
+      m = s.match(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.\s?س\.?|sar|﷼)/i);
+    }
     return m ? num(m[1]) : null;
   };
   for (let raw of lines) {
     const l = raw.replace(/\s*:\s*$/, "").trim();
     if (/عرض\s*سعر/.test(l) && !out.client) {
-      const c = l.replace(/.*عرض\s*سعر\s*(ل|لـ)?\s*/, "").replace(/[:：]/g, "").replace("إلاعمال", "الأعمال").trim();
-      out.client = /هذ|هاذ|العميل|بتقد|بتقدي/.test(c) ? "" : c;
+      let c = l.replace(/.*عرض\s*سعر\s*/, "").replace(/[:：]/g, "").replace("إلاعمال", "الأعمال").replace(/^(احترافي|احترافية|مميز|مخصص|شامل|جديد)\s+/, "").replace(/^(لـ|ل)\s*(?=\S)/, "").trim();
+      const loc = /^(هذ|هاذ|العميل)/.test(c) ? null : c.match(/\s+(?:في|ب(?=منطق|مدين))\s*(?:منطق[ةه]|مدين[ةه])?\s*(.+)$/);
+      if (loc) {
+        out.location = loc[1].replace(/مكةالمكرمة/, "مكة المكرمة").trim();
+        c = c.slice(0, loc.index).trim();
+      }
+      out.client = /^(هذ|هاذ|العميل|بتقد|بتقدي)/.test(c) ? "" : c;
       continue;
     }
+    if (/^(تقديم|الخدمات|المطلوب|يشمل|تشمل)\b.*$/.test(l) && !/\d/.test(l) && l.length < 40) continue;
     const price = priceOf(l), pct = l.match(/(\d+(?:\.\d+)?)\s*%/), free = /مجان|مجاناً|مجانا|free/i.test(l);
     const per = /لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم|منص[ةه])/.test(l);
     const entH = !price && l.match(/(\d+)\s*(مجالات|أنشطة|انشطة|نشاطات|فروع|حسابات|براندات|أقسام)/);
@@ -2852,6 +2874,11 @@ function parseBrief(text) {
       const ap = ADS_BY_PLAT.find(([re]) => re.test(l));
       if (ap) kw = [null, ap[1]];
     }
+    let customName = "";
+    if (!kw && /^(خدم[ةه]|باق[ةه]|تصميم|إعداد|اعداد|تجهيز|إنشاء|انشاء|برمج[ةه]|تطوير|تحسين)\s/.test(l)) {
+      kw = [null, "custom"];
+      customName = l.split(/[:：(]|\s-\s|\sتتضمن|\sيتضمن|\sتشمل|\sيشمل/)[0].replace(/^خدم[ةه]\s+/, "").trim();
+    }
     if (pct && /إدار|ادار/.test(l) && !kw) {
       (lastAds || cur || {}).fee = +pct[1];
       if (lastAds) lastAds.feeSet = true;
@@ -2861,8 +2888,18 @@ function parseBrief(text) {
       entMode = false;
       platMode = false;
       const svc = findSvc(kw[1]);
-      cur = { src: kw[1], name: cleanName(l) || svc && svc.name, kind: /^ads_|wa_campaign/.test(kw[1]) ? "ads" : svc ? svc.kind : "fixed", per, details: [], platforms: [] };
-      if (/شهر|شهري/.test(l) && cur.kind !== "ads") cur.kind = "monthly";
+      const nm = customName || shortLine(l);
+      cur = { src: kw[1], name: nm || svc && svc.name, kind: /^ads_|wa_campaign/.test(kw[1]) ? "ads" : svc ? svc.kind : "fixed", per, details: [], platforms: [] };
+      const inc = l.match(/(?:تتضمن|يتضمن|تشمل|يشمل)\s+(.+?)(?:[:：]\s*قيم[ةه]|$)/);
+      const rest = inc ? inc[1].trim() : customName ? l.slice(l.indexOf(customName) + customName.length).replace(/^[\s:：\-–]+/, "").replace(/[:：]?\s*قيم[ةه] ال?خدم[ةه].*$/, "").trim() : "";
+      const after = l.match(/\)\s*(هذ[يه] الخدم[ةه].+|تغطي.+)$/);
+      if (after) cur && 0;
+      if (rest.length > 15) cleanName(rest).split(/\s\+\s/).forEach((x) => x.trim().length > 3 && cur.details.push(x.trim()));
+      if (after) cur.details.push(cleanName(after[1]));
+      const daily = l.match(/\(([^)]*(يومي|يوميا|يومياً|باليوم)[^)]*)\)/);
+      if (daily) cur.details.push("بمعدل " + daily[1].replace(/\s+/g, " ").trim());
+      if (/مر[ةه] واحد[ةه]|لمر[ةه] واحد[ةه]/.test(l) && cur.kind !== "ads") cur.kind = "fixed";
+      if (/شهر|شهري/.test(l) && !/مر[ةه] واحد[ةه]/.test(l) && cur.kind !== "ads") cur.kind = "monthly";
       if (free) cur.price = 0;
       if (price != null) {
         if (cur.kind === "ads") cur.budget = price;
@@ -2906,8 +2943,13 @@ function parseBrief(text) {
   }
   return out;
 }
+function shortLine(l) {
+  let s = cleanName(l).replace(/^\d+\s*[-–.)]\s*/, "").replace(/^خدم[ةه]\s+/, "").split(/\s(?:بميزاني[ةه]|بمزاني[ةه]|تتضمن|يتضمن|تشمل|يشمل)\s|[(|:：]/)[0].trim();
+  s = s.replace(/\s*(شهريا|شهرياً|شهري|بشكل شهري)$/, "").trim();
+  return s.length > 60 ? s.slice(0, 58) + "…" : s;
+}
 function cleanName(l) {
-  return l.replace(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.\s?س\.?|sar|﷼)(\s*(\/|في|ب)?\s*(ال)?(شهر|شهري|شهريا|شهرياً))?/ig, "").replace(/(\d+(?:\.\d+)?)\s*%/g, "").replace(/\b(مجاني|مجانا|مجاناً)\b|مجاني[ةه]?/g, "").replace(/لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم)/g, "").replace(/[:：]+/g, "").replace(/\s{2,}/g, " ").trim();
+  return l.replace(/([\d٠-٩][\d٠-٩,\.]*)\s*(ريال|ر\.\s?س\.?|sar|﷼)(\s*(\/|في|ب)?\s*(ال)?(شهر|شهري|شهريا|شهرياً))?/ig, "").replace(/(\d+(?:\.\d+)?)\s*%/g, "").replace(/\s*مجان(?:ي[ةه]?|اً|ا|ي)?(?=\s|$)/g, "").replace(/لكل\s*(مجال|نشاط|فرع|حساب|براند|قسم)/g, "").replace(/[:：]+/g, "").replace(/\s{2,}/g, " ").trim();
 }
 function briefToItems(p) {
   const items = [];
@@ -2934,6 +2976,7 @@ function briefToItems(p) {
       if (b.kind === "ads") {
         it.platform = svc.platform || it.platform;
         if (ent) it.objective = "الظهور المحلي لـ" + ent;
+        else if (b.name && b.name !== svc.name && b.name.length > 12) it.objective = b.name;
       }
       if (b.details.length) {
         const det = b.details.filter((d) => d.length > 2);
@@ -2968,7 +3011,9 @@ function showBrief() {
       <div class="cmp-s">سجّل أو اكتب المطلوب زي ما بتشرحه للعميل — العميل، الخدمات، الأسعار، الميزانيات، النسب — والسيستم يكتب العرض.</div>
       <button class="mic" id="mic" aria-label="تسجيل"><span class="mic-ring"></span><svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg></button>
       <div class="mic-st" id="micSt">اضغط للتسجيل</div>
-      ${hasAI ? `<div class="cmp-ok">مربوط بـ${aiName()} ✓</div>` : '<div class="cmp-warn">الفهم دلوقتي بقواعد ثابتة. اربط Claude من الإعدادات عشان يفهم كلامك زي الإنسان.</div>'}
+      ${hasAI ? `<div class="cmp-ok">مربوط بـ${aiName()} ✓</div>` : `<div class="cmp-link"><b>⚠️ Claude مش مربوط — السيستم دلوقتي بيفهم بقواعد ثابتة بس</b>
+        <span>الصق مفتاح Claude API هنا مرة واحدة (من platform.claude.com ← API Keys):</span>
+        <div class="row"><input type="password" id="ckey" dir="ltr" placeholder="sk-ant-..."><button class="btn gold" id="ckeyGo" style="flex:none">ربط</button></div></div>`}
     </div>
     <div class="card cmp-box">
       <textarea id="brief" placeholder="مثال: عرض سعر لعيادات لولوا كير… صفحة هبوط مجانًا، تظبيط بروفايل جوجل ماب 250، حملة تيك توك للتسجيلات بميزانية 3000 ونسبة إدارة 20%…"></textarea>
@@ -3011,6 +3056,27 @@ function showBrief() {
     ta.focus();
   });
   setupMic(ta, sync);
+  const kb = $("#ckeyGo");
+  if (kb) kb.onclick = async () => {
+    const k = $("#ckey").value.trim();
+    if (!/^sk-ant-/.test(k)) return toast("المفتاح لازم يبدأ بـ sk-ant-", 1);
+    kb.disabled = true;
+    kb.textContent = "بتأكد...";
+    const old = S.ai.claudeKey;
+    S.ai.claudeKey = k;
+    S.ai.provider = "claude";
+    try {
+      await claudeJSON("اختبار اتصال", 'أعد {"ok":true} فقط');
+      await saveSettings();
+      toast("تم ربط Claude ✓");
+      showBrief();
+    } catch (e) {
+      S.ai.claudeKey = old;
+      kb.disabled = false;
+      kb.textContent = "ربط";
+      toast("المفتاح ما اشتغلش: " + e.message, 1);
+    }
+  };
   $("#bgo").onclick = async () => {
     const txt = ta.value.trim();
     if (!txt) return toast("سجّل أو اكتب المطلوب أولاً", 1);
@@ -3034,6 +3100,7 @@ function showBrief() {
     if (p.clientEn) q.client.nameEn = p.clientEn;
     else if (!p.client && lk) q.client.nameEn = lk;
     if (p.industry) q.client.industry = p.industry;
+    else if (p.location) q.client.industry = p.location;
     else if (p.entities.length) q.client.industry = p.entities.map((e) => e.replace(/^\S+\s+(لل|ل)?/, "")).join(" • ");
     q.client.entities = p.entities;
     q.client.entityWord = p.entityWord || "";
