@@ -1468,7 +1468,8 @@ function renderEditor() {
 function updDock() {
   if (!Q) return;
   const c = computeQuote(Q);
-  $("#dockTot").innerHTML = `<b>${fmt(c.gross)} ر.س</b><span>شامل الضريبة • ${c.rows.length} خدمة${c.budgets ? " • ميزانيات " + fmt(c.budgets) : ""}</span>`;
+  const cs = Q.curShort || ((Q.currency || "ريال") === "ريال" ? "ر.س" : Q.currency);
+  $("#dockTot").innerHTML = `<b>${fmt(c.gross)} ${cs}</b><span>${c.vr ? "شامل الضريبة • " : ""}${c.rows.length} خدمة${c.budgets ? " • ميزانيات " + fmt(c.budgets) : ""}</span>`;
 }
 function bindFields(root, obj, onChange) {
   $$("[data-k]", root).forEach((el) => {
