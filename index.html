@@ -831,6 +831,7 @@ function paymentBreakdown(pay, allCount) {
     return (+pct === 100 ? "قيمة " + label : fmt(pct) + "% من " + label) + " (" + fmt(amt) + ")";
   });
   if (pay.vat > 0) segs.push("الضريبة (" + fmt(pay.vat) + ")");
+  if (pay.p && pay.p.text) return pay.p.text;
   return segs.join(" + ");
 }
 const PAY_PRESETS = {
@@ -893,7 +894,7 @@ function buildBlocks(q, S2, img2) {
     let meta = "";
     if (it.kind === "ads") meta = "";
     else if (r.net === 0) meta = `<b class="qfree">مجانًا</b>`;
-    else meta = `<b>${fmt(+it.price)} ${cur}</b>${it.kind === "monthly" ? " / شهريًا" : ""}${each}${q.pricesIncludeVat ? " شامل الضريبة" : ""}`;
+    else meta = `${it.was ? `<s style="color:#a33">${fmt(it.was)} ${cur}</s> &nbsp;` : ""}<b>${fmt(+it.price)} ${cur}</b>${it.kind === "monthly" ? " / شهريًا" : ""}${each}${q.pricesIncludeVat ? " شامل الضريبة" : ""}${it.badge ? ` <span style="background:var(--a);color:#fff;border-radius:4px;padding:1px 7px;font-size:11px">${esc(it.badge)}</span>` : ""}`;
     if (it.platforms) meta += `  |  ${esc(it.platforms)}`;
     let h = `<div class="qh3"><span class="n">${two(++sNo)}</span>${esc(same.length > 1 ? it.name + " — " + same.length + " حسابات / أنشطة" : it.title || it.name)}</div>`;
     if (meta) h += `<div class="qmeta">${meta}</div>`;
@@ -909,35 +910,38 @@ function buildBlocks(q, S2, img2) {
     add(`<div>${h}</div>`);
   });
   if (q.path && q.path.length) add(`<div class="qh3" style="font-size:14px">مسار النمو المقترح</div><div class="qchips">${q.path.map((p) => `<span>${esc(p)}</span>`).join("")}</div>`);
+  const cs = q.curShort || (cur === "ريال" ? "ر.س" : cur);
+  const noVat = C.vr === 0;
   sec(
     T.costKick,
     q.secCostTitle || T.costTitle,
-    C.budgets > 0 ? T.costLeadAds : `القيمة الإجمالية للمشروع: ${fmt(C.net)} ${cur} قبل ضريبة القيمة المضافة. تم تسعير كل جزء بصورة مستقلة لشفافية أكبر.`
+    C.budgets > 0 ? T.costLeadAds : q.costLead || `القيمة الإجمالية للمشروع: ${fmt(C.net)} ${cur}${noVat ? "" : " قبل ضريبة القيمة المضافة"}. تم تسعير كل جزء بصورة مستقلة لشفافية أكبر.`
   );
-  const cols = "--cols:1.25fr 1.6fr .85fr .7fr .9fr";
-  add(`<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">قبل الضريبة</div><div class="num">الضريبة ${fmt(C.vr * 100)}%</div><div class="num">شامل الضريبة</div></div>`, { keep: 1 });
+  const cols = noVat ? "--cols:1.3fr 2fr .9fr" : "--cols:1.25fr 1.6fr .85fr .7fr .9fr";
+  add(noVat ? `<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">القيمة</div></div>` : `<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">قبل الضريبة</div><div class="num">الضريبة ${fmt(C.vr * 100)}%</div><div class="num">شامل الضريبة</div></div>`, { keep: 1 });
   C.rows.forEach((r, ri) => {
     const it = r.it;
     const det = it.kind === "ads" ? `${fmt(it.fee)}% × ${fmt(it.budget)} ${cur} (ميزانية المنصة)` : it.costNote || shortDesc(it);
     const free = r.net === 0;
+    const was = it.was ? `<s style="color:#a33;font-weight:400;margin-inline-end:6px">${fmt(it.was)}</s>` : "";
     add(`<div class="qtr" style="${cols}"><div class="nm">${esc(it.short || it.title || it.name)}</div><div class="ds">${esc(det)}</div>
-      ${free ? `<div class="num qfree">مجانًا</div><div class="num">—</div><div class="num qfree">مجانًا</div>` : `<div class="num">${fmt(r.net)}</div><div class="num">${fmt(r.vat)}</div><div class="num">${fmt(r.gross)}</div>`}</div>`, { keep: ri === C.rows.length - 1 });
+      ${noVat ? free ? `<div class="num qfree">مجانًا</div>` : `<div class="num">${was}${fmt(r.gross)} ${cs}</div>` : free ? `<div class="num qfree">مجانًا</div><div class="num">—</div><div class="num qfree">مجانًا</div>` : `<div class="num">${fmt(r.net)}</div><div class="num">${fmt(r.vat)}</div><div class="num">${fmt(r.gross)}</div>`}</div>`, { keep: ri === C.rows.length - 1 });
   });
-  add(`<div class="qtr tot" style="${cols}"><div>الإجمالي</div><div></div><div class="num">${fmt(C.net)}</div><div class="num">${fmt(C.vat)}</div><div class="num">${fmt(C.gross)}</div></div>`);
-  let sumH = `<div class="qsum">إجمالي أتعاب ديزاينلي قبل الضريبة: <b>${fmt(C.net)} ${cur}</b><br>ضريبة القيمة المضافة (${fmt(C.vr * 100)}%): <b>${fmt(C.vat)} ${cur}</b><br>
+  add(noVat ? `<div class="qtr tot" style="${cols}"><div>الإجمالي</div><div></div><div class="num">${fmt(C.gross)} ${cs}</div></div>` : `<div class="qtr tot" style="${cols}"><div>الإجمالي</div><div></div><div class="num">${fmt(C.net)}</div><div class="num">${fmt(C.vat)}</div><div class="num">${fmt(C.gross)}</div></div>`);
+  let sumH = noVat ? "" : `<div class="qsum">إجمالي أتعاب ديزاينلي قبل الضريبة: <b>${fmt(C.net)} ${cur}</b><br>ضريبة القيمة المضافة (${fmt(C.vr * 100)}%): <b>${fmt(C.vat)} ${cur}</b><br>
     <span class="big">إجمالي أتعاب ديزاينلي شامل الضريبة: ${fmt(C.gross)} ${cur}</span></div>`;
   if (C.budgets > 0) {
     const ads = items.filter((i) => i.kind === "ads");
     sumH += `<div class="qh3" style="font-size:14px">ميزانيات الإعلانات المدفوعة للمنصات مباشرة</div>
-      <div class="qchips">${ads.map((a) => `<span>${esc(a.platform || a.name)} • ${fmt(a.budget)} ر.س</span>`).join("")}</div>
-      <div class="qbar"><div class="v">${fmt(C.grand)} ر.س</div><div class="d">الاستثمار الإجمالي المخطط: ${fmt(C.budgets)} ر.س تُسدد للمنصات مباشرة + ${fmt(C.gross)} ر.س إجمالي أتعاب ديزاينلي شاملة الضريبة</div></div>`;
+      <div class="qchips">${ads.map((a) => `<span>${esc(a.platform || a.name)} • ${fmt(a.budget)} ${cs}</span>`).join("")}</div>
+      <div class="qbar"><div class="v">${fmt(C.grand)} ${cs}</div><div class="d">الاستثمار الإجمالي المخطط: ${fmt(C.budgets)} ${cs} تُسدد للمنصات مباشرة + ${fmt(C.gross)} ${cs} إجمالي أتعاب ديزاينلي${noVat ? "" : " شاملة الضريبة"}</div></div>`;
   } else {
-    sumH += `<div class="qbar"><div class="v">${fmt(C.gross)} ر.س</div><div class="d">إجمالي الاستثمار شامل ضريبة القيمة المضافة — ${esc(q.investLine || "استثمار واحد لبناء حضور متكامل ضمن منظومة واحدة متماسكة.")}</div></div>`;
+    sumH += `<div class="qbar"><div class="v">${fmt(C.gross)} ${cs}</div><div class="d">${noVat ? "إجمالي الاستثمار" : "إجمالي الاستثمار شامل ضريبة القيمة المضافة"} — ${esc(q.investLine || "استثمار واحد لبناء حضور متكامل ضمن منظومة واحدة متماسكة.")}</div></div>`;
   }
   add(sumH);
   if (C.pays.length) {
-    sec(T.payKick, T.payTitle, T.payLead);
-    C.pays.forEach((p, i) => add(`<div class="qpay ${i % 2 ? "alt" : ""}"><div class="v"><b>${fmt(p.gross)}</b><span>${cur} شامل الضريبة</span></div>
+    sec(T.payKick, C.vr === 0 ? T.payTitle.replace(/\s*[—-]\s*شامل الضريبة/, "") : T.payTitle, q.payLead || T.payLead);
+    C.pays.forEach((p, i) => add(`<div class="qpay ${i % 2 ? "alt" : ""}"><div class="v"><b>${fmt(p.gross)}</b><span>${cur}${C.vr === 0 ? "" : " شامل الضريبة"}</span></div>
       <div class="d"><b>${esc(p.p.label || "الدفعة " + (i + 1))}</b><p>${esc(paymentBreakdown(p, C.rows.filter((r) => r.net > 0).length))}</p>
       ${p.p.note ? `<p>${esc(p.p.note)}</p>` : ""}</div></div>`));
     if (C.budgets > 0) add(`<div class="qnote"><b>تنبيه مالي:</b> ${esc(T.adsNote.replace("{budget}", fmt(C.budgets)))}</div>`);
