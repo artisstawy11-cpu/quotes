@@ -760,11 +760,12 @@ const fmt = (n, dec) => {
   const d = dec != null ? dec : Math.abs(n % 1) > 1e-3 ? 2 : 0;
   return n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 };
+const months = (it, q) => it.kind === "monthly" || it.kind === "ads" ? Math.max(1, +q.months || 1) : 1;
 function itemNet(it, q) {
   const vr = (q.vatRate != null ? q.vatRate : 15) / 100;
   let v = it.kind === "ads" ? (+it.budget || 0) * (+it.fee || 0) / 100 : +it.price || 0;
   if (q.pricesIncludeVat && it.kind !== "ads") v = v / (1 + vr);
-  return r2(v);
+  return r2(v * months(it, q));
 }
 function computeQuote(q) {
   const vr = (q.vatRate != null ? q.vatRate : 15) / 100;
@@ -772,7 +773,7 @@ function computeQuote(q) {
   const rows = items.map((it) => {
     const net2 = itemNet(it, q);
     const vat2 = r2(net2 * vr);
-    return { it, net: net2, vat: vat2, gross: r2(net2 + vat2), budget: it.kind === "ads" ? +it.budget || 0 : 0 };
+    return { it, net: net2, vat: vat2, gross: r2(net2 + vat2), budget: it.kind === "ads" ? (+it.budget || 0) * months(it, q) : 0 };
   });
   const net = r2(rows.reduce((s, r) => s + r.net, 0));
   const vat = r2(rows.reduce((s, r) => s + r.vat, 0));
@@ -894,19 +895,19 @@ function buildBlocks(q, S2, img2) {
     let meta = "";
     if (it.kind === "ads") meta = "";
     else if (r.net === 0) meta = `<b class="qfree">مجانًا</b>`;
-    else meta = `${it.was ? `<s style="color:#a33">${fmt(it.was)} ${cur}</s> &nbsp;` : ""}<b>${fmt(+it.price)} ${cur}</b>${it.kind === "monthly" ? " / شهريًا" : ""}${each}${q.pricesIncludeVat ? " شامل الضريبة" : ""}${it.badge ? ` <span style="background:var(--a);color:#fff;border-radius:4px;padding:1px 7px;font-size:11px">${esc(it.badge)}</span>` : ""}`;
+    else meta = `${it.was ? `<s style="color:#a33">${fmt(it.was)} ${cur}</s> &nbsp;` : ""}<b>${fmt(+it.price)} ${cur}</b>${it.kind === "monthly" ? " / شهريًا" + (q.months > 1 ? ` × ${q.months} أشهر` : "") : ""}${each}${q.pricesIncludeVat ? " شامل الضريبة" : ""}${it.badge ? ` <span style="background:var(--a);color:#fff;border-radius:4px;padding:1px 7px;font-size:11px">${esc(it.badge)}</span>` : ""}`;
     if (it.platforms) meta += `  |  ${esc(it.platforms)}`;
     let h = `<div class="qh3"><span class="n">${two(++sNo)}</span>${esc(same.length > 1 ? it.name + " — " + same.length + " حسابات / أنشطة" : it.title || it.name)}</div>`;
     if (meta) h += `<div class="qmeta">${meta}</div>`;
     if (same.length > 1) h += `<div class="qchips">${same.map((x) => `<span>${esc(x.entity || x.title)}</span>`).join("")}</div>`;
     if (it.kind === "ads") {
-      h += `<div class="qbud"><div class="v"><b>${fmt(it.budget)} ${cur}</b><span>ميزانية إعلانية${each}</span></div>
+      h += `<div class="qbud"><div class="v"><b>${fmt(it.budget)} ${cur}</b><span>ميزانية إعلانية${q.months > 1 ? " شهريًا" : ""}${each}</span></div>
         <div class="d"><b>${esc(same.length > 1 ? "حملة مستقلة لكل نشاط على " + (it.platform || "") : it.objective || it.platform || "")}</b><p>${esc(it.desc || "")}</p></div></div>`;
     } else if (it.desc) h += `<div class="qp">${rich(it.desc)}</div>`;
     if (it.counts && it.counts.length) h += `<div class="qcounts">${it.counts.slice(0, 4).map((c) => `<div><b>${esc(c.n)}</b><span>${esc(c.l)}</span></div>`).join("")}</div>`;
     const bl = (it.bullets || []).filter(Boolean);
     if (bl.length) h += `<ul class="qul">${bl.map((b) => `<li>${rich(b.replace(/^([^:：]{2,28})[:：]/, "**$1:**"))}</li>`).join("")}</ul>`;
-    if (it.kind === "ads") h += `<div class="qnote">أتعاب إنشاء وإدارة الحملة: <b>${fmt(it.fee)}%</b> من الميزانية الإعلانية (${fmt(r.net)} ${cur}${each})، وتشمل إعداد الإعلانات والمتابعة والتحسين.</div>`;
+    if (it.kind === "ads") h += `<div class="qnote">أتعاب إنشاء وإدارة الحملة: <b>${fmt(it.fee)}%</b> من الميزانية الإعلانية (${fmt(r.net / (q.months > 1 ? q.months : 1))} ${cur}${q.months > 1 ? " شهريًا × " + q.months + " أشهر = " + fmt(r.net) + " " + cur : ""}${each})، وتشمل إعداد الإعلانات والمتابعة والتحسين.</div>`;
     add(`<div>${h}</div>`);
   });
   if (q.path && q.path.length) add(`<div class="qh3" style="font-size:14px">مسار النمو المقترح</div><div class="qchips">${q.path.map((p) => `<span>${esc(p)}</span>`).join("")}</div>`);
@@ -921,7 +922,8 @@ function buildBlocks(q, S2, img2) {
   add(noVat ? `<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">القيمة</div></div>` : `<div class="qtr h" style="${cols}"><div>الخدمة</div><div>التفاصيل</div><div class="num">قبل الضريبة</div><div class="num">الضريبة ${fmt(C.vr * 100)}%</div><div class="num">شامل الضريبة</div></div>`, { keep: 1 });
   C.rows.forEach((r, ri) => {
     const it = r.it;
-    const det = it.kind === "ads" ? `${fmt(it.fee)}% × ${fmt(it.budget)} ${cur} (ميزانية المنصة)` : it.costNote || shortDesc(it);
+    const mo = q.months > 1 && (it.kind === "ads" || it.kind === "monthly") ? ` × ${q.months} أشهر` : "";
+    const det = it.kind === "ads" ? `${fmt(it.fee)}% × ${fmt(it.budget)} ${cur} شهريًا${mo}` : mo ? `${fmt(it.price)} ${cur} شهريًا${mo}` : it.costNote || shortDesc(it);
     const free = r.net === 0;
     const was = it.was ? `<s style="color:#a33;font-weight:400;margin-inline-end:6px">${fmt(it.was)}</s>` : "";
     add(`<div class="qtr" style="${cols}"><div class="nm">${esc(it.short || it.title || it.name)}</div><div class="ds">${esc(det)}</div>
@@ -933,8 +935,8 @@ function buildBlocks(q, S2, img2) {
   if (C.budgets > 0) {
     const ads = items.filter((i) => i.kind === "ads");
     sumH += `<div class="qh3" style="font-size:14px">ميزانيات الإعلانات المدفوعة للمنصات مباشرة</div>
-      <div class="qchips">${ads.map((a) => `<span>${esc(a.platform || a.name)} • ${fmt(a.budget)} ${cs}</span>`).join("")}</div>
-      <div class="qbar"><div class="v">${fmt(C.grand)} ${cs}</div><div class="d">الاستثمار الإجمالي المخطط: ${fmt(C.budgets)} ${cs} تُسدد للمنصات مباشرة + ${fmt(C.gross)} ${cs} إجمالي أتعاب ديزاينلي${noVat ? "" : " شاملة الضريبة"}</div></div>`;
+      <div class="qchips">${ads.map((a) => `<span>${esc(a.platform || a.name)} • ${fmt(a.budget)} ${cs}${q.months > 1 ? ` شهريًا × ${q.months} = ${fmt(a.budget * q.months)} ${cs}` : ""}</span>`).join("")}</div>
+      <div class="qbar"><div class="v">${fmt(C.grand)} ${cs}</div><div class="d">الاستثمار الإجمالي المخطط${q.months > 1 ? ` لمدة ${q.months} أشهر` : ""}: ${fmt(C.budgets)} ${cs} تُسدد للمنصات مباشرة + ${fmt(C.gross)} ${cs} إجمالي أتعاب ديزاينلي${noVat ? "" : " شاملة الضريبة"}</div></div>`;
   } else {
     sumH += `<div class="qbar"><div class="v">${fmt(C.gross)} ${cs}</div><div class="d">${noVat ? "إجمالي الاستثمار" : "إجمالي الاستثمار شامل ضريبة القيمة المضافة"} — ${esc(q.investLine || "استثمار واحد لبناء حضور متكامل ضمن منظومة واحدة متماسكة.")}</div></div>`;
   }
@@ -1706,12 +1708,19 @@ function stepPayments() {
       <span>الإجمالي شامل الضريبة</span><b style="font-size:16px">${fmt(C.gross)}</b>
       ${C.budgets ? `<span>ميزانيات المنصات (مباشرة)</span><b>${fmt(C.budgets)}</b><span>الاستثمار الإجمالي</span><b>${fmt(C.grand)}</b>` : ""}
     </div></div>
-    <div class="card"><h3>المدة</h3><label class="f"><span>مدة التنفيذ (اختياري)</span><input type="text" id="dur" placeholder="10 – 14 يوم عمل"></label></div>
+    <div class="card"><h3>المدة</h3><div class="row"><label class="f"><span>مدة التنفيذ (اختياري)</span><input type="text" id="dur" placeholder="10 – 14 يوم عمل"></label>
+    <label class="f"><span>مدة العقد بالشهور (الشهري والحملات بتتضرب فيها)</span><input type="number" id="mos" min="1" inputmode="numeric"></label></div></div>
     <button class="btn gold full hero-btn" onclick="STEP='texts';renderEditor();scrollTo(0,0)">التالي: النصوص ←</button>`;
   $("#dur").value = Q.duration || "";
   $("#dur").oninput = (e) => {
     Q.duration = e.target.value;
     dirty();
+  };
+  $("#mos").value = Q.months || 1;
+  $("#mos").onchange = (e) => {
+    Q.months = Math.max(1, +e.target.value || 1);
+    dirty();
+    stepPayments();
   };
   $$("[data-p]").forEach((b) => b.onclick = () => {
     Q.payPreset = b.dataset.p;
@@ -3457,6 +3466,7 @@ function applyAnswers(final) {
   if (v("qd") != null) a.fixedDur = v("qd");
   if (v("qx") != null) a.extra = v("qx");
   Q.pricesIncludeVat = a.vat === "incl";
+  Q.months = a.term ? Math.max(1, +a.term) : 1;
   Q.payPreset = a.pay;
   syncPayments();
   Q.items.forEach((it) => {
