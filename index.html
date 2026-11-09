@@ -1058,6 +1058,8 @@ function paginate(blocks, themeStyle) {
     let need = h;
     if (blocks[i].keep && i + 1 < blocks.length) need += Math.min(hs[i + 1], 220);
     const cur = pages[pages.length - 1];
+    const deco = /^\s*<div class="qline"><\/div>\s*$/.test(blocks[i].html);
+    if (deco && used + h > PAGE_H) continue;
     if (blocks[i].newPage && cur.length || used + need > PAGE_H && cur.length) {
       pages.push([]);
       used = 0;
@@ -1065,7 +1067,7 @@ function paginate(blocks, themeStyle) {
     pages[pages.length - 1].push(blocks[i]);
     used += h;
   }
-  return pages;
+  return pages.filter((p) => p.some((b) => !/^\s*<div class="qline"><\/div>\s*$/.test(b.html)));
 }
 const bidiPct = (h) => h.replace(/>([^<]+)</g, (m, t) => ">" + t.replace(/(\d[\d.,]*\s?%)/g, '<bdi dir="ltr">$1</bdi>') + "<");
 function renderPages(q, S2, img2) {
